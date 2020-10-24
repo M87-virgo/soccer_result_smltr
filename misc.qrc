@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/miscRsc">
+        <file>misc_icons/mysql.png</file>
+        <file>misc_icons/filesave.png</file>
+        <file>misc_icons/filesave_128x128.png</file>
+        <file>misc_icons/icon_Qt_78x78px.png</file>
+        <file>misc_icons/button.png</file>
+        <file>misc_icons/button_pressed.png</file>
+        <file>misc_icons/filesave_128x128_pressed.png</file>
+        <file>misc_icons/filesave_128x128_disabled.png</file>
+        <file>misc_icons/button_disabled.png</file>
+        <file>misc_icons/draw.png</file>
+        <file>misc_icons/loose.png</file>
+        <file>misc_icons/win.png</file>
+    </qresource>
+</RCC>

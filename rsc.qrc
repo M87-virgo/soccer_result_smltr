@@ -1,0 +1,229 @@
+<RCC>
+    <qresource prefix="/rsc">
+        <file>icon_flags/Afghanistan.png</file>
+        <file>icon_flags/Albania.png</file>
+        <file>icon_flags/Algeria.png</file>
+        <file>icon_flags/American Samoa.png</file>
+        <file>icon_flags/Andorra.png</file>
+        <file>icon_flags/Angola.png</file>
+        <file>icon_flags/Anguilla.png</file>
+        <file>icon_flags/Antigua and Barbuda.png</file>
+        <file>icon_flags/Argentina.png</file>
+        <file>icon_flags/Armenia.png</file>
+        <file>icon_flags/Aruba.png</file>
+        <file>icon_flags/Australia.png</file>
+        <file>icon_flags/Austria.png</file>
+        <file>icon_flags/Azerbaijan.png</file>
+        <file>icon_flags/Bahamas.png</file>
+        <file>icon_flags/Bahrain.png</file>
+        <file>icon_flags/Bangladesh.png</file>
+        <file>icon_flags/Barbados.png</file>
+        <file>icon_flags/Belarus.png</file>
+        <file>icon_flags/Belgium.png</file>
+        <file>icon_flags/Belize.png</file>
+        <file>icon_flags/Benin.png</file>
+        <file>icon_flags/Bermuda.png</file>
+        <file>icon_flags/Bhutan.png</file>
+        <file>icon_flags/Bolivia.png</file>
+        <file>icon_flags/Bonaire.png</file>
+        <file>icon_flags/Bosnia and Herzegovina.png</file>
+        <file>icon_flags/Botswana.png</file>
+        <file>icon_flags/Brazil.png</file>
+        <file>icon_flags/British Virgin Islands.png</file>
+        <file>icon_flags/Brunei.png</file>
+        <file>icon_flags/Bulgaria.png</file>
+        <file>icon_flags/Burkina Faso.png</file>
+        <file>icon_flags/Burundi.png</file>
+        <file>icon_flags/Cambodia.png</file>
+        <file>icon_flags/Cameroon.png</file>
+        <file>icon_flags/Canada.png</file>
+        <file>icon_flags/Cape Verde.png</file>
+        <file>icon_flags/Cayman Islands.png</file>
+        <file>icon_flags/Central African Republic.png</file>
+        <file>icon_flags/Chad.png</file>
+        <file>icon_flags/Chile.png</file>
+        <file>icon_flags/China PR.png</file>
+        <file>icon_flags/Colombia.png</file>
+        <file>icon_flags/Comoros.png</file>
+        <file>icon_flags/Congo.png</file>
+        <file>icon_flags/Cook Islands.png</file>
+        <file>icon_flags/Costa Rica.png</file>
+        <file>icon_flags/Croatia.png</file>
+        <file>icon_flags/Cuba.png</file>
+        <file>icon_flags/Curacao.png</file>
+        <file>icon_flags/Cyprus.png</file>
+        <file>icon_flags/Czech Republic.png</file>
+        <file>icon_flags/Denmark.png</file>
+        <file>icon_flags/Djibouti.png</file>
+        <file>icon_flags/Dominica.png</file>
+        <file>icon_flags/Dominican Republic.png</file>
+        <file>icon_flags/DR Congo.png</file>
+        <file>icon_flags/Ecuador.png</file>
+        <file>icon_flags/Egypt.png</file>
+        <file>icon_flags/El Salvador.png</file>
+        <file>icon_flags/England.png</file>
+        <file>icon_flags/Equatorial Guinea.png</file>
+        <file>icon_flags/Eritrea.png</file>
+        <file>icon_flags/Estonia.png</file>
+        <file>icon_flags/Eswatini.png</file>
+        <file>icon_flags/Ethiopia.png</file>
+        <file>icon_flags/F.S. Micronesia.png</file>
+        <file>icon_flags/Faroe Islands.png</file>
+        <file>icon_flags/Fiji.png</file>
+        <file>icon_flags/Finland.png</file>
+        <file>icon_flags/France.png</file>
+        <file>icon_flags/French Guiana.png</file>
+        <file>icon_flags/Gabon.png</file>
+        <file>icon_flags/Gambia.png</file>
+        <file>icon_flags/Georgia.png</file>
+        <file>icon_flags/Germany.png</file>
+        <file>icon_flags/Ghana.png</file>
+        <file>icon_flags/Gibraltar.png</file>
+        <file>icon_flags/Greece.png</file>
+        <file>icon_flags/Grenada.png</file>
+        <file>icon_flags/Guadeloupe.png</file>
+        <file>icon_flags/Guam.png</file>
+        <file>icon_flags/Guatemala.png</file>
+        <file>icon_flags/Guinea.png</file>
+        <file>icon_flags/Guinea-Bissau.png</file>
+        <file>icon_flags/Guyana.png</file>
+        <file>icon_flags/Haiti.png</file>
+        <file>icon_flags/Honduras.png</file>
+        <file>icon_flags/Hong Kong.png</file>
+        <file>icon_flags/Hungary.png</file>
+        <file>icon_flags/Iceland.png</file>
+        <file>icon_flags/India.png</file>
+        <file>icon_flags/Indonesia.png</file>
+        <file>icon_flags/Iran.png</file>
+        <file>icon_flags/Iraq.png</file>
+        <file>icon_flags/Israel.png</file>
+        <file>icon_flags/Italy.png</file>
+        <file>icon_flags/Ivory Cost.png</file>
+        <file>icon_flags/Jamaica.png</file>
+        <file>icon_flags/Japan.png</file>
+        <file>icon_flags/Jordan.png</file>
+        <file>icon_flags/Kazakhstan.png</file>
+        <file>icon_flags/Kenya.png</file>
+        <file>icon_flags/Kiribati.png</file>
+        <file>icon_flags/Kosovo.png</file>
+        <file>icon_flags/Kuwait.png</file>
+        <file>icon_flags/Kyrgyzstan.png</file>
+        <file>icon_flags/Laos.png</file>
+        <file>icon_flags/Latvia.png</file>
+        <file>icon_flags/Lebanon.png</file>
+        <file>icon_flags/Lesotho.png</file>
+        <file>icon_flags/Liberia.png</file>
+        <file>icon_flags/Libya.png</file>
+        <file>icon_flags/Liechtenstein.png</file>
+        <file>icon_flags/Lithuania.png</file>
+        <file>icon_flags/Luxembourg.png</file>
+        <file>icon_flags/Macau.png</file>
+        <file>icon_flags/Madagascar.png</file>
+        <file>icon_flags/Malawi.png</file>
+        <file>icon_flags/Malaysia.png</file>
+        <file>icon_flags/Maldives.png</file>
+        <file>icon_flags/Mali.png</file>
+        <file>icon_flags/Malta.png</file>
+        <file>icon_flags/Marocco.png</file>
+        <file>icon_flags/Martinique.png</file>
+        <file>icon_flags/Mauretania.png</file>
+        <file>icon_flags/Mauritius.png</file>
+        <file>icon_flags/Mexico.png</file>
+        <file>icon_flags/Moldova.png</file>
+        <file>icon_flags/Mongolia.png</file>
+        <file>icon_flags/Montenegro.png</file>
+        <file>icon_flags/Montserrat.png</file>
+        <file>icon_flags/Mozambique.png</file>
+        <file>icon_flags/Myanmar.png</file>
+        <file>icon_flags/Namibia.png</file>
+        <file>icon_flags/Nepal.png</file>
+        <file>icon_flags/Netherlands.png</file>
+        <file>icon_flags/New Caledonia.png</file>
+        <file>icon_flags/New Zealand.png</file>
+        <file>icon_flags/Nicaragua.png</file>
+        <file>icon_flags/Niger.png</file>
+        <file>icon_flags/Nigeria.png</file>
+        <file>icon_flags/Niue.png</file>
+        <file>icon_flags/North Korea.png</file>
+        <file>icon_flags/North Macedonia.png</file>
+        <file>icon_flags/Northern Ireland.png</file>
+        <file>icon_flags/Northern Mariana Islands.png</file>
+        <file>icon_flags/Norway.png</file>
+        <file>icon_flags/Oman.png</file>
+        <file>icon_flags/Pakistan.png</file>
+        <file>icon_flags/Palau.png</file>
+        <file>icon_flags/Palestine.png</file>
+        <file>icon_flags/Panama.png</file>
+        <file>icon_flags/Papua New Guinea.png</file>
+        <file>icon_flags/Paraguay.png</file>
+        <file>icon_flags/Peru.png</file>
+        <file>icon_flags/Philippines.png</file>
+        <file>icon_flags/Poland.png</file>
+        <file>icon_flags/Portugal.png</file>
+        <file>icon_flags/Puerto Rico.png</file>
+        <file>icon_flags/Qatar.png</file>
+        <file>icon_flags/Republic of Ireland.png</file>
+        <file>icon_flags/Reunion.png</file>
+        <file>icon_flags/Romania.png</file>
+        <file>icon_flags/Russia.png</file>
+        <file>icon_flags/Rwanda.png</file>
+        <file>icon_flags/Saint Kitts and Nevis.png</file>
+        <file>icon_flags/Saint Lucia.png</file>
+        <file>icon_flags/Saint Martin.png</file>
+        <file>icon_flags/Saint Vincent and the Grenadinen.png</file>
+        <file>icon_flags/Samoa.png</file>
+        <file>icon_flags/San Marino.png</file>
+        <file>icon_flags/Sao Tome and Principe.png</file>
+        <file>icon_flags/Saudi Arabia.png</file>
+        <file>icon_flags/Scotland.png</file>
+        <file>icon_flags/Senegal.png</file>
+        <file>icon_flags/Serbia.png</file>
+        <file>icon_flags/Seychelles.png</file>
+        <file>icon_flags/Sierra Leone.png</file>
+        <file>icon_flags/Singapore.png</file>
+        <file>icon_flags/Sint Maarten.png</file>
+        <file>icon_flags/Slovakia.png</file>
+        <file>icon_flags/Slovenia.png</file>
+        <file>icon_flags/Solomon Islands.png</file>
+        <file>icon_flags/Somalia.png</file>
+        <file>icon_flags/South Africa.png</file>
+        <file>icon_flags/South Korea.png</file>
+        <file>icon_flags/South Sudan.png</file>
+        <file>icon_flags/Spain.png</file>
+        <file>icon_flags/Sri Lanka.png</file>
+        <file>icon_flags/Sudan.png</file>
+        <file>icon_flags/Suriname.png</file>
+        <file>icon_flags/Sweden.png</file>
+        <file>icon_flags/Switzerland.png</file>
+        <file>icon_flags/Syria.png</file>
+        <file>icon_flags/Tahiti.png</file>
+        <file>icon_flags/Taiwan.png</file>
+        <file>icon_flags/Tajikistan.png</file>
+        <file>icon_flags/Tanzania.png</file>
+        <file>icon_flags/Thailand.png</file>
+        <file>icon_flags/Timor-Leste.png</file>
+        <file>icon_flags/Togo.png</file>
+        <file>icon_flags/Tonga.png</file>
+        <file>icon_flags/Trinidad and Tobago.png</file>
+        <file>icon_flags/Tunisia.png</file>
+        <file>icon_flags/Turkey.png</file>
+        <file>icon_flags/Turkmenistan.png</file>
+        <file>icon_flags/Turks and Caicos Islands.png</file>
+        <file>icon_flags/Tuvalu.png</file>
+        <file>icon_flags/U.S. Virgin Islands.png</file>
+        <file>icon_flags/Uganda.png</file>
+        <file>icon_flags/Ukraine.png</file>
+        <file>icon_flags/United Arab Emirates.png</file>
+        <file>icon_flags/United States.png</file>
+        <file>icon_flags/Uruguay.png</file>
+        <file>icon_flags/Uzbekistan.png</file>
+        <file>icon_flags/Vanuatu.png</file>
+        <file>icon_flags/Venezuela.png</file>
+        <file>icon_flags/Vietnam.png</file>
+        <file>icon_flags/Wales.png</file>
+        <file>icon_flags/Yemen.png</file>
+        <file>icon_flags/Zambia.png</file>
+        <file>icon_flags/Zanzibar.png</file>
+        <file>icon_flags/Zimbabwe.png</file>
+    </qresource>
+</RCC>

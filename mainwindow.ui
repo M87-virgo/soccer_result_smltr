@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1907</width>
+    <height>1059</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QListWidget" name="LstContinents">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>140</y>
+      <width>241</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LblContinents">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Continents</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="LstSubCont">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>50</y>
+      <width>261</width>
+      <height>191</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LblSubCont">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>10</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Sub-Continents</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LblNatTeams">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>10</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Nationalteams</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="LstNatTeams">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>50</y>
+      <width>321</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <property name="cursor" stdset="0">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="dragDropMode">
+     <enum>QAbstractItemView::DragOnly</enum>
+    </property>
+    <property name="defaultDropAction">
+     <enum>Qt::MoveAction</enum>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::MultiSelection</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdDBCon">
+    <property name="geometry">
+     <rect>
+      <x>38</x>
+      <y>390</y>
+      <width>321</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Database Connection</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdBeenden">
+    <property name="geometry">
+     <rect>
+      <x>1760</x>
+      <y>20</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Close</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="LstSelectedTeams">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>50</y>
+      <width>321</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <property name="dragDropMode">
+     <enum>QAbstractItemView::DragDrop</enum>
+    </property>
+    <property name="defaultDropAction">
+     <enum>Qt::MoveAction</enum>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::MultiSelection</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LblSelTeams">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>10</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Selected Teams</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdTeamSelection">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>50</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>--&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdUndoSelectedTeam">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>90</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;--</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdSelectWholeSubCo">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>160</y>
+      <width>101</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>All -&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdClearAll">
+    <property name="geometry">
+     <rect>
+      <x>900</x>
+      <y>410</y>
+      <width>101</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Clear All</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdSelectWholeCont">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>260</y>
+      <width>101</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Cont -&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdUndoWholeCont">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>300</y>
+      <width>101</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;- Cont</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="SpbNumberOfRounds">
+    <property name="geometry">
+     <rect>
+      <x>1380</x>
+      <y>70</y>
+      <width>61</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>8</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LblRounds">
+    <property name="geometry">
+     <rect>
+      <x>1380</x>
+      <y>40</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Rounds</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdUndoWholeSubCo">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>200</y>
+      <width>101</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;- All</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LblMatchScedule">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>420</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Match-Schedule</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdMatchSchedule">
+    <property name="geometry">
+     <rect>
+      <x>1380</x>
+      <y>120</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Simulate
+Results</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="TblResults">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>460</y>
+      <width>708</width>
+      <height>481</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="TblTable">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>460</y>
+      <width>1120</width>
+      <height>481</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LblEndTable">
+    <property name="geometry">
+     <rect>
+      <x>1650</x>
+      <y>420</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Result Table</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdNatTeamsMode">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Nationalteams</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CmdClubsMode">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Clubs</string>
+    </property>
+   </widget>
+   <zorder>LblMatchScedule</zorder>
+   <zorder>TblResults</zorder>
+   <zorder>LstContinents</zorder>
+   <zorder>LblContinents</zorder>
+   <zorder>LstSubCont</zorder>
+   <zorder>LblSubCont</zorder>
+   <zorder>LblNatTeams</zorder>
+   <zorder>LstNatTeams</zorder>
+   <zorder>CmdDBCon</zorder>
+   <zorder>CmdBeenden</zorder>
+   <zorder>LstSelectedTeams</zorder>
+   <zorder>LblSelTeams</zorder>
+   <zorder>CmdTeamSelection</zorder>
+   <zorder>CmdUndoSelectedTeam</zorder>
+   <zorder>CmdSelectWholeSubCo</zorder>
+   <zorder>CmdClearAll</zorder>
+   <zorder>CmdSelectWholeCont</zorder>
+   <zorder>CmdUndoWholeCont</zorder>
+   <zorder>SpbNumberOfRounds</zorder>
+   <zorder>LblRounds</zorder>
+   <zorder>CmdUndoWholeSubCo</zorder>
+   <zorder>CmdMatchSchedule</zorder>
+   <zorder>TblTable</zorder>
+   <zorder>LblEndTable</zorder>
+   <zorder>CmdNatTeamsMode</zorder>
+   <zorder>CmdClubsMode</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1907</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMen">
+    <property name="title">
+     <string>Menü</string>
+    </property>
+    <addaction name="actionDB_Editor"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuMen"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionAbout"/>
+   <addaction name="actionDB_Editor"/>
+  </widget>
+  <action name="actionDB_Editor">
+   <property name="icon">
+    <iconset resource="misc.qrc">
+     <normaloff>:/miscRsc/misc_icons/mysql.png</normaloff>:/miscRsc/misc_icons/mysql.png</iconset>
+   </property>
+   <property name="text">
+    <string>DB Editor</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="misc.qrc">
+     <normaloff>:/miscRsc/misc_icons/icon_Qt_78x78px.png</normaloff>:/miscRsc/misc_icons/icon_Qt_78x78px.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="misc.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>CmdBeenden</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1760</x>
+     <y>144</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1283</x>
+     <y>953</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
