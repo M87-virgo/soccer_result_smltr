@@ -38,9 +38,7 @@ class teams
         teams(const QString, const int&, const int&, const int&, const int&,
               const int&, const int&, const int&, const int&, const double&, const double&, QIcon);
 
-        void getTeamNames(const QString);
-        void getOffenseValue(const double&);
-        void getDefenseValue(const double&);
+        void getTeamNameAndQualityValues(const QString, const double&, const double&, const double&);
         void increasesNumberOfGames();
         void increasePointsOnWinCase();
         void increasePointsOnDrawCase();
@@ -59,6 +57,7 @@ class teams
 
         double convertOffenseValue();
         double convertDefenseValue();
+        double convertTeamAbilityValue();
 };
 
 #endif // TEAMS_H

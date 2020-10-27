@@ -19,17 +19,12 @@ teams::teams(const QString tn, const int &gp, const int &p, const int &gs, const
     form = f;
 }
 
-void teams::getOffenseValue(const double &off)
-{
-    offense = off;
-}
-void teams::getDefenseValue(const double &def)
-{
-    defense = def;
-}
-void teams::getTeamNames(const QString name)
+void teams::getTeamNameAndQualityValues(const QString name, const double &off = 0.0, const double &def = 0.0, const double &ta = 0.0)
 {
     teamName = name;
+    offense = off;
+    defense = def;
+    teamAbility = ta;
 }
 void teams::increasesNumberOfGames()
 {
@@ -363,9 +358,15 @@ double teams::convertOffenseValue()
 }
 double teams::convertDefenseValue()
 {
-    //double d = -(2.4e-6 * pow(defense, 3) ) + (9.047e-4 * pow(defense, 2) ) - (0.1393443 * defense) + 7.4175298;
-    double d = 2.38393 * exp(-0.02503 * defense);
+    double d = 2.8e-8 * pow(defense, 4) - (9.612e-6 * pow(defense, 3) ) + (1.188958e-3 * pow(defense, 2) ) - (7.1786300e-2 * defense) + 2.141225096;
+    //double d = -(3.5e-6 * pow(defense, 3) ) + (5.344e-4 * pow(defense, 2) ) - (0.0350429 * defense) + 1.7941399;
+    //double d = 2.38393 * exp(-0.02503 * defense);
     return d;
+}
+double teams::convertTeamAbilityValue()
+{
+    double tav = teamAbility / 100;
+    return tav;
 }
 
 void teams::output(QTableWidget *tableWidget, const int &counter)

@@ -2018,10 +2018,10 @@ SqLiteDBEditor::SqLiteDBEditor(QWidget *parent) : QDialog(parent), ui(new Ui::Sq
 
     connect(ui -> CmbLeaguesForAll, SIGNAL(currentIndexChanged(int) ), SLOT(CmbLeaguesForAllCurrentIndexChanged() ) );
 
-    QShortcut* delL = new QShortcut(QKeySequence(QKeySequence::Delete), ui -> TblDataLeagues);
-    QShortcut* delC = new QShortcut(QKeySequence(QKeySequence::Delete), ui -> TblDataClubs);
-    QShortcut* delNatRiv = new QShortcut(QKeySequence(QKeySequence::Delete), ui -> TblDataNatRiv);
-    QShortcut* delClubRiv = new QShortcut(QKeySequence(QKeySequence::Delete), ui -> TblDataRivClub);
+    QShortcut* delL = new QShortcut(Qt::Key_Delete, ui -> TblDataLeagues);
+    QShortcut* delC = new QShortcut(Qt::Key_Delete, ui -> TblDataClubs);
+    QShortcut* delNatRiv = new QShortcut(Qt::Key_Delete, ui -> TblDataNatRiv);
+    QShortcut* delClubRiv = new QShortcut(Qt::Key_Delete, ui -> TblDataRivClub);
 
     connect(delL, SIGNAL(activated() ), SLOT(TblRowDelete() ) );
     connect(delC, SIGNAL(activated() ), SLOT(TblRowDelete() ) );

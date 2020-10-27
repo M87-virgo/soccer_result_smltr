@@ -10,8 +10,17 @@
     <height>1059</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Soccer Result Simulater 1.0.2-beta</string>
+  </property>
+  <property name="locale">
+   <locale language="English" country="Germany"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QListWidget" name="LstContinents">
@@ -193,73 +202,86 @@
    <widget class="QPushButton" name="CmdTeamSelection">
     <property name="geometry">
      <rect>
-      <x>930</x>
+      <x>920</x>
       <y>50</y>
-      <width>61</width>
+      <width>101</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>--&gt;</string>
+     <string>------&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="CmdUndoSelectedTeam">
     <property name="geometry">
      <rect>
-      <x>910</x>
+      <x>880</x>
       <y>90</y>
-      <width>61</width>
+      <width>101</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>&lt;--</string>
+     <string>&lt;-------</string>
     </property>
    </widget>
    <widget class="QPushButton" name="CmdSelectWholeSubCo">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>160</y>
-      <width>101</width>
-      <height>34</height>
+      <x>880</x>
+      <y>140</y>
+      <width>141</width>
+      <height>51</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
     <property name="text">
-     <string>All -&gt;</string>
+     <string>All teams
+ from left list-&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="CmdClearAll">
     <property name="geometry">
      <rect>
-      <x>900</x>
-      <y>410</y>
-      <width>101</width>
-      <height>34</height>
+      <x>890</x>
+      <y>400</y>
+      <width>121</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Clear All</string>
+     <string>Clear all teams
+from right list</string>
     </property>
    </widget>
    <widget class="QPushButton" name="CmdSelectWholeCont">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>260</y>
-      <width>101</width>
-      <height>34</height>
+      <x>880</x>
+      <y>270</y>
+      <width>141</width>
+      <height>51</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
     <property name="text">
-     <string>Cont -&gt;</string>
+     <string>All teams
+from continent -&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="CmdUndoWholeCont">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>300</y>
+      <x>880</x>
+      <y>330</y>
       <width>101</width>
       <height>34</height>
      </rect>
@@ -303,7 +325,7 @@
    <widget class="QPushButton" name="CmdUndoWholeSubCo">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>880</x>
       <y>200</y>
       <width>101</width>
       <height>34</height>
@@ -385,30 +407,174 @@ Results</string>
      <string>Result Table</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="CmdNatTeamsMode">
+   <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
       <width>171</width>
-      <height>31</height>
+      <height>81</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Nationalteams</string>
-    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0" colspan="2">
+      <widget class="QPushButton" name="CmdNatTeamsMode">
+       <property name="text">
+        <string>Nationalteams</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="QPushButton" name="CmdClubsMode">
+       <property name="text">
+        <string>Clubs</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QPushButton" name="CmdClubsMode">
+   <widget class="QWidget" name="formLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>171</width>
+      <x>1650</x>
+      <y>160</y>
+      <width>181</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="FrmLayoutLegend">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>P</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Points</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>G</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>Goals</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>GA</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>Goal Against</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>GD</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>Goal Difference</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>GP</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLabel" name="label_13">
+       <property name="text">
+        <string>Games Played</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>W</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLabel" name="label_14">
+       <property name="text">
+        <string>Win</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>D</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QLabel" name="label_15">
+       <property name="text">
+        <string>Draw</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>L</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLabel" name="label_16">
+       <property name="text">
+        <string>Loose</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_18">
+       <property name="text">
+        <string>LEGEND</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="LblGitHubLink">
+    <property name="geometry">
+     <rect>
+      <x>1540</x>
+      <y>20</y>
+      <width>161</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Clubs</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <zorder>LblMatchScedule</zorder>
@@ -435,8 +601,9 @@ Results</string>
    <zorder>CmdMatchSchedule</zorder>
    <zorder>TblTable</zorder>
    <zorder>LblEndTable</zorder>
-   <zorder>CmdNatTeamsMode</zorder>
-   <zorder>CmdClubsMode</zorder>
+   <zorder>formLayoutWidget</zorder>
+   <zorder>formLayoutWidget_2</zorder>
+   <zorder>LblGitHubLink</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -102,8 +102,12 @@ void MainWindow::setUpTable(const int &rows)
     ui -> TblResults -> setColumnWidth(3, 290);
 }
 void MainWindow::fillTable(QVector<QVector<QPair<int, int> > > roundFst, QVector<QPair<int, int> > numOfGamesPerDay)
-{   
+{
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator (seed);
+
     int npt = (teamNameList.size() - 1) * (ui -> SpbNumberOfRounds -> value() );
+    double off = 0.0, def = 0.0, ta = 0.0;
     setHeaderForTable();
     QVector<teams> resultTable;
     resultTable.resize(teamNameList.size() );
@@ -113,35 +117,30 @@ void MainWindow::fillTable(QVector<QVector<QPair<int, int> > > roundFst, QVector
     }
     else
     {
-        sqlCommand.prepare("SELECT offense, defense FROM clubs WHERE name_club = ?");
+        sqlCommand.prepare("SELECT offense, defense, teamability FROM clubs WHERE name_club = ?");
     }
     for(int i = 0; i < teamNameList.size(); ++i)
     {
-        resultTable[i].getTeamNames(teamNameList.at(i) );
-
         sqlCommand.addBindValue(ui -> LstSelectedTeams -> item(i) -> text() );
         sqlCommand.exec();
-
-        double off = 0.0;
-        double def = 0.0;
         sqlCommand.next();
         off = sqlCommand.value(0).toDouble();
         def = sqlCommand.value(1).toDouble();
-        resultTable[i].getOffenseValue(off);
-        resultTable[i].getDefenseValue(def);
+        ta = sqlCommand.value(2).toDouble();
+        resultTable[i].getTeamNameAndQualityValues(teamNameList.at(i), off, def, ta);
     }
 
-    QString roundFirst = "Hinrunde", roundBack = "Rückrunde";
+    QString roundFirst = "Matches", roundBack = "Rematches";
     QString temp = roundBack;
     int c = 0, r = 0, day = 1;
     int n_of_round_first = 1, n_of_round_back = 0;
     int rf = n_of_round_first;
     int rb = n_of_round_back;
-    double mean = 0.0;
+    double meanHome = 0.0, meanAway = 0.0;
 
     ui -> TblResults -> setSpan(0, 0, 1, 4);
     ui -> TblResults -> setCellWidget(0, 0, new QLabel);
-    qobject_cast<QLabel*> (ui -> TblResults -> cellWidget(0, 0) ) -> setText("Hinrunde 1, Day 1");
+    qobject_cast<QLabel*> (ui -> TblResults -> cellWidget(0, 0) ) -> setText("Matches 1, Day 1");
     qobject_cast<QLabel*> (ui -> TblResults -> cellWidget(0, 0) ) -> setStyleSheet("color: white; "
                                                                                    "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #00A6FF, stop: 0.5 #0098FF, stop: 0.6 #008AFF, stop:1 #00B7FF); "
                                                                                    "font: bold 19px Georgia");
@@ -178,36 +177,91 @@ void MainWindow::fillTable(QVector<QVector<QPair<int, int> > > roundFst, QVector
         }
 
         int randomGoalValue = 0, randomGoalAwayValue = 0;
-        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-        std::default_random_engine generator (seed);
+        bool effectTeamAbilityHome = false, effectTeamAbilityAway = false;
+        using BerDstr = std::bernoulli_distribution;
         using Dstr = std::poisson_distribution<int>;
         Dstr goals{};
+        BerDstr taEffect{};
         for(int j = 0; j < numOfGamesPerDay.size(); ++j)
         {
             ++r;
             ui -> TblResults -> setItem(r, 0, new QTableWidgetItem(teamNameList.at(matchSchedule.at(i).at(j).first - 1) ) );
             ui -> TblResults -> item(r, 0) -> setTextAlignment(Qt::AlignRight);
             ui -> TblResults -> item(r, 0) -> setFlags(ui -> TblResults -> item(r, 0) -> flags() & ~Qt::ItemIsEditable);
+            ui -> TblResults -> item(r, 0) -> setTextColor(QColor("black") );
             ui -> TblResults -> setItem(r, 3, new QTableWidgetItem(teamNameList.at(matchSchedule.at(i).at(j).second - 1) ) );
             ui -> TblResults -> item(r, 3) -> setTextAlignment(Qt::AlignLeft);
             ui -> TblResults -> item(r, 3) -> setFlags(ui -> TblResults -> item(r, 3) -> flags() & ~Qt::ItemIsEditable);
+            ui -> TblResults -> item(r, 3) -> setTextColor(QColor("black") );
 
-            mean = resultTable[matchSchedule.at(i).at(j).first - 1].convertOffenseValue() *
+            meanHome = resultTable[matchSchedule.at(i).at(j).first - 1].convertOffenseValue() *
                     (resultTable[matchSchedule.at(i).at(j).second - 1].convertDefenseValue() ) + 0.41;
-            qDebug() << mean;
-            randomGoalValue = goals(generator, Dstr::param_type{mean});       // random goal value home-team
+            randomGoalValue = goals(generator, Dstr::param_type{meanHome});       // random goal value home-team
+
+            meanAway = resultTable[matchSchedule.at(i).at(j).second - 1].convertOffenseValue() *
+                    resultTable[matchSchedule.at(i).at(j).first - 1].convertDefenseValue();
+            randomGoalAwayValue = goals(generator, Dstr::param_type{meanAway});       // random goal value guest-team
+
+            effectTeamAbilityHome = taEffect(generator, BerDstr::param_type{resultTable[matchSchedule.at(i).at(j).first - 1].convertTeamAbilityValue()});
+            effectTeamAbilityAway = taEffect(generator, BerDstr::param_type{resultTable[matchSchedule.at(i).at(j).second - 1].convertTeamAbilityValue()});
+            if(effectTeamAbilityHome)
+            {
+                ++randomGoalValue;
+                if(randomGoalAwayValue != 0)
+                {
+                    --randomGoalAwayValue;
+                }
+            }
+            else
+            {
+                ++randomGoalAwayValue;
+                if(randomGoalValue != 0)
+                {
+                    --randomGoalValue;
+                }
+            }
+
+            if(effectTeamAbilityAway)
+            {
+                ++randomGoalAwayValue;
+                if(randomGoalValue != 0)
+                {
+                    --randomGoalValue;
+                }
+            }
+            else
+            {
+                ++randomGoalValue;
+                if(randomGoalAwayValue != 0)
+                {
+                    --randomGoalAwayValue;
+                }
+            }
             ui -> TblResults -> setItem(r, 1, new QTableWidgetItem(QVariant(randomGoalValue).toString() ) );
             ui -> TblResults -> item(r, 1) -> setTextAlignment(Qt::AlignCenter);
             ui -> TblResults -> item(r, 1) -> setBackgroundColor(QColor(255, 127, 80, 255) );
             ui -> TblResults -> item(r, 1) -> setTextColor(QColor("black") );
 
-            mean = resultTable[matchSchedule.at(i).at(j).second - 1].convertOffenseValue() * resultTable[matchSchedule.at(i).at(j).first - 1].convertDefenseValue();
-            qDebug() << mean;
-            randomGoalAwayValue = goals(generator, Dstr::param_type{mean});       // random goal value guest-team
             ui -> TblResults -> setItem(r, 2, new QTableWidgetItem(QVariant(randomGoalAwayValue).toString() ) );
             ui -> TblResults -> item(r, 2) -> setTextAlignment(Qt::AlignCenter);
             ui -> TblResults -> item(r, 2) -> setBackgroundColor(QColor(255, 127, 80, 255) );
             ui -> TblResults -> item(r, 2) -> setTextColor(QColor("black") );
+
+            if(randomGoalValue > randomGoalAwayValue)
+            {
+                ui -> TblResults -> item(r, 0) -> setBackgroundColor(QColor(170, 255, 0, 255) );
+                ui -> TblResults -> item(r, 3) -> setBackgroundColor(QColor(255, 90, 0, 255) );
+            }
+            else if(randomGoalValue < randomGoalAwayValue)
+            {
+                ui -> TblResults -> item(r, 0) -> setBackgroundColor(QColor(255, 90, 0, 255) );
+                ui -> TblResults -> item(r, 3) -> setBackgroundColor(QColor(170, 255, 0, 255) );
+            }
+            else
+            {
+                ui -> TblResults -> item(r, 0) -> setBackgroundColor(Qt::gray);
+                ui -> TblResults -> item(r, 3) -> setBackgroundColor(Qt::gray);
+            }
 
             resultTable[matchSchedule.at(i).at(j).first - 1].increasesNumberOfGames();
             resultTable[matchSchedule.at(i).at(j).second - 1].increasesNumberOfGames();
@@ -272,7 +326,7 @@ void MainWindow::SpbUpdateTableEditingFinished()
     updatedResultTable.resize(teamNameList.size() );
     for(int i = 0; i < teamNameList.size(); ++i)
     {
-        updatedResultTable[i].getTeamNames(teamNameList.at(i) );
+        updatedResultTable[i].getTeamNameAndQualityValues(teamNameList.at(i) );
     }
     int goalHome = 0, goalAway = 0, r = 0, gamesPerDay = 0;
     if(teamNameList.size() % 2 != 0)
@@ -334,7 +388,6 @@ void MainWindow::SpbUpdateTableEditingFinished()
 void MainWindow::CmdDBConClicked()
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-
     db.setDatabaseName("mydb.db");
 
     if(db.open() )
@@ -343,6 +396,7 @@ void MainWindow::CmdDBConClicked()
         ui -> CmdDBCon -> setHidden(true);
 
         ui -> actionDB_Editor -> setEnabled(true);
+        ui -> CmdClubsMode -> setEnabled(true);
     }
     else
     {
@@ -760,6 +814,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
                                          "QListWidget { background: black }");
     ui -> SpbNumberOfRounds -> setStyleSheet("background-color: black");
 
+    ui -> CmdClubsMode -> setDisabled(true);
+    ui -> CmdNatTeamsMode -> setDisabled(true);
+    ui -> CmdClubsMode -> setStyleSheet(" :disabled { color: grey; "
+                                        "background: dimgrey }");
+    ui -> CmdNatTeamsMode -> setStyleSheet(" :disabled { color: grey; "
+                                           "background: dimgrey }");
+    ui -> CmdSelectWholeCont -> setStyleSheet(" :disabled { color: grey; "
+                                              "background: dimgrey }");
+
     /*ui -> CmdDBCon -> setStyleSheet(" :enabled { border-style: outset; border-width: 2px; border-radius: 10px; "
                                     "border-color: beige; min-width: 10em; padding: 6px; color: white; background-color: "
                                     "qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4595C6, "
@@ -789,6 +852,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
                                     "cy:0.489, radius:0.5, fx:0.499, fy:0.488909, stop:0.0795455 rgba(0, 147, 185, 255), "
                                     "stop:1 rgba(30, 30, 30, 255) ); border: 5px solid black; border-radius: 15px }");*/
 
+    ui -> LblGitHubLink -> setOpenExternalLinks(true);
+    ui -> LblGitHubLink -> setText("<a href=https://github.com/M87-virgo>github.com/M87-virgo</a>");
+    ui -> LblGitHubLink -> setStyleSheet("background: grey");
 
     connect(ui -> actionDB_Editor, SIGNAL(triggered() ), SLOT(actDBEditorTriggered() ) );
     connect(ui -> actionAbout, SIGNAL(triggered() ), SLOT(actAboutTriggered() ) );
@@ -807,7 +873,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui -> CmdClearAll, SIGNAL(clicked() ), SLOT(CmdClearAllClicked() ) );
     connect(ui -> CmdMatchSchedule, SIGNAL(clicked() ), SLOT(CmdMatchScheduleClicked() ) );
 
-    QShortcut* ret = new QShortcut(QKeySequence(QKeySequence::InsertParagraphSeparator), ui -> TblResults);
+    QShortcut* ret = new QShortcut(Qt::Key_Return, ui -> TblResults);
     connect(ret, SIGNAL(activated() ), SLOT(SpbUpdateTableEditingFinished() ) );
 }
 
