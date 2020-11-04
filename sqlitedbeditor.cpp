@@ -1756,7 +1756,7 @@ void SqLiteDBEditor::setUpNewClubsTblWidget()
     ui -> TblAddNewClubs -> setColumnCount(6);
     ui -> TblAddNewClubs -> verticalHeader() -> hide();
 
-    QStringList headers = { "Vereins-Name", "Off", "Def", "Team\nFähigkeit", "Liga-Name", "Land" };
+    QStringList headers = { "Clubname", "Off", "Def", "Team\nability", "Leaguename", "Country" };
     ui -> TblAddNewClubs -> setHorizontalHeaderLabels(headers);
     ui -> TblAddNewClubs -> horizontalHeader() -> setStyleSheet("QHeaderView::section { height: 50px; "
                                                                 "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FF7972, stop: 0.5 #FF4F4C, stop: 0.6 #FF282C, stop: 1 #f08080); "
@@ -1806,15 +1806,14 @@ void SqLiteDBEditor::fillFilterComboBoxes()
         ui -> CmbLeaguesForAll -> addItem(disp);
     }
 }
-SqLiteDBEditor::SqLiteDBEditor(QWidget *parent) : QDialog(parent), ui(new Ui::SqLiteDBEditor)
+SqLiteDBEditor::SqLiteDBEditor() : QDialog(), ui(new Ui::SqLiteDBEditor)
 {
     ui -> setupUi(this);
+    this -> setStyleSheet("color: lightblue; "
+                          "background-color: #404040");
 
     dbTblinfo.setFile("mydb.db");
-
     ui -> LblLastUpdate -> setText(dbTblinfo.lastModified().toString() );
-
-
 
     styleSheetEditable = "QTableView { alternate-background-color: white; "
                          "background: lightgrey; "
@@ -1936,7 +1935,7 @@ SqLiteDBEditor::SqLiteDBEditor(QWidget *parent) : QDialog(parent), ui(new Ui::Sq
     ui -> CmdNoFilterNat -> setDisabled(true);
 
     //___________________________________________
-    ui -> LblAddClub -> move(40, 580);
+    ui -> LblAddClub -> move(30, 530);
 
     ui -> CmdSaveRivals -> move(740, 580);
 

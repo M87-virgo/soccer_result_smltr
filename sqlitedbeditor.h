@@ -15,7 +15,7 @@ class SqLiteDBEditor : public QDialog
     Q_OBJECT
 
 public:
-    explicit SqLiteDBEditor(QWidget *parent = nullptr);
+    explicit SqLiteDBEditor();
     ~SqLiteDBEditor();
 
     void setUpCellWidgets();
