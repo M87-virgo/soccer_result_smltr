@@ -1,6 +1,7 @@
 #include "teams.h"
 #include <QDebug>
 
+
 teams::teams() = default;
 teams::teams(const QString tn, const int &gp, const int &p, const int &gs, const int &ga,
              const int &gd, const int &w, const int &d, const int &l, const double &o, const double &def, QIcon f)
@@ -69,68 +70,66 @@ bool teams::compare(const teams &a, const teams &b)
 
 void teams::fillFirstFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
 {
+    QPixmap iniPixmap(64, 64);
+    iniPixmap.fill(Qt::transparent);
+    QPainter iniPainter(&iniPixmap);
+
     if(homeGoal > awayGoal)
-    {
-        QPixmap iniPixmap(64, 64);
-        iniPixmap.fill();
-        QPainter iniPainter(&iniPixmap);
+    { 
         iniPainter.drawPixmap(0, 0, winImg);
+        iniPainter.end();
         form.addPixmap(iniPixmap);
         wldMinusFour = winImg;
     }
     else if(homeGoal < awayGoal)
     {
-        QPixmap iniPixmap(64, 64);
-        iniPixmap.fill();
-        QPainter iniPainter(&iniPixmap);
         iniPainter.drawPixmap(0, 0, looseImg);
+        iniPainter.end();
         form.addPixmap(iniPixmap);
         wldMinusFour = looseImg;
     }
     else
     {
-        QPixmap iniPixmap(64, 64);
-        iniPixmap.fill();
-        QPainter iniPainter(&iniPixmap);
         iniPainter.drawPixmap(0, 0, drawImg);
+        iniPainter.end();
         form.addPixmap(iniPixmap);
         wldMinusFour = drawImg;
     }
 }
 void teams::fillSecFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
 {
+    QPixmap secPixmap(128, 64);
+    secPixmap.fill(Qt::transparent);
+    QPainter secPainter(&secPixmap);
+    QIcon frm;
+
     if(homeGoal > awayGoal)
     {
-        QPixmap secPixmap(128, 64);
-        secPixmap.fill();
-        QPainter secPainter(&secPixmap);
         secPainter.drawPixmap(0, 0, wldMinusFour);
         secPainter.drawPixmap(wldMinusFour.width(), 0, winImg);
-        QIcon frm;
+        secPainter.end();
+
         frm.addPixmap(secPixmap);
         form.swap(frm);
         wldMinusThree = winImg;
+
     }
     else if(homeGoal < awayGoal)
     {
-        QPixmap secPixmap(128, 64);
-        secPixmap.fill();
-        QPainter secPainter(&secPixmap);
         secPainter.drawPixmap(0, 0, wldMinusFour);
         secPainter.drawPixmap(wldMinusFour.width(), 0, looseImg);
-        QIcon frm;
+        secPainter.end();
+
         frm.addPixmap(secPixmap);
         form.swap(frm);
         wldMinusThree = looseImg;
     }
     else
     {
-        QPixmap secPixmap(128, 64);
-        secPixmap.fill();
-        QPainter secPainter(&secPixmap);
         secPainter.drawPixmap(0, 0, wldMinusFour);
         secPainter.drawPixmap(wldMinusFour.width(), 0, drawImg);
-        QIcon frm;
+        secPainter.end();
+
         frm.addPixmap(secPixmap);
         form.swap(frm);
         wldMinusThree = drawImg;
@@ -138,41 +137,40 @@ void teams::fillSecFormIcon(const int &homeGoal, const int &awayGoal, const QPix
 }
 void teams::fillThirdFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
 {
+    QPixmap thirdPixmap(192, 64);
+    thirdPixmap.fill(Qt::transparent);
+    QPainter thirdPainter(&thirdPixmap);
+    QIcon frm;
+
     if(homeGoal > awayGoal)
     {
-        QPixmap thirdPixmap(192, 64);
-        thirdPixmap.fill();
-        QPainter thirdPainter(&thirdPixmap);
         thirdPainter.drawPixmap(0, 0, wldMinusFour);
         thirdPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
         thirdPainter.drawPixmap(2 * winImg.width(), 0, winImg);
-        QIcon frm;
+        thirdPainter.end();
+
         frm.addPixmap(thirdPixmap);
         form.swap(frm);
         wldMinusTwo = winImg;
     }
     else if(homeGoal < awayGoal)
     {
-        QPixmap thirdPixmap(192, 64);
-        thirdPixmap.fill();
-        QPainter thirdPainter(&thirdPixmap);
         thirdPainter.drawPixmap(0, 0, wldMinusFour);
         thirdPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
         thirdPainter.drawPixmap(2 * winImg.width(), 0, looseImg);
-        QIcon frm;
+        thirdPainter.end();
+
         frm.addPixmap(thirdPixmap);
         form.swap(frm);
         wldMinusTwo = looseImg;
     }
     else
     {
-        QPixmap thirdPixmap(192, 64);
-        thirdPixmap.fill();
-        QPainter thirdPainter(&thirdPixmap);
         thirdPainter.drawPixmap(0, 0, wldMinusFour);
         thirdPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
         thirdPainter.drawPixmap(2 * winImg.width(), 0, drawImg);
-        QIcon frm;
+        thirdPainter.end();
+
         frm.addPixmap(thirdPixmap);
         form.swap(frm);
         wldMinusTwo = drawImg;
@@ -180,44 +178,43 @@ void teams::fillThirdFormIcon(const int &homeGoal, const int &awayGoal, const QP
 }
 void teams::fillFourthFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
 {
+    QPixmap fourthPixmap(256, 64);
+    fourthPixmap.fill(Qt::transparent);
+    QPainter fourthPainter(&fourthPixmap);
+    QIcon frm;
+
     if(homeGoal > awayGoal)
     {
-        QPixmap fourthPixmap(256, 64);
-        fourthPixmap.fill();
-        QPainter fourthPainter(&fourthPixmap);
         fourthPainter.drawPixmap(0, 0, wldMinusFour);
         fourthPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
         fourthPainter.drawPixmap(2 * winImg.width(), 0, wldMinusTwo);
         fourthPainter.drawPixmap(3 * winImg.width(), 0, winImg);
-        QIcon frm;
+        fourthPainter.end();
+
         frm.addPixmap(fourthPixmap);
         form.swap(frm);
         wldMinusOne = winImg;
     }
     else if(homeGoal < awayGoal)
     {
-        QPixmap fourthPixmap(256, 64);
-        fourthPixmap.fill();
-        QPainter fourthPainter(&fourthPixmap);
         fourthPainter.drawPixmap(0, 0, wldMinusFour);
         fourthPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
         fourthPainter.drawPixmap(2 * winImg.width(), 0, wldMinusTwo);
         fourthPainter.drawPixmap(3 * winImg.width(), 0, looseImg);
-        QIcon frm;
+        fourthPainter.end();
+
         frm.addPixmap(fourthPixmap);
         form.swap(frm);
         wldMinusOne = looseImg;
     }
     else
     {
-        QPixmap fourthPixmap(256, 64);
-        fourthPixmap.fill();
-        QPainter fourthPainter(&fourthPixmap);
         fourthPainter.drawPixmap(0, 0, wldMinusFour);
         fourthPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
         fourthPainter.drawPixmap(2 * winImg.width(), 0, wldMinusTwo);
         fourthPainter.drawPixmap(3 * winImg.width(), 0, drawImg);
-        QIcon frm;
+        fourthPainter.end();
+
         frm.addPixmap(fourthPixmap);
         form.swap(frm);
         wldMinusOne = drawImg;
@@ -225,129 +222,85 @@ void teams::fillFourthFormIcon(const int &homeGoal, const int &awayGoal, const Q
 }
 void teams::fillLastFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
 {
+    QPixmap lastPixmap(320, 64);
+    lastPixmap.fill(Qt::transparent);
+    QPainter lastPainter(&lastPixmap);
+    QIcon frm;
+
     if(homeGoal > awayGoal)
     {
-        QPixmap lastPixmap(320, 64);
-        lastPixmap.fill();
-        QPainter lastPainter(&lastPixmap);
         lastPainter.drawPixmap(0, 0, wldMinusFour);
         lastPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
         lastPainter.drawPixmap(2 * winImg.width(), 0, wldMinusTwo);
         lastPainter.drawPixmap(3 * winImg.width(), 0, wldMinusOne);
         lastPainter.drawPixmap(4 * winImg.width(), 0, winImg);
-        QIcon frm;
+        lastPainter.end();
+
         frm.addPixmap(lastPixmap);
         form.swap(frm);
+
+        wldMinusFour = wldMinusThree;
+        wldMinusThree = wldMinusTwo;
+        wldMinusTwo = wldMinusOne;
+        wldMinusOne = winImg;
     }
     else if(homeGoal < awayGoal)
     {
-        QPixmap lastPixmap(320, 64);
-        lastPixmap.fill();
-        QPainter lastPainter(&lastPixmap);
         lastPainter.drawPixmap(0, 0, wldMinusFour);
         lastPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
         lastPainter.drawPixmap(2 * winImg.width(), 0, wldMinusTwo);
         lastPainter.drawPixmap(3 * winImg.width(), 0, wldMinusOne);
         lastPainter.drawPixmap(4 * winImg.width(), 0, looseImg);
-        QIcon frm;
+        lastPainter.end();
+
         frm.addPixmap(lastPixmap);
         form.swap(frm);
+
+        wldMinusFour = wldMinusThree;
+        wldMinusThree = wldMinusTwo;
+        wldMinusTwo = wldMinusOne;
+        wldMinusOne = looseImg;
     }
     else
     {
-        QPixmap lastPixmap(320, 64);
-        lastPixmap.fill();
-        QPainter lastPainter(&lastPixmap);
         lastPainter.drawPixmap(0, 0, wldMinusFour);
         lastPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
         lastPainter.drawPixmap(2 * winImg.width(), 0, wldMinusTwo);
         lastPainter.drawPixmap(3 * winImg.width(), 0, wldMinusOne);
         lastPainter.drawPixmap(4 * winImg.width(), 0, drawImg);
-        QIcon frm;
+        lastPainter.end();
+
         frm.addPixmap(lastPixmap);
         form.swap(frm);
+
+        wldMinusFour = wldMinusThree;
+        wldMinusThree = wldMinusTwo;
+        wldMinusTwo = wldMinusOne;
+        wldMinusOne = drawImg;
     }
 }
-void teams::setFormIcons(const int &a, const int &b, const int &numberOfGamesPerTeam)
-{
-    int homeGoal = a;
-    int awayGoal = b;
-
-    int n = numberOfGamesPerTeam;
-    QPixmap winImg(":/miscRsc/misc_icons/win.png");
-    QPixmap looseImg(":/miscRsc/misc_icons/loose.png");
-    QPixmap drawImg(":/miscRsc/misc_icons/draw.png");
-    if(gamesPlayed == n && n == 6)
+void teams::setFormIcons(const int &a, const int &b, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
+{   
+    int homeGoal = a, awayGoal = b, n = gamesPlayed;
+    if(n == 6)
     {
         fillFirstFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
     }
     else if(n == 7)
     {
-        if(gamesPlayed == n - 1)
-        {
-            fillFirstFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
-        else if(gamesPlayed == n)
-        {
-            fillSecFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
+        fillSecFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
     }
     else if(n == 8)
     {
-        if(gamesPlayed == n - 2)
-        {
-            fillFirstFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
-        else if(gamesPlayed == n - 1)
-        {
-            fillSecFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
-        else if(gamesPlayed == n)
-        {
-            fillThirdFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
+        fillThirdFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
     }
     else if(n == 9)
     {
-        if(gamesPlayed == n - 3)
-        {
-            fillFirstFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
-        else if(gamesPlayed == n - 2)
-        {
-            fillSecFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
-        else if(gamesPlayed == n - 1)
-        {
-            fillThirdFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
-        else if(gamesPlayed == n)
-        {
-            fillFourthFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
+        fillFourthFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
     }
     else if(n > 9)
     {
-        if(gamesPlayed == n - 4)
-        {
-            fillFirstFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
-        else if(gamesPlayed == n - 3)
-        {
-            fillSecFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
-        else if(gamesPlayed == n - 2)
-        {
-            fillThirdFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
-        else if(gamesPlayed == n - 1)
-        {
-            fillFourthFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
-        else if(gamesPlayed == n)
-        {
-            fillLastFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
-        }
+        fillLastFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
     }
 }
 

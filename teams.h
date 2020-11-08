@@ -44,7 +44,7 @@ class teams
         void increasePointsOnDrawCase();
         void increaseLooses();
         void calculateGoals(const int&, const int&);
-        void setFormIcons(const int&, const int&, const int&);
+        void setFormIcons(const int&, const int&, const QPixmap&, const QPixmap&, const QPixmap&);
 
         static bool compare(const teams &a, const teams &b);
         void output(QTableWidget*, const int&);

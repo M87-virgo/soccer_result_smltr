@@ -9,8 +9,8 @@
         <file>misc_icons/filesave_128x128_pressed.png</file>
         <file>misc_icons/filesave_128x128_disabled.png</file>
         <file>misc_icons/button_disabled.png</file>
-        <file>misc_icons/draw.png</file>
-        <file>misc_icons/loose.png</file>
-        <file>misc_icons/win.png</file>
+        <file>misc_icons/draw.jpg</file>
+        <file>misc_icons/loose.jpg</file>
+        <file>misc_icons/win.jpg</file>
     </qresource>
 </RCC>

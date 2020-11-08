@@ -5,6 +5,8 @@
 #include <QtSql/QtSql>
 #include "sqlitedbeditor.h"
 
+#include "teams.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -16,6 +18,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    QVector<teams> resultTable = {};
+    QVector<QVector<teams> > eachDay = {};
 
     QVector<QVector<QPair<int, int> > > fillAllMatchDays(QVector<QPair<int, int> >, const int&);
     void setUpTable(const int&);
@@ -29,7 +34,7 @@ private:
     Ui::MainWindow *ui;
     SqLiteDBEditor *meUi{};
 
-    int numberOfTeams{};
+    int numberOfTeams{}, backAndForth = -1, numberOfGamesPerDay{};
 
     QSqlDatabase db;
 
@@ -61,8 +66,10 @@ private slots:
     void CmdClearAllClicked();
 
     void CmdMatchScheduleClicked();
+    void CmdContinueClicked();
+    void CmdBackClicked();
 
-    void SpbUpdateTableEditingFinished();
+    void SpbUpdateTableReturnPressed();
 };
 
 #endif // MAINWINDOW_H

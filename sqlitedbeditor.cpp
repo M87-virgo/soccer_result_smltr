@@ -1809,8 +1809,11 @@ void SqLiteDBEditor::fillFilterComboBoxes()
 SqLiteDBEditor::SqLiteDBEditor() : QDialog(), ui(new Ui::SqLiteDBEditor)
 {
     ui -> setupUi(this);
-    this -> setStyleSheet("color: lightblue; "
-                          "background-color: #404040");
+    this -> setStyleSheet("QToolTip { background-color: lightgrey; "
+                          "color: black; "
+                          "border: none } "
+                          "QWidget { color: lightblue; "
+                          "background-color: #404040 }");
 
     dbTblinfo.setFile("mydb.db");
     ui -> LblLastUpdate -> setText(dbTblinfo.lastModified().toString() );

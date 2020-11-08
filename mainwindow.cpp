@@ -96,10 +96,10 @@ void MainWindow::setUpTable(const int &rows)
     ui -> TblResults -> horizontalHeader() -> setStyleSheet(headerStyle);
     ui -> TblResults -> setStyleSheet("background-color: black; "
                                       "font: bold 19px Georgia");
-    ui -> TblResults -> setColumnWidth(0, 290);
+    ui -> TblResults -> setColumnWidth(0, 288);
     ui -> TblResults -> setColumnWidth(1, 50);
     ui -> TblResults -> setColumnWidth(2, 50);
-    ui -> TblResults -> setColumnWidth(3, 290);
+    ui -> TblResults -> setColumnWidth(3, 288);
 }
 void MainWindow::fillTable(QVector<QVector<QPair<int, int> > > roundFst, QVector<QPair<int, int> > numOfGamesPerDay)
 {
@@ -297,7 +297,6 @@ void MainWindow::fillTable(QVector<QVector<QPair<int, int> > > roundFst, QVector
             resultTable[matchSchedule.at(i).at(j).first - 1].setFormIcons(randomGoalValue, randomGoalAwayValue, winImg, looseImg, drawImg);
             resultTable[matchSchedule.at(i).at(j).second - 1].setFormIcons(randomGoalAwayValue, randomGoalValue, winImg, looseImg, drawImg);
         }
-        //eachDay[i] = resultTable;
 
         if(i < matchSchedule.size() - 1)
         {
@@ -406,9 +405,8 @@ void MainWindow::SpbUpdateTableReturnPressed()
             updatedResultTable[matchSchedule.at(i).at(j).first - 1].setFormIcons(goalHome, goalAway, winImg, looseImg, drawImg);
             updatedResultTable[matchSchedule.at(i).at(j).second - 1].setFormIcons(goalAway, goalHome, winImg, looseImg, drawImg);
         }
-        //eachDay[i] = updatedResultTable;
 
-        if(i < backAndForth)//matchSchedule.size() - 1)
+        if(i < backAndForth)
         {
             ++r;
         }
@@ -421,14 +419,6 @@ void MainWindow::SpbUpdateTableReturnPressed()
         t.output(ui -> TblTable, counter);
         ++counter;
     }
-
-    /*int counter = 0;
-    std::sort(eachDay[backAndForth].begin(), eachDay[backAndForth].end(),  teams::compare);
-    for(teams &t:eachDay[backAndForth])
-    {
-        t.output(ui -> TblTable, counter);
-        ++counter;
-    }*/
 }
 
 
@@ -441,7 +431,6 @@ void MainWindow::CmdDBConClicked()
     if(db.open() )
     {
         QMessageBox::information(this, "Connection", "Database connected successfully!");
-        ui -> CmdDBCon -> setHidden(true);
 
         ui -> actionDB_Editor -> setEnabled(true);
         ui -> CmdClubsMode -> setEnabled(true);
@@ -458,9 +447,7 @@ void MainWindow::CmdDBConClicked()
     sqlCommand.exec("SELECT name_continent FROM continents ORDER BY idcontinents ASC");
     showContinents();
 
-    ui -> LblRounds -> show();
-    ui -> SpbNumberOfRounds -> show();
-    ui -> CmdMatchSchedule -> show();
+    ui -> LayoutSetRounds -> show();
 }
 
 //selection / undo buttons
@@ -486,19 +473,25 @@ void MainWindow::CmdClearAllClicked()
 {
     if(ui -> LstSelectedTeams -> count() != 0 )
     {
+        ui -> TblTable -> clear();
+        ui -> TblResults -> clear();
         ui -> LstSelectedTeams -> clear();
         LstSubContsCurrentRowChanged();
+        ui -> LayoutResultTables -> hide();
     }
 }
 void MainWindow::CmdTeamSelectionClicked()
 {
     if(!ui -> LstNatTeams -> selectedItems().isEmpty() )
     {
+        ui -> TblTable -> clear();
+        ui -> TblResults -> clear();
         for(int i = 0; i < ui -> LstNatTeams -> selectedItems().size(); ++i)
         {
             ui -> LstSelectedTeams -> addItem(ui -> LstNatTeams -> selectedItems().at(i) -> text() );
         }
         LstSubContsCurrentRowChanged();
+        ui -> LayoutResultTables -> show();
     }
     else
     {
@@ -509,11 +502,14 @@ void MainWindow::CmdSelectWholeSubCoClicked()
 {
     if(ui -> LstNatTeams -> count() != 0)
     {
+        ui -> TblTable -> clear();
+        ui -> TblResults -> clear();
         for(int i = 0; i < ui -> LstNatTeams -> count(); ++i)
         {
             ui -> LstSelectedTeams -> addItem(ui -> LstNatTeams -> item(i) -> text() );
         }
         ui -> LstNatTeams -> clear();
+        ui -> LayoutResultTables -> show();
     }
     else
     {
@@ -524,6 +520,9 @@ void MainWindow::CmdSelectWholeContClicked()
 {
     if(ui -> LstContinents -> count() != 0 && !ui -> LstContinents -> selectedItems().isEmpty() )
     {
+        ui -> TblTable -> clear();
+        ui -> TblResults -> clear();
+
         sqlCommand.prepare("SELECT name_country FROM `nationalteams(countries)` WHERE continents_idcontinents = ?");
         sqlCommand.addBindValue(ui -> LstContinents -> currentRow() + 1);
         sqlCommand.exec();
@@ -549,6 +548,7 @@ void MainWindow::CmdSelectWholeContClicked()
         }
         LstSubContsCurrentRowChanged();
         preList.clear();
+        ui -> LayoutResultTables -> show();
     }
     else if(ui -> LstContinents -> count() == 0 || ui -> LstContinents -> selectedItems().isEmpty() || !ui -> LstContinents -> hasFocus() )
     {
@@ -627,10 +627,12 @@ void MainWindow::CmdMatchScheduleClicked()
     if(ui -> LstSelectedTeams -> count() > 1)
     {
         createMatchSchedule();
-        ui -> LblMatchScedule -> show();
-        ui -> LblEndTable -> show();
-        ui -> TblResults -> show();
-        ui -> TblTable -> show();
+        ui -> LayoutResultTables -> show();
+        ui -> FormLayoutLegend -> show();
+        if(backAndForth == 0)
+        {
+            ui -> CmdBack -> setDisabled(true);
+        }
     }
     else
     {
@@ -821,6 +823,7 @@ void MainWindow::setHeaderForTable()
     for(int i = 0; i < ui -> TblTable -> rowCount(); ++i)
     {
         ui -> TblTable -> setItem(i, 0, new QTableWidgetItem(QVariant(i + 1).toString() + "." ) );
+        ui -> TblTable -> item(i, 0) -> setTextAlignment(Qt::AlignCenter);
     }
 }
 
@@ -840,14 +843,6 @@ void MainWindow::CmdContinueClicked()
         }
 
         ++backAndForth;
-        /*int i = backAndForth;
-        int counter = 0;
-        std::sort(eachDay[i].begin(), eachDay[i].end(),  teams::compare);
-        for(teams &t:eachDay[i])
-        {
-            t.output(ui -> TblTable, counter);
-            ++counter;
-        }*/
         SpbUpdateTableReturnPressed();
         if(backAndForth == eachDay.size() - 1)
         {
@@ -909,14 +904,6 @@ void MainWindow::CmdBackClicked()
         ui -> CmdBack -> setEnabled(true);
     }
 
-    /*int i = backAndForth;
-    int counter = 0;
-    std::sort(eachDay[i].begin(), eachDay[i].end(),  teams::compare);
-    for(teams &t:eachDay[i])
-    {
-        t.output(ui -> TblTable, counter);
-        ++counter;
-    }*/
     SpbUpdateTableReturnPressed();
 
     for(int i = 0; i < ui -> TblResults -> rowCount(); ++i)
@@ -932,18 +919,13 @@ void MainWindow::CmdBackClicked()
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui -> setupUi(this);
-    this -> setStyleSheet("color: lightblue; "
-                          "background-color: #404040");
 
     ui -> actionDB_Editor -> setDisabled(true);
 
-    ui -> LblMatchScedule -> hide();
-    ui -> LblRounds -> hide();
-    ui -> TblResults -> hide();
-    ui -> TblTable -> hide();
-    ui -> LblEndTable -> hide();
-    ui -> SpbNumberOfRounds -> hide();
-    ui -> CmdMatchSchedule -> hide();
+    ui -> LayoutSetRounds -> hide();
+    ui -> FormLayoutLegend -> hide();
+
+    ui -> LayoutResultTables -> hide();
 
     headerStyle = "QHeaderView::section { height: 30px; "
                   "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2BE2FF, stop: 0.5 #1ECEFF, stop: 0.6 #2BBBFF, stop:1 #1CECFF); "
@@ -966,7 +948,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
                                          "QListWidget { background: black }");
     ui -> LstSelectedTeams -> setStyleSheet("QListView::item:hover { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ABAFE5, stop: 1 #8588B2) } "
                                          "QListWidget { background: black }");
-    ui -> SpbNumberOfRounds -> setStyleSheet("background-color: black");
+    ui -> SpbNumberOfRounds -> setStyleSheet("color: black; "
+                                             "background-color: lightgrey");
 
     ui -> CmdClubsMode -> setDisabled(true);
     ui -> CmdNatTeamsMode -> setDisabled(true);
@@ -982,14 +965,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui -> CmdBack -> setStyleSheet(" :disabled { color: grey; "
                                    "background: dimgrey }");
 
-    /*ui -> CmdDBCon -> setStyleSheet(" :enabled { border-style: outset; border-width: 2px; border-radius: 10px; "
-                                    "border-color: beige; min-width: 10em; padding: 6px; color: white; background-color: "
-                                    "qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4595C6, "
-                                    "stop: 0.4 #3E87B2, stop: 0.7 #357499, stop: 1 #489DCE) } :pressed "
-                                    "{ background-color: qradialgradient(spread:pad, cx: 0.5, cy: 0.5, radius: 0.5, fx: 0.5, fy: 0.5, "
-                                    "stop: 0.0795 rgba(0, 147, 185, 255), stop: 1 rgba(0, 85, 183, 255) ); border: 3px solid black; border-radius: 10px }");*/
-
-    ui -> CmdDBCon -> setStyleSheet(" :enabled { color: white; "
+    /*ui -> CmdDBCon -> setStyleSheet(" :enabled { color: white; "
                                     "border-Image: url(:/miscRsc/misc_icons/button.png) 3 10 3 10; "
                                     "border-top: 3px transparent; "
                                     "border-bottom: 3px transparent; "
@@ -1005,16 +981,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
                                     "border-Image: url(:/miscRsc/misc_icons/button_pressed.png) 3 10 3 10; border-top: 3px transparent; "
                                     "border-bottom: 3px transparent; "
                                     "border-right: 10px transparent; "
-                                    "border-left: 10px transparent }");
-
-    /*ui -> CmdDBCon -> setStyleSheet(" :enabled { background-color: qradialgradient(spread:pad, cx:0.499807, "
-                                    "cy:0.489, radius:0.5, fx:0.499, fy:0.488909, stop:0.0795455 rgba(0, 147, 185, 255), "
-                                    "stop:1 rgba(30, 30, 30, 255) ); border: 5px solid black; border-radius: 15px }");*/
+                                    "border-left: 10px transparent }");*/
 
     ui -> LblGitHubLink -> setOpenExternalLinks(true);
     ui -> LblGitHubLink -> setText("<a href=https://github.com/M87-virgo/soccer_result_smltr>GitHub Project Link</a>");
     ui -> LblGitHubLink -> setAlignment(Qt::AlignCenter);
     ui -> LblGitHubLink -> setStyleSheet("background: lightgrey");
+
+    CmdDBConClicked();
 
     connect(ui -> actionDB_Editor, SIGNAL(triggered() ), SLOT(actDBEditorTriggered() ) );
     connect(ui -> actionAbout, SIGNAL(triggered() ), SLOT(actAboutTriggered() ) );
@@ -1024,7 +998,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     connect(ui -> CmdNatTeamsMode, SIGNAL(clicked() ), SLOT(CmdNatTeamsModeClicked() ) );
     connect(ui -> CmdClubsMode, SIGNAL(clicked() ), SLOT(CmdClubsModeClicked() ) );
-    connect(ui -> CmdDBCon, SIGNAL(clicked() ), SLOT(CmdDBConClicked() ) );
 
     connect(ui -> CmdUndoSelectedTeam, SIGNAL(clicked() ), SLOT(CmdUndoSelectedTeamClicked() ) );
     connect(ui -> CmdTeamSelection, SIGNAL(clicked() ), SLOT(CmdTeamSelectionClicked() ) );
