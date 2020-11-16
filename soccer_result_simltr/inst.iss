@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "soccer_result_smltr"
-#define MyAppVersion "0.9beta"
+#define MyAppVersion "1.0.3"
 #define MyAppPublisher "André Beyer"
 #define MyAppExeName "soccer_result_simltr.exe"
 
