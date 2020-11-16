@@ -3,6 +3,7 @@
 
 #include <QShortcut>
 #include <QtAlgorithms>
+#include <QFileDialog>
 #include <chrono>
 #include <thread>
 #include <random>
@@ -107,7 +108,7 @@ void MainWindow::fillTable(QVector<QVector<QPair<int, int> > > roundFst, QVector
     ui -> CmdBack -> setEnabled(true);
     ui -> CmdContinue -> setDisabled(true);
 
-    double off = 0.0, def = 0.0, ta = 0.0;
+    double off = 0.0, def = 0.0, tabl = 0.0;
     setHeaderForTable();
     eachDay.clear();
     eachDay.resize(matchSchedule.size() );
@@ -115,7 +116,7 @@ void MainWindow::fillTable(QVector<QVector<QPair<int, int> > > roundFst, QVector
     resultTable.resize(teamNameList.size() );
     if(ui -> CmdClubsMode -> isEnabled() )
     {
-        sqlCommand.prepare("SELECT offense, defense FROM `nationalteams(countries)` WHERE name_country = ?");
+        sqlCommand.prepare("SELECT offense, defense, teamability FROM `nationalteams(countries)` WHERE name_country = ?");
     }
     else
     {
@@ -128,8 +129,8 @@ void MainWindow::fillTable(QVector<QVector<QPair<int, int> > > roundFst, QVector
         sqlCommand.next();
         off = sqlCommand.value(0).toDouble();
         def = sqlCommand.value(1).toDouble();
-        ta = sqlCommand.value(2).toDouble();
-        resultTable[i].getTeamNameAndQualityValues(teamNameList.at(i), off, def, ta);
+        tabl = sqlCommand.value(2).toDouble();
+        resultTable[i].getTeamNameAndQualityValues(teamNameList.at(i), off, def, tabl);
     }
 
     QString roundFirst = "Matches", roundBack = "Rematches";
@@ -244,6 +245,7 @@ void MainWindow::fillTable(QVector<QVector<QPair<int, int> > > roundFst, QVector
                     --randomGoalAwayValue;
                 }
             }
+
             ui -> TblResults -> setItem(r, 1, new QTableWidgetItem(QVariant(randomGoalValue).toString() ) );
             ui -> TblResults -> item(r, 1) -> setTextAlignment(Qt::AlignCenter);
             ui -> TblResults -> item(r, 1) -> setBackgroundColor(QColor(255, 127, 80, 255) );
@@ -423,10 +425,10 @@ void MainWindow::SpbUpdateTableReturnPressed()
 
 
 //db connection
-void MainWindow::CmdDBConClicked()
+void MainWindow::connectDatabase(QString databaseName)
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("mydb.db");
+    db.setDatabaseName(databaseName);
 
     if(db.open() )
     {
@@ -442,6 +444,7 @@ void MainWindow::CmdDBConClicked()
     }
 
     sqlCommand = QSqlQuery(db);
+    sqlCmd = sqlCommand;
     ui -> CmdNatTeamsMode -> setDisabled(true);
     ui -> LstContinents -> clear();
     sqlCommand.exec("SELECT name_continent FROM continents ORDER BY idcontinents ASC");
@@ -463,6 +466,10 @@ void MainWindow::CmdUndoSelectedTeamClicked()
             }
         }
         LstSubContsCurrentRowChanged();
+        if(ui -> LstSelectedTeams -> count() == 0)
+        {
+            ui -> actionSaveTeamList -> setDisabled(true);
+        }
     }
     else
     {
@@ -471,13 +478,14 @@ void MainWindow::CmdUndoSelectedTeamClicked()
 }
 void MainWindow::CmdClearAllClicked()
 {
-    if(ui -> LstSelectedTeams -> count() != 0 )
+    if(ui -> LstSelectedTeams -> count() != 0)
     {
         ui -> TblTable -> clear();
         ui -> TblResults -> clear();
         ui -> LstSelectedTeams -> clear();
         LstSubContsCurrentRowChanged();
         ui -> LayoutResultTables -> hide();
+        ui -> actionSaveTeamList -> setDisabled(true);
     }
 }
 void MainWindow::CmdTeamSelectionClicked()
@@ -492,6 +500,7 @@ void MainWindow::CmdTeamSelectionClicked()
         }
         LstSubContsCurrentRowChanged();
         ui -> LayoutResultTables -> show();
+        ui -> actionSaveTeamList -> setEnabled(true);
     }
     else
     {
@@ -510,6 +519,7 @@ void MainWindow::CmdSelectWholeSubCoClicked()
         }
         ui -> LstNatTeams -> clear();
         ui -> LayoutResultTables -> show();
+        ui -> actionSaveTeamList -> setEnabled(true);
     }
     else
     {
@@ -549,6 +559,7 @@ void MainWindow::CmdSelectWholeContClicked()
         LstSubContsCurrentRowChanged();
         preList.clear();
         ui -> LayoutResultTables -> show();
+        ui -> actionSaveTeamList -> setEnabled(true);
     }
     else if(ui -> LstContinents -> count() == 0 || ui -> LstContinents -> selectedItems().isEmpty() || !ui -> LstContinents -> hasFocus() )
     {
@@ -638,6 +649,42 @@ void MainWindow::CmdMatchScheduleClicked()
     {
         QMessageBox::warning(this, "Too few teams", "Too few teams in list! You have to choose at least two teams.");
     }
+}
+
+void MainWindow::CmdAddRandomTeamsClicked()
+{
+    ui -> actionSaveTeamList -> setEnabled(true);
+    if(ui -> CmdClubsMode -> isEnabled() )
+    {
+        sqlCmd.exec("SELECT name_country FROM `nationalteams(countries)`");
+    }
+    else
+    {
+        sqlCmd.exec("SELECT name_club FROM clubs");
+    }
+    QStringList natTeams;
+    while(sqlCmd.next() )
+    {
+        natTeams.push_back(sqlCmd.value(0).toString() );
+    }
+
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator (seed);
+    using Udistr = std::uniform_int_distribution<int>;
+    Udistr rval{};
+    ui -> LstSelectedTeams -> clear();
+    int randIndex = 0;
+    for(int i = 0; i < ui -> SpbNumberOfTeams -> value(); ++i)
+    {
+        if(natTeams.size() == 0)
+        {
+            break;
+        }
+        randIndex = rval(generator, Udistr::param_type{0, natTeams.size() - 1} );
+        ui -> LstSelectedTeams -> addItem(natTeams.at(randIndex) );
+        natTeams.removeAt(randIndex);
+    }
+    showNatTeams();
 }
 
 //fill tables_____________________________________________________________
@@ -730,11 +777,118 @@ void MainWindow::CmdClubsModeClicked()
 }
 
 //menu trigger buttons
+void MainWindow::actOpenFileTriggered()
+{
+    const QFileDialog::Options options = QFlag(QFileDialog::ReadOnly);
+    QString selectedFilter;
+    const char *fileFormat;
+    if(ui -> CmdClubsMode -> isEnabled() )
+    {
+        fileFormat = "Data Base Files (*.db);;Nationalteams List Files (*.natt)";
+    }
+    else
+    {
+        fileFormat = "Data Base Files (*.db);;Clubs List Files (*.clubs)";
+    }
+    QString fileName = QFileDialog::getOpenFileName(this,
+                                tr("Open another Database or select a Team-List"),
+                                "",
+                                tr(fileFormat),
+                                &selectedFilter,
+                                options);
+    if(!fileName.isEmpty() && fileName.back() == "b")
+    {
+        connectDatabase(fileName);
+    }
+
+    if(!fileName.isEmpty() && (fileName.back() == "t" || fileName.back() == "s") )
+    {
+        ui -> LstSelectedTeams -> clear();
+        QFile list(fileName);
+        QString line;
+        if (list.open(QFile::ReadOnly | QFile::Text) )
+        {
+            QTextStream txt(&list);
+            while (!txt.atEnd())
+            {
+                line = txt.readLine();
+                if(ui -> CmdClubsMode -> isEnabled() )
+                {
+                    sqlCommand.prepare("SELECT name_country FROM `nationalteams(countries)` WHERE fifa_code = ?");
+                }
+                else
+                {
+                    sqlCommand.prepare("SELECT name_club FROM clubs WHERE idclubs = ?");
+                }
+                sqlCommand.addBindValue(line);
+                sqlCommand.exec();
+                while(sqlCommand.next() )
+                {
+                    ui -> LstSelectedTeams -> addItem(sqlCommand.value(0).toString() );
+                }
+            }
+            list.close();
+            showNatTeams();
+        }
+    }
+}
+void MainWindow::actSaveListTriggered()
+{
+    const QFileDialog::Options options = QFlag(QFileDialog::ReadOnly);
+    QString selectedFilter;
+    const char *fileFormat;
+    if(ui -> CmdClubsMode -> isEnabled() )
+    {
+        fileFormat = "Nationalteams List Files (*.natt)";
+    }
+    else
+    {
+        fileFormat = "Clubs List Files (*.clubs)";
+    }
+    QString fileName = QFileDialog::getSaveFileName(this,
+                                tr("Save Team-List"),
+                                "",
+                                tr(fileFormat),
+                                &selectedFilter,
+                                options);
+    if(!fileName.isEmpty() )
+    {
+        if(ui -> CmdClubsMode -> isEnabled() )
+        {
+            sqlCommand.prepare("SELECT fifa_code FROM `nationalteams(countries)` WHERE name_country = ?");
+        }
+        else
+        {
+            sqlCommand.prepare("SELECT idclubs FROM clubs WHERE name_club = ?");
+        }
+
+        QStringList id;
+        for(int i = 0; i < ui -> LstSelectedTeams -> count(); ++i)
+        {
+            sqlCommand.addBindValue(ui -> LstSelectedTeams -> item(i) -> text() );
+            sqlCommand.exec();
+            while(sqlCommand.next() )
+            {
+                id.push_back(sqlCommand.value(0).toString() );
+            }
+        }
+
+        QFile list(fileName);
+        QTextStream txt(&list);
+        if(list.open(QIODevice::WriteOnly | QFile::Text) )
+        {
+            for(int i = 0; i < id.size(); ++i)
+            {
+                txt << id.at(i) << endl;
+            }
+        }
+        list.close();
+    }
+}
 void MainWindow::actDBEditorTriggered()
 {
     meUi = new SqLiteDBEditor();
     meUi -> setAttribute(Qt::WA_DeleteOnClose);
-    //meUi -> setWindowFlag(Qt::FramelessWindowHint, true);
     meUi -> show();
 }
 void MainWindow::actAboutTriggered()
@@ -774,18 +928,24 @@ void MainWindow::LstSubContsCurrentRowChanged()
         ui -> LstNatTeams -> clear();
         sqlCommand.prepare("SELECT name_country FROM `nationalteams(countries)` WHERE subcontinents_idsubcontinents = "
                         "(SELECT idsubcontinents FROM subcontinents WHERE name_subcontinent = ?) ORDER BY name_country ASC");
-        sqlCommand.addBindValue(ui -> LstSubCont -> currentItem() -> text() );
-        sqlCommand.exec();
-        showNatTeams();
+        if(!ui -> LstSubCont -> selectedItems().isEmpty() )
+        {
+            sqlCommand.addBindValue(ui -> LstSubCont -> currentItem() -> text() );
+            sqlCommand.exec();
+            showNatTeams();
+        }
     }
     else
     {
         ui -> LstNatTeams -> clear();
         sqlCommand.prepare("SELECT name_club FROM clubs WHERE leagues_idleagues = "
                            "(SELECT idleagues FROM leagues WHERE name_league = ?)");
-        sqlCommand.addBindValue(ui -> LstContinents -> currentItem() -> text() );
-        sqlCommand.exec();
-        showNatTeams();
+        if(!ui -> LstContinents -> selectedItems().isEmpty() )
+        {
+            sqlCommand.addBindValue(ui -> LstContinents -> currentItem() -> text() );
+            sqlCommand.exec();
+            showNatTeams();
+        }
     }
 }
 
@@ -921,6 +1081,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui -> setupUi(this);
 
     ui -> actionDB_Editor -> setDisabled(true);
+    ui -> actionSaveTeamList -> setDisabled(true);
 
     ui -> LayoutSetRounds -> hide();
     ui -> FormLayoutLegend -> hide();
@@ -949,6 +1110,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui -> LstSelectedTeams -> setStyleSheet("QListView::item:hover { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ABAFE5, stop: 1 #8588B2) } "
                                          "QListWidget { background: black }");
     ui -> SpbNumberOfRounds -> setStyleSheet("color: black; "
+                                             "background-color: lightgrey");
+    ui -> SpbNumberOfTeams -> setStyleSheet("color: black; "
                                              "background-color: lightgrey");
 
     ui -> CmdClubsMode -> setDisabled(true);
@@ -988,10 +1151,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui -> LblGitHubLink -> setAlignment(Qt::AlignCenter);
     ui -> LblGitHubLink -> setStyleSheet("background: lightgrey");
 
-    CmdDBConClicked();
+    QString databaseName = "mydb.db";
+    connectDatabase(databaseName);
 
     connect(ui -> actionDB_Editor, SIGNAL(triggered() ), SLOT(actDBEditorTriggered() ) );
     connect(ui -> actionAbout, SIGNAL(triggered() ), SLOT(actAboutTriggered() ) );
+    connect(ui -> actionOpenFile, SIGNAL(triggered() ), SLOT(actOpenFileTriggered() ) );
+    connect(ui -> actionSaveTeamList, SIGNAL(triggered() ), SLOT(actSaveListTriggered() ) );
 
     connect(ui -> LstContinents, SIGNAL(itemSelectionChanged() ), SLOT(LstContinentsCurrentRowChanged() ) );
     connect(ui -> LstSubCont, SIGNAL(itemSelectionChanged() ), SLOT(LstSubContsCurrentRowChanged() ) );
@@ -1005,6 +1171,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui -> CmdSelectWholeCont, SIGNAL(clicked() ), SLOT(CmdSelectWholeContClicked() ) );
     connect(ui -> CmdClearAll, SIGNAL(clicked() ), SLOT(CmdClearAllClicked() ) );
     connect(ui -> CmdMatchSchedule, SIGNAL(clicked() ), SLOT(CmdMatchScheduleClicked() ) );
+    connect(ui -> CmdAddRandomTeams, SIGNAL(clicked() ), SLOT(CmdAddRandomTeamsClicked() ) );
 
     QShortcut* ret = new QShortcut(Qt::Key_Return, ui -> TblResults);
     connect(ret, SIGNAL(activated() ), SLOT(SpbUpdateTableReturnPressed() ) );

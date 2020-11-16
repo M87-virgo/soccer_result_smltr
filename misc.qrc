@@ -12,5 +12,8 @@
         <file>misc_icons/draw.jpg</file>
         <file>misc_icons/loose.jpg</file>
         <file>misc_icons/win.jpg</file>
+        <file>misc_icons/open_file.png</file>
+        <file>misc_icons/saveTxt.png</file>
+        <file>misc_icons/appIcon.ico</file>
     </qresource>
 </RCC>

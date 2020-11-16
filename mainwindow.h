@@ -22,6 +22,8 @@ public:
     QVector<teams> resultTable = {};
     QVector<QVector<teams> > eachDay = {};
 
+    void connectDatabase(QString);
+
     QVector<QVector<QPair<int, int> > > fillAllMatchDays(QVector<QPair<int, int> >, const int&);
     void setUpTable(const int&);
     QVector<QVector<QPair<int, int> > > moreRounds(QVector<QPair<int, int> >);
@@ -39,6 +41,7 @@ private:
     QSqlDatabase db;
 
     QSqlQuery sqlCommand;
+    QSqlQuery sqlCmd;
 
     QString headerStyle;
 
@@ -49,14 +52,16 @@ private:
 private slots:
     void actDBEditorTriggered();
     void actAboutTriggered();
+    void actOpenFileTriggered();
+    void actSaveListTriggered();
     void showContinents();
     void showSubContinents();
     void showNatTeams();
     void LstContinentsCurrentRowChanged();
     void LstSubContsCurrentRowChanged();
+    void CmdAddRandomTeamsClicked();
     void CmdNatTeamsModeClicked();
     void CmdClubsModeClicked();
-    void CmdDBConClicked();
     void CmdTeamSelectionClicked();
     void CmdUndoSelectedTeamClicked();
     void CmdSelectWholeSubCoClicked();
