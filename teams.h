@@ -36,7 +36,7 @@ class teams
     public:
         teams();
         teams(const QString, const int&, const int&, const int&, const int&,
-              const int&, const int&, const int&, const int&, const double&, const double&, QIcon);
+              const int&, const int&, const int&, const int&, const double&, const double&, const double&, const QIcon&);
 
         void getTeamNameAndQualityValues(const QString, const double&, const double&, const double&);
         void increasesNumberOfGames();

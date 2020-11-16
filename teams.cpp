@@ -4,7 +4,7 @@
 
 teams::teams() = default;
 teams::teams(const QString tn, const int &gp, const int &p, const int &gs, const int &ga,
-             const int &gd, const int &w, const int &d, const int &l, const double &o, const double &def, QIcon f)
+             const int &gd, const int &w, const int &d, const int &l, const double &o, const double &def, const double &ta, const QIcon &f)
 {
     teamName = tn;
     gamesPlayed = gp;
@@ -17,15 +17,16 @@ teams::teams(const QString tn, const int &gp, const int &p, const int &gs, const
     looses = l;
     offense = o;
     defense = def;
+    teamAbility = ta;
     form = f;
 }
 
-void teams::getTeamNameAndQualityValues(const QString name, const double &off = 0.0, const double &def = 0.0, const double &ta = 0.0)
+void teams::getTeamNameAndQualityValues(const QString name, const double &off = 0.0, const double &def = 0.0, const double &t = 0.0)
 {
     teamName = name;
     offense = off;
     defense = def;
-    teamAbility = ta;
+    teamAbility = t;
 }
 void teams::increasesNumberOfGames()
 {
