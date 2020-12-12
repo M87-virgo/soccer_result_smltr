@@ -225,5 +225,6 @@
         <file>icon_flags/Zambia.png</file>
         <file>icon_flags/Zanzibar.png</file>
         <file>icon_flags/Zimbabwe.png</file>
+        <file>icon_flags/Memphis.png</file>
     </qresource>
 </RCC>

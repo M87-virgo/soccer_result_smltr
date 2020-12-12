@@ -1,59 +1,82 @@
+/*
+ * Copyright © 2020 beyer341@onlinehome.de
+ *
+ * Read the LICENSE file that comes with this project for license details.
+*/
+
 #include "teams.h"
-#include <QDebug>
 
 
-teams::teams() = default;
-teams::teams(const QString tn, const int &gp, const int &p, const int &gs, const int &ga,
+Teams::Teams() = default;
+Teams::Teams(const QString tn, const int &gp, const int &p, const int &gss, const int &gas, const int &gsngl, const int &ga,
              const int &gd, const int &w, const int &d, const int &l, const double &o, const double &def, const double &ta, const QIcon &f)
 {
     teamName = tn;
     gamesPlayed = gp;
     points = p;
-    goalsScored = gs;
-    goalsAgainst = ga;
+    goalsScoredSum = gss;
+    goalsAgainstSum = gas;
+    goalsScored = gsngl;
+    goalsAway = ga;
     goalDiff = gd;
     wins = w;
     draws = d;
-    looses = l;
+    loss = l;
     offense = o;
     defense = def;
     teamAbility = ta;
     form = f;
 }
 
-void teams::getTeamNameAndQualityValues(const QString name, const double &off = 0.0, const double &def = 0.0, const double &t = 0.0)
+void Teams::getTeamNameAndQualityValues(const QString name, const double &off = 0.0, const double &def = 0.0, const double &t = 0.0)
 {
     teamName = name;
     offense = off;
     defense = def;
     teamAbility = t;
 }
-void teams::increasesNumberOfGames()
+QString Teams::returnTeamName()
+{
+    return teamName;
+}
+void Teams::increasesNumberOfGames()
 {
     ++gamesPlayed;
 }
-void teams::increasePointsOnWinCase()
+void Teams::increasePointsOnWinCase()
 {
     points += 3;
     ++wins;
 }
-void teams::increasePointsOnDrawCase()
+void Teams::increasePointsOnDrawCase()
 {
     ++points;
     ++draws;
 }
-void teams::increaseLooses()
+int Teams::returnNumberOfGames()
 {
-    ++looses;
+    return gamesPlayed;
 }
-void teams::calculateGoals(const int &goals, const int &goalsAgnst)
+int Teams::returnPoints()
 {
-    goalsScored += goals;
-    goalsAgainst += goalsAgnst;
-    goalDiff = goalsScored - goalsAgainst;
+    return points;
+}
+void Teams::increaseLoss()
+{
+    ++loss;
+}
+void Teams::calculateGoals(const int &goals, const int &goalsAgnst)
+{
+    goalsScoredSum += goals;
+    goalsAgainstSum += goalsAgnst;
+    goalDiff = goalsScoredSum - goalsAgainstSum;
+}
+int Teams::returnGoalDiff()
+{
+    return goalDiff;
 }
 
-bool teams::compare(const teams &a, const teams &b)
+bool Teams::compare(const Teams &a, const Teams &b)
 {
     if(a.points != b.points)
     {
@@ -63,13 +86,30 @@ bool teams::compare(const teams &a, const teams &b)
     {
         return a.goalDiff > b.goalDiff;
     }
-    else
+    else if(a.goalsScored != b.goalsScored)
     {
         return a.goalsScored > b.goalsScored;
     }
+    else if(a.goalsAway != b.goalsAway)
+    {
+        return a.goalsAway > b.goalsAway;
+    }
+    else
+    {
+        return a.goalsScoredSum > b.goalsScoredSum;
+    }
 }
 
-void teams::fillFirstFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
+void Teams::getGoalsForDirectMatchComparsion(const int &homeGoal)
+{
+    goalsScored += homeGoal;
+}
+void Teams::getAwayGoalsForDirectMatchComparsion(const int &guestGoals)
+{
+    goalsAway += guestGoals;
+}
+
+void Teams::fillFirstFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &lossImg, const QPixmap &drawImg)
 {
     QPixmap iniPixmap(64, 64);
     iniPixmap.fill(Qt::transparent);
@@ -84,10 +124,10 @@ void teams::fillFirstFormIcon(const int &homeGoal, const int &awayGoal, const QP
     }
     else if(homeGoal < awayGoal)
     {
-        iniPainter.drawPixmap(0, 0, looseImg);
+        iniPainter.drawPixmap(0, 0, lossImg);
         iniPainter.end();
         form.addPixmap(iniPixmap);
-        wldMinusFour = looseImg;
+        wldMinusFour = lossImg;
     }
     else
     {
@@ -97,7 +137,7 @@ void teams::fillFirstFormIcon(const int &homeGoal, const int &awayGoal, const QP
         wldMinusFour = drawImg;
     }
 }
-void teams::fillSecFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
+void Teams::fillSecFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &lossImg, const QPixmap &drawImg)
 {
     QPixmap secPixmap(128, 64);
     secPixmap.fill(Qt::transparent);
@@ -118,12 +158,12 @@ void teams::fillSecFormIcon(const int &homeGoal, const int &awayGoal, const QPix
     else if(homeGoal < awayGoal)
     {
         secPainter.drawPixmap(0, 0, wldMinusFour);
-        secPainter.drawPixmap(wldMinusFour.width(), 0, looseImg);
+        secPainter.drawPixmap(wldMinusFour.width(), 0, lossImg);
         secPainter.end();
 
         frm.addPixmap(secPixmap);
         form.swap(frm);
-        wldMinusThree = looseImg;
+        wldMinusThree = lossImg;
     }
     else
     {
@@ -136,7 +176,7 @@ void teams::fillSecFormIcon(const int &homeGoal, const int &awayGoal, const QPix
         wldMinusThree = drawImg;
     }
 }
-void teams::fillThirdFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
+void Teams::fillThirdFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &lossImg, const QPixmap &drawImg)
 {
     QPixmap thirdPixmap(192, 64);
     thirdPixmap.fill(Qt::transparent);
@@ -158,12 +198,12 @@ void teams::fillThirdFormIcon(const int &homeGoal, const int &awayGoal, const QP
     {
         thirdPainter.drawPixmap(0, 0, wldMinusFour);
         thirdPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
-        thirdPainter.drawPixmap(2 * winImg.width(), 0, looseImg);
+        thirdPainter.drawPixmap(2 * winImg.width(), 0, lossImg);
         thirdPainter.end();
 
         frm.addPixmap(thirdPixmap);
         form.swap(frm);
-        wldMinusTwo = looseImg;
+        wldMinusTwo = lossImg;
     }
     else
     {
@@ -177,7 +217,7 @@ void teams::fillThirdFormIcon(const int &homeGoal, const int &awayGoal, const QP
         wldMinusTwo = drawImg;
     }
 }
-void teams::fillFourthFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
+void Teams::fillFourthFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &lossImg, const QPixmap &drawImg)
 {
     QPixmap fourthPixmap(256, 64);
     fourthPixmap.fill(Qt::transparent);
@@ -201,12 +241,12 @@ void teams::fillFourthFormIcon(const int &homeGoal, const int &awayGoal, const Q
         fourthPainter.drawPixmap(0, 0, wldMinusFour);
         fourthPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
         fourthPainter.drawPixmap(2 * winImg.width(), 0, wldMinusTwo);
-        fourthPainter.drawPixmap(3 * winImg.width(), 0, looseImg);
+        fourthPainter.drawPixmap(3 * winImg.width(), 0, lossImg);
         fourthPainter.end();
 
         frm.addPixmap(fourthPixmap);
         form.swap(frm);
-        wldMinusOne = looseImg;
+        wldMinusOne = lossImg;
     }
     else
     {
@@ -221,7 +261,7 @@ void teams::fillFourthFormIcon(const int &homeGoal, const int &awayGoal, const Q
         wldMinusOne = drawImg;
     }
 }
-void teams::fillLastFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
+void Teams::fillLastFormIcon(const int &homeGoal, const int &awayGoal, const QPixmap &winImg, const QPixmap &lossImg, const QPixmap &drawImg)
 {
     QPixmap lastPixmap(320, 64);
     lastPixmap.fill(Qt::transparent);
@@ -251,7 +291,7 @@ void teams::fillLastFormIcon(const int &homeGoal, const int &awayGoal, const QPi
         lastPainter.drawPixmap(winImg.width(), 0, wldMinusThree);
         lastPainter.drawPixmap(2 * winImg.width(), 0, wldMinusTwo);
         lastPainter.drawPixmap(3 * winImg.width(), 0, wldMinusOne);
-        lastPainter.drawPixmap(4 * winImg.width(), 0, looseImg);
+        lastPainter.drawPixmap(4 * winImg.width(), 0, lossImg);
         lastPainter.end();
 
         frm.addPixmap(lastPixmap);
@@ -260,7 +300,7 @@ void teams::fillLastFormIcon(const int &homeGoal, const int &awayGoal, const QPi
         wldMinusFour = wldMinusThree;
         wldMinusThree = wldMinusTwo;
         wldMinusTwo = wldMinusOne;
-        wldMinusOne = looseImg;
+        wldMinusOne = lossImg;
     }
     else
     {
@@ -280,61 +320,66 @@ void teams::fillLastFormIcon(const int &homeGoal, const int &awayGoal, const QPi
         wldMinusOne = drawImg;
     }
 }
-void teams::setFormIcons(const int &a, const int &b, const QPixmap &winImg, const QPixmap &looseImg, const QPixmap &drawImg)
+void Teams::setFormIcons(const int &a, const int &b, const QPixmap &winImg, const QPixmap &lossImg, const QPixmap &drawImg)
 {   
     int homeGoal = a, awayGoal = b, n = gamesPlayed;
     if(n == 6)
     {
-        fillFirstFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
+        fillFirstFormIcon(homeGoal, awayGoal, winImg, lossImg, drawImg);
     }
     else if(n == 7)
     {
-        fillSecFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
+        fillSecFormIcon(homeGoal, awayGoal, winImg, lossImg, drawImg);
     }
     else if(n == 8)
     {
-        fillThirdFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
+        fillThirdFormIcon(homeGoal, awayGoal, winImg, lossImg, drawImg);
     }
     else if(n == 9)
     {
-        fillFourthFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
+        fillFourthFormIcon(homeGoal, awayGoal, winImg, lossImg, drawImg);
     }
     else if(n > 9)
     {
-        fillLastFormIcon(homeGoal, awayGoal, winImg, looseImg, drawImg);
+        fillLastFormIcon(homeGoal, awayGoal, winImg, lossImg, drawImg);
     }
 }
 
-double teams::convertOffenseValue()
+double Teams::convertOffenseValue()
 {
     double o = (5.9e-6 * pow(offense, 3) ) - (0.0012156 * pow(offense, 2) ) + (0.1299139 * offense) - 1.6529923;
     return o;
 }
-double teams::convertDefenseValue()
+double Teams::convertDefenseValue()
 {
     double d = 2.8e-8 * pow(defense, 4) - (9.612e-6 * pow(defense, 3) ) + (1.188958e-3 * pow(defense, 2) ) - (7.1786300e-2 * defense) + 2.141225096;
     //double d = -(3.5e-6 * pow(defense, 3) ) + (5.344e-4 * pow(defense, 2) ) - (0.0350429 * defense) + 1.7941399;
     //double d = 2.38393 * exp(-0.02503 * defense);
     return d;
 }
-double teams::convertTeamAbilityValue()
+double Teams::convertTeamAbilityValue()
 {
     double tav = teamAbility / 100;
     return tav;
 }
 
-void teams::output(QTableWidget *tableWidget, const int &counter)
+void Teams::output(QTableWidget &tableWidget, const int &counter)
 {
-    tableWidget -> setItem(counter, 1, new QTableWidgetItem(teamName) );
-    tableWidget -> setItem(counter, 2, new QTableWidgetItem(QVariant(points).toString() ) );
-    tableWidget -> setItem(counter, 3, new QTableWidgetItem(QVariant(goalsScored).toString() ) );
-    tableWidget -> setItem(counter, 4, new QTableWidgetItem(QVariant(goalsAgainst).toString() ) );
-    tableWidget -> setItem(counter, 5, new QTableWidgetItem(QVariant(goalDiff).toString() ) );
-    tableWidget -> setItem(counter, 6, new QTableWidgetItem(QVariant(gamesPlayed).toString() ) );
-    tableWidget -> setItem(counter, 7, new QTableWidgetItem(QVariant(wins).toString() ) );
-    tableWidget -> setItem(counter, 8, new QTableWidgetItem(QVariant(draws).toString() ) );
-    tableWidget -> setItem(counter, 9, new QTableWidgetItem(QVariant(looses).toString() ) );
-    tableWidget -> setItem(counter, 10, new QTableWidgetItem() );
-    tableWidget -> item(counter, 10) -> setIcon(form);
-    tableWidget -> setIconSize(QSize(96, 64) );
+    tableWidget.setItem(counter, 1, new QTableWidgetItem(teamName) );
+    tableWidget.setItem(counter, 2, new QTableWidgetItem(QVariant(points).toString() ) );
+    tableWidget.setItem(counter, 3, new QTableWidgetItem(QVariant(goalsScoredSum).toString() ) );
+    tableWidget.setItem(counter, 4, new QTableWidgetItem(QVariant(goalsAgainstSum).toString() ) );
+    tableWidget.setItem(counter, 5, new QTableWidgetItem(QVariant(goalDiff).toString() ) );
+    tableWidget.setItem(counter, 6, new QTableWidgetItem(QVariant(gamesPlayed).toString() ) );
+    tableWidget.setItem(counter, 7, new QTableWidgetItem(QVariant(wins).toString() ) );
+    tableWidget.setItem(counter, 8, new QTableWidgetItem(QVariant(draws).toString() ) );
+    tableWidget.setItem(counter, 9, new QTableWidgetItem(QVariant(loss).toString() ) );
+    tableWidget.setItem(counter, 10, new QTableWidgetItem() );
+    tableWidget.item(counter, 10) -> setIcon(form);
+    tableWidget.setIconSize(QSize(96, 64) );
+
+    for(int j = 2; j < tableWidget.columnCount(); ++j)
+    {
+        tableWidget.item(counter, j) -> setTextAlignment(Qt::AlignCenter);
+    }
 }

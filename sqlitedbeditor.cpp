@@ -1,3 +1,9 @@
+/*
+ * Copyright © 2020 beyer341@onlinehome.de
+ *
+ * Read the LICENSE file that comes with this project for license details.
+*/
+
 #include "sqlitedbeditor.h"
 #include "ui_sqlitedbeditor.h"
 
@@ -648,7 +654,10 @@ void SqLiteDBEditor::TblDataCurrentRowChanged()
                             "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offense AS Offense, "
                             "`nationalteams(countries)`.defense AS Defense, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
                             "INNER JOIN subcontinents ON `nationalteams(countries)`.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
-                            "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents";
+                            "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents "
+                            "WHERE subcontinents.name_subcontinent = '%1'";
+        sqlCmdShowNations = sqlCmdShowNations.arg(ui -> CmbSubContinents -> currentText() );
+        ui -> CmdNoFilterSubCont -> setText(QString("show all nations\nfrom\n%1").arg(ui -> CmbContinents -> currentText() ) );
         showNationsTable();
     }
     else if(ui -> LstTables -> currentRow() == 3)
@@ -662,7 +671,8 @@ void SqLiteDBEditor::TblDataCurrentRowChanged()
                             "leagues.name_league AS League, `nationalteams(countries)`.name_country AS Country "
                             "FROM clubs INNER JOIN leagues ON clubs.leagues_idleagues = leagues.idleagues INNER JOIN `nationalteams(countries)` ON "
                             "leagues.fifa_code = `nationalteams(countries)`.fifa_code INNER JOIN subcontinents ON leagues.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
-                            "INNER JOIN continents ON leagues.continents_idcontinents = continents.idcontinents";
+                            "INNER JOIN continents ON leagues.continents_idcontinents = continents.idcontinents WHERE leagues.name_league = '%1'";
+        sqlCmdClubTable = sqlCmdClubTable.arg(ui -> CmbLeaguesFilter -> currentText() );
         showClubTable();
         setSizeAndLookOfClubTable();
         showClubInputLayout();
@@ -678,7 +688,7 @@ void SqLiteDBEditor::TblDataCurrentRowChanged()
         showClubRivalsLayout();
     }
 }
-void SqLiteDBEditor::CmdFilterByLeaguesClicked()
+void SqLiteDBEditor::CmbLeaguesFilterCurrentIndexChanged()
 {
     sqlCmdClubTable = QString ("SELECT clubs.idclubs AS ClubId, clubs.name_club AS Club, clubs.offense, clubs.defense, clubs.teamability, "
                               "leagues.name_league AS League, `nationalteams(countries)`.name_country AS Country "
@@ -688,6 +698,7 @@ void SqLiteDBEditor::CmdFilterByLeaguesClicked()
     showClubTable();
     setSizeAndLookOfClubTable();
     ui -> CmdNoFilterClubs -> setEnabled(true);
+    ui -> LblNumberOfRows -> setText(QString("%1 Teams").arg(ui -> TblDataClubs -> model() -> rowCount() ) );
 }
 void SqLiteDBEditor::CmdNoFilterClubsClicked()
 {
@@ -699,6 +710,19 @@ void SqLiteDBEditor::CmdNoFilterClubsClicked()
     showClubTable();
     setSizeAndLookOfClubTable();
     ui -> CmdNoFilterClubs -> setDisabled(true);
+    ui -> LblNumberOfRows -> setText(QString("%1 Teams").arg(ui -> TblDataClubs -> model() -> rowCount() ) );
+}
+void SqLiteDBEditor::CmdNoFilterSubContClicked()
+{
+    sqlCmdShowNations = QString ("SELECT `nationalteams(countries)`.fifa_code AS `FIFA CODE`, `nationalteams(countries)`.name_country AS Country, "
+                        "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offense AS Offense, "
+                        "`nationalteams(countries)`.defense AS Defense, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
+                        "INNER JOIN subcontinents ON `nationalteams(countries)`.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
+                        "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents WHERE "
+                        "continents.name_continent = '%1'").arg(ui -> CmbContinents -> currentText() );
+    showNationsTable();
+    ui -> CmdNoFilterSubCont -> setDisabled(true);
+    ui -> LblNumberOfRows -> setText(QString("%1 Teams").arg(ui -> TblDataNations -> model() -> rowCount() ) );
 }
 
 void SqLiteDBEditor::hideInputLayout()
@@ -740,9 +764,6 @@ void SqLiteDBEditor::hideInputLayout()
     ui -> CmbContinents -> hide();
     ui -> CmbSubContinents -> hide();
     ui -> CmbLeaguesFilter -> hide();
-    ui -> CmdFilterCont -> hide();
-    ui -> CmdFilterSubCont -> hide();
-    ui -> CmdFilterLeagues -> hide();
     ui -> CmdNoFilterNat -> hide();
     ui -> CmdNoFilterClubs -> hide();
 }
@@ -785,9 +806,6 @@ void SqLiteDBEditor::showLeagueInputLayout()
     ui -> CmbContinents -> hide();
     ui -> CmbSubContinents -> hide();
     ui -> CmbLeaguesFilter -> hide();
-    ui -> CmdFilterCont -> hide();
-    ui -> CmdFilterSubCont -> hide();
-    ui -> CmdFilterLeagues -> hide();
     ui -> CmdNoFilterNat -> hide();
     ui -> CmdNoFilterClubs -> hide();
 }
@@ -829,7 +847,7 @@ void SqLiteDBEditor::showClubInputLayout()
 }
 void SqLiteDBEditor::showNationRivalsLayoutAndSetLook()
 {
-    ui -> TblDataNatRiv -> setColumnWidth(0, 100);
+    ui -> TblDataNatRiv -> setColumnWidth(0, 80);
     ui -> TblDataNatRiv -> setColumnWidth(1, 350);
     ui -> TblDataNatRiv -> setColumnWidth(2, 350);
     ui -> TblDataNatRiv -> setStyleSheet(styleSheetEditable);
@@ -872,11 +890,9 @@ void SqLiteDBEditor::showNationRivalsLayoutAndSetLook()
     ui -> CmbContinents -> hide();
     ui -> CmbSubContinents -> hide();
     ui -> CmbLeaguesFilter -> hide();
-    ui -> CmdFilterCont -> hide();
-    ui -> CmdFilterSubCont -> hide();
-    ui -> CmdFilterLeagues -> hide();
     ui -> CmdNoFilterNat -> hide();
     ui -> CmdNoFilterClubs -> hide();
+    ui -> CmdNoFilterSubCont -> hide();
 }
 void SqLiteDBEditor::setSizeAndLookOfClubTable()
 {
@@ -928,11 +944,9 @@ void SqLiteDBEditor::showClubRivalsLayout()
     ui -> CmbContinents -> hide();
     ui -> CmbSubContinents -> hide();
     ui -> CmbLeaguesFilter -> hide();
-    ui -> CmdFilterCont -> hide();
-    ui -> CmdFilterSubCont -> hide();
-    ui -> CmdFilterLeagues -> hide();
     ui -> CmdNoFilterNat -> hide();
     ui -> CmdNoFilterClubs -> hide();
+    ui -> CmdNoFilterSubCont -> hide();
 }
 
 void SqLiteDBEditor::showContinentTable()
@@ -950,11 +964,9 @@ void SqLiteDBEditor::showContinentTable()
     ui -> CmbContinents -> hide();
     ui -> CmbSubContinents -> hide();
     ui -> CmbLeaguesFilter -> hide();
-    ui -> CmdFilterCont -> hide();
-    ui -> CmdFilterSubCont -> hide();
-    ui -> CmdFilterLeagues -> hide();
     ui -> CmdNoFilterNat -> hide();
     ui -> CmdNoFilterClubs -> hide();
+    ui -> CmdNoFilterSubCont -> hide();
 
     sqlCommand.exec("SELECT name_continent AS Continent FROM continents");
     model -> setQuery(sqlCommand);
@@ -981,11 +993,9 @@ void SqLiteDBEditor::showSubContinentTable()
     ui -> CmbContinents -> hide();
     ui -> CmbSubContinents -> hide();
     ui -> CmbLeaguesFilter -> hide();
-    ui -> CmdFilterCont -> hide();
-    ui -> CmdFilterSubCont -> hide();
-    ui -> CmdFilterLeagues -> hide();
     ui -> CmdNoFilterNat -> hide();
     ui -> CmdNoFilterClubs -> hide();
+    ui -> CmdNoFilterSubCont -> hide();
 
     sqlCommand.exec("SELECT subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent FROM subcontinents "
                        "INNER JOIN continents ON subcontinents.continents_idcontinents = continents.idcontinents");
@@ -1015,14 +1025,13 @@ void SqLiteDBEditor::showNationsTable()
     ui -> CmdUpdate -> setEnabled(true);
 
     ui -> CmbLeaguesFilter -> hide();
-    ui -> CmdFilterLeagues -> hide();
     ui -> CmdNoFilterClubs -> hide();
 
     ui -> CmbContinents -> show();
     ui -> CmbSubContinents -> show();
-    ui -> CmdFilterCont -> show();
-    ui -> CmdFilterSubCont -> show();
     ui -> CmdNoFilterNat -> show();
+    ui -> CmdNoFilterSubCont -> show();
+    ui -> CmdNoFilterNat -> setEnabled(true);
 
     sqlCommand.exec(sqlCmdShowNations);
     model -> setQuery(sqlCommand);
@@ -1044,8 +1053,9 @@ void SqLiteDBEditor::showNationsTable()
     ui -> TblDataNations -> setColumnWidth(5, 100);
     ui -> TblDataNations -> setColumnWidth(6, 150);
     ui -> TblDataNations -> setStyleSheet(styleSheetEditable);
+    ui -> LblNumberOfRows -> setText(QString("%1 Teams").arg(ui -> TblDataNations -> model() -> rowCount() ) );
 }
-void SqLiteDBEditor::CmdFilterContClicked()
+void SqLiteDBEditor::CmbFilterContCurrentIndexChanged()
 {
     sqlCmdShowNations = QString ("SELECT `nationalteams(countries)`.fifa_code AS `FIFA CODE`, `nationalteams(countries)`.name_country AS Country, "
                         "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offense AS Offense, "
@@ -1054,9 +1064,20 @@ void SqLiteDBEditor::CmdFilterContClicked()
                         "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents WHERE "
                         "continents.name_continent = '%1'").arg(ui -> CmbContinents -> currentText() );
     showNationsTable();
+    sqlCmd.exec(QString("SELECT name_subcontinent FROM subcontinents WHERE continents_idcontinents = "
+                        "(SELECT idcontinents FROM continents WHERE name_continent = '%1')").arg(ui -> CmbContinents -> currentText() ) );
+    ui -> CmbSubContinents -> clear();
+    while(sqlCmd.next() )
+    {
+        QString nameOfSubCont = sqlCmd.value(0).toString();
+        ui -> CmbSubContinents -> addItem(nameOfSubCont);
+    }
     ui -> CmdNoFilterNat -> setEnabled(true);
+    ui -> CmdNoFilterSubCont -> setEnabled(true);
+    ui -> CmdNoFilterSubCont -> setText(QString("show all nations\nfrom\n%1").arg(ui -> CmbContinents -> currentText() ) );
+    ui -> LblNumberOfRows -> setText(QString("%1 Teams").arg(ui -> TblDataNations -> model() -> rowCount() ) );
 }
-void SqLiteDBEditor::CmdFilterSubContClicked()
+void SqLiteDBEditor::CmbFilterSubContCurrentIndexChanged()
 {
     sqlCmdShowNations = QString ("SELECT `nationalteams(countries)`.fifa_code AS `FIFA CODE`, `nationalteams(countries)`.name_country AS Country, "
                                  "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offense AS Offense, "
@@ -1065,18 +1086,22 @@ void SqLiteDBEditor::CmdFilterSubContClicked()
                                  "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents WHERE "
                                  "subcontinents.name_subcontinent = '%1'").arg(ui -> CmbSubContinents -> currentText() );
     showNationsTable();
-    ui -> CmdNoFilterNat -> setEnabled(true);
+    ui -> CmdNoFilterSubCont -> setEnabled(true);
+    ui -> LblNumberOfRows -> setText(QString("%1 Teams").arg(ui -> TblDataNations -> model() -> rowCount() ) );
 }
 void SqLiteDBEditor::CmdNoFilterNatClicked()
 {
     sqlCmdShowNations = "SELECT `nationalteams(countries)`.fifa_code AS `FIFA CODE`, `nationalteams(countries)`.name_country AS Country, "
-                        "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offense AS Offense, "
-                        "`nationalteams(countries)`.defense AS Defense, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
-                        "INNER JOIN subcontinents ON `nationalteams(countries)`.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
-                        "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents";
+                                "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offense AS Offense, "
+                                "`nationalteams(countries)`.defense AS Defense, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
+                                "INNER JOIN subcontinents ON `nationalteams(countries)`.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
+                                "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents ";
     showNationsTable();
     ui -> CmdNoFilterNat -> setDisabled(true);
+    ui -> CmdNoFilterSubCont -> setEnabled(true);
+    ui -> LblNumberOfRows -> setText(QString("%1 Teams").arg(ui -> TblDataNations -> model() -> rowCount() ) );
 }
+
 void SqLiteDBEditor::nationTableCastToSpinBox()
 {
     for(int i = 0; i < model -> rowCount(); ++i)
@@ -1128,11 +1153,9 @@ void SqLiteDBEditor::showLeagueTable()
     ui -> CmbContinents -> hide();
     ui -> CmbSubContinents -> hide();
     ui -> CmbLeaguesFilter -> hide();
-    ui -> CmdFilterCont -> hide();
-    ui -> CmdFilterSubCont -> hide();
-    ui -> CmdFilterLeagues -> hide();
     ui -> CmdNoFilterNat -> hide();
     ui -> CmdNoFilterClubs -> hide();
+    ui -> CmdNoFilterSubCont -> hide();
 
     sqlCommand.exec("SELECT leagues.idleagues AS LeagueID, leagues.name_league AS League, `nationalteams(countries)`.name_country AS Country "
                         "FROM leagues INNER JOIN `nationalteams(countries)` ON leagues.fifa_code = `nationalteams(countries)`.fifa_code");
@@ -1174,13 +1197,12 @@ void SqLiteDBEditor::showClubTable()
 
     ui -> CmbContinents -> hide();
     ui -> CmbSubContinents -> hide();
-    ui -> CmdFilterCont -> hide();
-    ui -> CmdFilterSubCont -> hide();
     ui -> CmdNoFilterNat -> hide();
+    ui -> CmdNoFilterSubCont -> hide();
 
     ui -> CmbLeaguesFilter -> show();
-    ui -> CmdFilterLeagues -> show();
     ui -> CmdNoFilterClubs -> show();
+    ui -> CmdNoFilterClubs -> setEnabled(true);
 
     sqlCommand.exec(sqlCmdClubTable);
     model -> setQuery(sqlCommand);
@@ -1253,6 +1275,7 @@ void SqLiteDBEditor::showClubTable()
     connect(qobject_cast<QComboBox*> (ui -> TblAddNewClubs -> cellWidget(0, 4) ), SIGNAL(currentIndexChanged(int) ), SLOT(CmbLgTblAddNewClubCurrentIndexChanged() ) );
     connect(qobject_cast<QLineEdit*> (ui -> TblAddNewClubs -> cellWidget(0, 0) ), SIGNAL(returnPressed() ), SLOT(TblAddNewClubInsertRow() ) );
     connect(qobject_cast<QLineEdit*> (ui -> TblAddNewClubs -> cellWidget(0, 0) ), SIGNAL(textChanged(QString) ), SLOT(EdtClubNameTextChanged() ) );
+    ui -> LblNumberOfRows -> setText(QString("%1 Teams").arg(ui -> TblDataClubs -> model() -> rowCount() ) );
 }
 void SqLiteDBEditor::showNationRivalsTable()
 {
@@ -1363,7 +1386,7 @@ void SqLiteDBEditor::showClubRivalsTable()
     }
     crMdl -> setDynamicSortFilter(true);
 
-    ui -> TblDataRivClub -> setColumnWidth(0, 100);
+    ui -> TblDataRivClub -> setColumnWidth(0, 80);
     ui -> TblDataRivClub -> setColumnWidth(1, 250);
     ui -> TblDataRivClub -> setColumnWidth(2, 250);
     ui -> TblDataRivClub -> setStyleSheet(styleSheetEditable);
@@ -1401,7 +1424,7 @@ void SqLiteDBEditor::displayClubs()
 }
 
 //search
-void SqLiteDBEditor::on_EdtSearch_textChanged()
+void SqLiteDBEditor::EdtSearchTextChanged()
 {
     ui -> CmbCountry -> clear();
 
@@ -1452,7 +1475,6 @@ void SqLiteDBEditor::EdtClubNameTextChanged()
 //save data("insert into...")
 void SqLiteDBEditor::CmdSaveClicked()
 {
-    qDebug() << ui -> TblAddNewClubs -> rowCount();
     if(ui -> LstTables -> currentRow() == 3)
     {
         QMessageBox::StandardButton reply = QMessageBox::question(this, "Save?", "Do you want to save your data?",
@@ -1788,7 +1810,8 @@ void SqLiteDBEditor::fillFilterComboBoxes()
         ui -> CmbContinents -> addItem(disp);
     }
 
-    sqlCmd.exec("SELECT name_subcontinent FROM subcontinents");
+    sqlCmd.exec(QString("SELECT name_subcontinent FROM subcontinents WHERE continents_idcontinents = "
+                        "(SELECT idcontinents FROM continents WHERE name_continent = '%1')").arg(ui -> CmbContinents -> currentText() ) );
     ui -> CmbSubContinents -> clear();
     while(sqlCmd.next() )
     {
@@ -1929,12 +1952,10 @@ SqLiteDBEditor::SqLiteDBEditor() : QDialog(), ui(new Ui::SqLiteDBEditor)
     ui -> CmbContinents -> hide();
     ui -> CmbSubContinents -> hide();
     ui -> CmbLeaguesFilter -> hide();
-    ui -> CmdFilterCont -> hide();
-    ui -> CmdFilterSubCont -> hide();
-    ui -> CmdFilterLeagues -> hide();
+    ui -> CmdNoFilterSubCont -> hide();
     ui -> CmdNoFilterNat -> hide();
     ui -> CmdNoFilterClubs -> hide();
-    ui -> CmdNoFilterClubs -> setDisabled(true);
+    ui -> CmdNoFilterClubs -> setEnabled(true);
     ui -> CmdNoFilterNat -> setDisabled(true);
 
     //___________________________________________
@@ -1966,7 +1987,7 @@ SqLiteDBEditor::SqLiteDBEditor() : QDialog(), ui(new Ui::SqLiteDBEditor)
                                    "border-bottom: 3px transparent; "
                                    "border-right: 10px transparent; "
                                    "border-left: 10px transparent } "
-                                   "QPushButton:pressed { border-image: url(:/miscRsc/misc_icons/filesave_128x128_pressed.png) 2 9 2 9; "
+                                   "QPushButton:pressed { border-image: url(:/miscRsc/misc_icons/filesave_128x128_pressed) 2 9 2 9; "
                                    "border-top: 2px transparent; "
                                    "border-bottom: 2px transparent; "
                                    "border-right: 9px transparent; "
@@ -1982,7 +2003,7 @@ SqLiteDBEditor::SqLiteDBEditor() : QDialog(), ui(new Ui::SqLiteDBEditor)
                                          "border-bottom: 3px transparent; "
                                          "border-right: 10px transparent; "
                                          "border-left: 10px transparent } "
-                                         "QPushButton:pressed { border-image: url(:/miscRsc/misc_icons/filesave_128x128_pressed.png) 2 9 2 9; "
+                                         "QPushButton:pressed { border-image: url(:/miscRsc/misc_icons/filesave_128x128_pressed) 2 9 2 9; "
                                          "border-top: 2px transparent; "
                                          "border-bottom: 2px transparent; "
                                          "border-right: 9px transparent; "
@@ -1992,29 +2013,29 @@ SqLiteDBEditor::SqLiteDBEditor() : QDialog(), ui(new Ui::SqLiteDBEditor)
                                             "background: dimgrey }");
     ui -> CmdNoFilterNat -> setStyleSheet(" :disabled { color: grey; "
                                             "background: dimgrey }");
+    ui -> CmdNoFilterSubCont -> setStyleSheet(" :disabled { color: grey; "
+                                              "background: dimgrey }");
 
     ui -> LstTables -> setStyleSheet("QListView::item:selected:active { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 lightskyblue, stop: 1 blue) } "
                                      "QListView::item:hover { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 gainsboro, stop: 1 grey) } "
                                      "QListWidget { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 khaki, stop: 0.5 gold, stop: 1 lightsalmon); "
                                      "color: blue }");
 
-    connect(ui -> EdtSearch, SIGNAL(textChanged(QString) ), SLOT(on_EdtSearch_textChanged() ) );
+    connect(ui -> EdtSearch, SIGNAL(textChanged(QString) ), SLOT(EdtSearchTextChanged() ) );
     connect(ui -> LstTables, SIGNAL(currentRowChanged(int) ), SLOT(TblDataCurrentRowChanged() ) );
     connect(ui -> CmbCountry, SIGNAL(currentIndexChanged(int) ), SLOT(CmbCountryCurrentIndexChanged() ) );
 
-    //connect(qobject_cast<QComboBox*> (ui -> TblAddNewClubs -> cellWidget(0, 4) ), SIGNAL(currentIndexChanged(int) ), SLOT(CmbLgTblAddNewClubCurrentIndexChanged() ) );
-
     connect(ui -> EdtLeagueName, SIGNAL(textChanged(QString) ), SLOT(EdtLeagueNameTextChanged() ) );
-    //connect(qobject_cast<QLineEdit*> (ui -> TblAddNewClubs -> cellWidget(0, 0) ), SIGNAL(textChanged(QString) ), SLOT(EdtClubNameTextChanged() ) );
 
     connect(ui -> CmdSave, SIGNAL(clicked() ), SLOT(CmdSaveClicked() ) );
     connect(ui -> CmdSaveRivals, SIGNAL(clicked() ), SLOT(CmdSaveRivalsClicked() ) );
     connect(ui -> CmdUpdate, SIGNAL(clicked() ), SLOT(CmdUpdateClicked() ) );
-    connect(ui -> CmdFilterLeagues, SIGNAL(clicked() ), SLOT(CmdFilterByLeaguesClicked() ) );
+    connect(ui -> CmbLeaguesFilter, SIGNAL(currentIndexChanged(int) ), SLOT(CmbLeaguesFilterCurrentIndexChanged() ) );
     connect(ui -> CmdNoFilterClubs, SIGNAL(clicked() ), SLOT(CmdNoFilterClubsClicked() ) );
-    connect(ui -> CmdFilterCont, SIGNAL(clicked() ), SLOT(CmdFilterContClicked() ) );
+    connect(ui -> CmdNoFilterSubCont, SIGNAL(clicked() ), SLOT(CmdNoFilterSubContClicked() ) );
     connect(ui -> CmdNoFilterNat, SIGNAL(clicked() ), SLOT(CmdNoFilterNatClicked() ) );
-    connect(ui -> CmdFilterSubCont, SIGNAL(clicked() ), SLOT(CmdFilterSubContClicked() ) );
+    connect(ui -> CmbContinents, SIGNAL(currentIndexChanged(int) ), SLOT(CmbFilterContCurrentIndexChanged() ) );
+    connect(ui -> CmbSubContinents, SIGNAL(currentIndexChanged(int) ), SLOT(CmbFilterSubContCurrentIndexChanged() ) );
 
     connect(ui -> CmbLeaguesForAll, SIGNAL(currentIndexChanged(int) ), SLOT(CmbLeaguesForAllCurrentIndexChanged() ) );
 
@@ -2027,8 +2048,6 @@ SqLiteDBEditor::SqLiteDBEditor() : QDialog(), ui(new Ui::SqLiteDBEditor)
     connect(delC, SIGNAL(activated() ), SLOT(TblRowDelete() ) );
     connect(delNatRiv, SIGNAL(activated() ), SLOT(TblRowDelete() ) );
     connect(delClubRiv, SIGNAL(activated() ), SLOT(TblRowDelete() ) );
-
-    //connect(qobject_cast<QLineEdit*> (ui -> TblAddNewClubs -> cellWidget(0, 0) ), SIGNAL(returnPressed() ), SLOT(TblAddNewClubInsertRow() ) );
 
     connect(ui -> TblDataNations, SIGNAL(clicked(QModelIndex) ), SLOT(TblRowClicked(QModelIndex) ) );
     connect(ui -> TblDataLeagues, SIGNAL(clicked(QModelIndex) ), SLOT(TblRowClicked(QModelIndex) ) );

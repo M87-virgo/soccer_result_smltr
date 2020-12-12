@@ -18,7 +18,7 @@
     <rect>
      <x>270</x>
      <y>50</y>
-     <width>805</width>
+     <width>810</width>
      <height>481</height>
     </rect>
    </property>
@@ -59,7 +59,7 @@
     <rect>
      <x>270</x>
      <y>50</y>
-     <width>605</width>
+     <width>610</width>
      <height>481</height>
     </rect>
    </property>
@@ -1053,42 +1053,13 @@ font: 75 10pt &quot;Georgia&quot;;</string>
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="CmdFilterCont">
-   <property name="geometry">
-    <rect>
-     <x>1560</x>
-     <y>90</y>
-     <width>131</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Verdana</family>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="text">
-    <string>filter by 
-continents</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="CmdFilterSubCont">
+  <widget class="QPushButton" name="CmdNoFilterSubCont">
    <property name="geometry">
     <rect>
      <x>1560</x>
      <y>220</y>
      <width>181</width>
-     <height>61</height>
+     <height>91</height>
     </rect>
    </property>
    <property name="font">
@@ -1110,8 +1081,9 @@ continents</string>
     <string notr="true"/>
    </property>
    <property name="text">
-    <string>filter by 
-sub-continents</string>
+    <string>show all nations
+from continent
+</string>
    </property>
   </widget>
   <widget class="QComboBox" name="CmbContinents">
@@ -1216,39 +1188,10 @@ font: 75 10pt &quot;Georgia&quot;;</string>
     <number>20</number>
    </property>
   </widget>
-  <widget class="QPushButton" name="CmdFilterLeagues">
-   <property name="geometry">
-    <rect>
-     <x>1560</x>
-     <y>90</y>
-     <width>121</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Verdana</family>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="text">
-    <string>filter by
- leagues</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="CmdNoFilterClubs">
    <property name="geometry">
     <rect>
-     <x>1720</x>
+     <x>1560</x>
      <y>90</y>
      <width>121</width>
      <height>61</height>
@@ -1277,7 +1220,7 @@ clubs</string>
   <widget class="QPushButton" name="CmdNoFilterNat">
    <property name="geometry">
     <rect>
-     <x>1720</x>
+     <x>1560</x>
      <y>90</y>
      <width>121</width>
      <height>61</height>
@@ -1337,6 +1280,26 @@ font: 75 10pt &quot;Georgia&quot;;</string>
     <number>20</number>
    </property>
   </widget>
+  <widget class="QLabel" name="LblNumberOfRows">
+   <property name="geometry">
+    <rect>
+     <x>1570</x>
+     <y>340</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
   <zorder>TblAddNewClubs</zorder>
   <zorder>LblClubTeam</zorder>
   <zorder>LblSubCon</zorder>
@@ -1377,15 +1340,14 @@ font: 75 10pt &quot;Georgia&quot;;</string>
   <zorder>TblDataLeagues</zorder>
   <zorder>CmdUpdate</zorder>
   <zorder>LblAddClub</zorder>
-  <zorder>CmdFilterCont</zorder>
-  <zorder>CmdFilterSubCont</zorder>
+  <zorder>CmdNoFilterSubCont</zorder>
   <zorder>CmbContinents</zorder>
   <zorder>CmbSubContinents</zorder>
   <zorder>CmbLeaguesFilter</zorder>
-  <zorder>CmdFilterLeagues</zorder>
   <zorder>CmdNoFilterClubs</zorder>
   <zorder>CmdNoFilterNat</zorder>
   <zorder>CmbLeaguesForAll</zorder>
+  <zorder>LblNumberOfRows</zorder>
  </widget>
  <resources/>
  <connections>

@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Soccer Result Simulater 1.0.3</string>
+   <string>Soccer Result Simulater 1.1.5</string>
   </property>
   <property name="locale">
    <locale language="English" country="Germany"/>
@@ -51,7 +51,7 @@
      <string>Nationalteams</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="CmdBeenden">
+   <widget class="QPushButton" name="CmdClose">
     <property name="geometry">
      <rect>
       <x>1750</x>
@@ -323,142 +323,6 @@
      <enum>QAbstractItemView::MultiSelection</enum>
     </property>
    </widget>
-   <widget class="QWidget" name="FormLayoutLegend" native="true">
-    <property name="geometry">
-     <rect>
-      <x>1640</x>
-      <y>170</y>
-      <width>221</width>
-      <height>251</height>
-     </rect>
-    </property>
-    <layout class="QFormLayout" name="formLayoutLegend">
-     <item row="5" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>P</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Points</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>G</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QLabel" name="label_10">
-       <property name="text">
-        <string>Goals</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>GA</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QLabel" name="label_11">
-       <property name="text">
-        <string>Goal Against</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>GD</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QLabel" name="label_12">
-       <property name="text">
-        <string>Goal Difference</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>GP</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QLabel" name="label_13">
-       <property name="text">
-        <string>Games Played</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>W</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="1">
-      <widget class="QLabel" name="label_14">
-       <property name="text">
-        <string>Win</string>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>L</string>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="1">
-      <widget class="QLabel" name="label_16">
-       <property name="text">
-        <string>Loose</string>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="0">
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>D</string>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="1">
-      <widget class="QLabel" name="label_15">
-       <property name="text">
-        <string>Draw</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="LblLegend">
-       <property name="font">
-        <font>
-         <underline>true</underline>
-        </font>
-       </property>
-       <property name="text">
-        <string>LEGEND</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
@@ -590,147 +454,16 @@ from right list</string>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="LayoutResultTables" native="true">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>430</y>
-      <width>1848</width>
-      <height>460</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="GrdLayoutResultTables">
-     <item row="0" column="1">
-      <widget class="QLabel" name="LblEndTable">
-       <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
-       </property>
-       <property name="text">
-        <string>Result Table</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="LblMatchScedule">
-       <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
-       </property>
-       <property name="text">
-        <string>Match-Schedule</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QTableWidget" name="TblResults">
-       <property name="minimumSize">
-        <size>
-         <width>705</width>
-         <height>390</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>705</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="QPushButton" name="CmdBack">
-       <property name="minimumSize">
-        <size>
-         <width>101</width>
-         <height>41</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>110</width>
-         <height>45</height>
-        </size>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click back to show the results and table from the previous matchday&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="text">
-        <string>Back</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
-      <widget class="QPushButton" name="CmdContinue">
-       <property name="minimumSize">
-        <size>
-         <width>101</width>
-         <height>41</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>110</width>
-         <height>45</height>
-        </size>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click continue to show the results and table from the next matchday&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="text">
-        <string>Continue</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1" colspan="4">
-      <widget class="QTableWidget" name="TblTable">
-       <property name="minimumSize">
-        <size>
-         <width>1118</width>
-         <height>390</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>1118</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QWidget" name="LayoutSetRounds" native="true">
     <property name="geometry">
      <rect>
       <x>1260</x>
       <y>40</y>
-      <width>231</width>
-      <height>321</height>
+      <width>221</width>
+      <height>391</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout_2">
-     <item row="4" column="0">
-      <widget class="QPushButton" name="CmdAddRandomTeams">
-       <property name="minimumSize">
-        <size>
-         <width>91</width>
-         <height>51</height>
-        </size>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click here to simulate the results of the participating teams. The closing table will be shown&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="text">
-        <string>Add
-random teams</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="QLabel" name="LblRounds">
        <property name="styleSheet">
@@ -762,7 +495,7 @@ random teams</string>
         <number>1</number>
        </property>
        <property name="maximum">
-        <number>8</number>
+        <number>16</number>
        </property>
       </widget>
      </item>
@@ -783,17 +516,7 @@ Results</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="LblNumberOfTeams">
-       <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
-       </property>
-       <property name="text">
-        <string>Number of Teams</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
+     <item row="8" column="0">
       <widget class="QSpinBox" name="SpbNumberOfTeams">
        <property name="minimumSize">
         <size>
@@ -808,13 +531,63 @@ Results</string>
         </size>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Determine the number of rounds. It means rounds of matches and re-matches. For example if you choose 3, you got matches 1; re-matches 1; matches 2. Max is 8. So, 4 rounds of matches and 4 rounds of re-matches, alternately&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Determine the number of teams to be generated randomly&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="minimum">
         <number>2</number>
        </property>
        <property name="maximum">
         <number>500</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="CmdFirstDay">
+       <property name="minimumSize">
+        <size>
+         <width>91</width>
+         <height>51</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click continue to show the results and table from the next matchday&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Simulate first
+Match-Day</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="LblNumberOfTeams">
+       <property name="styleSheet">
+        <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Number of Teams</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QPushButton" name="CmdAddRandomTeams">
+       <property name="minimumSize">
+        <size>
+         <width>91</width>
+         <height>51</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click here to simulate the results of the participating teams. The closing table will be shown&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Add
+random teams</string>
        </property>
       </widget>
      </item>
@@ -836,6 +609,7 @@ Results</string>
     </property>
     <addaction name="actionOpenFile"/>
     <addaction name="actionSaveTeamList"/>
+    <addaction name="actionSaveMatchResults"/>
     <addaction name="actionDB_Editor"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
@@ -855,6 +629,7 @@ Results</string>
    </attribute>
    <addaction name="actionOpenFile"/>
    <addaction name="actionSaveTeamList"/>
+   <addaction name="actionSaveMatchResults"/>
    <addaction name="actionDB_Editor"/>
    <addaction name="separator"/>
    <addaction name="actionAbout"/>
@@ -862,10 +637,13 @@ Results</string>
   <action name="actionDB_Editor">
    <property name="icon">
     <iconset resource="misc.qrc">
-     <normaloff>:/miscRsc/misc_icons/mysql.png</normaloff>:/miscRsc/misc_icons/mysql.png</iconset>
+     <normaloff>:/miscRsc/misc_icons/dbIcon.png</normaloff>:/miscRsc/misc_icons/dbIcon.png</iconset>
    </property>
    <property name="text">
     <string>DB Editor</string>
+   </property>
+   <property name="toolTip">
+    <string>Execute DB Editor</string>
    </property>
   </action>
   <action name="actionAbout">
@@ -886,6 +664,9 @@ Results</string>
    <property name="text">
     <string>Open File</string>
    </property>
+   <property name="toolTip">
+    <string>Open Database File or List File</string>
+   </property>
   </action>
   <action name="actionSaveTeamList">
    <property name="icon">
@@ -896,13 +677,22 @@ Results</string>
     <string>Save Team List</string>
    </property>
   </action>
+  <action name="actionSaveMatchResults">
+   <property name="icon">
+    <iconset resource="misc.qrc">
+     <normaloff>:/miscRsc/misc_icons/saveMatchResults.png</normaloff>:/miscRsc/misc_icons/saveMatchResults.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save Match Results</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="misc.qrc"/>
  </resources>
  <connections>
   <connection>
-   <sender>CmdBeenden</sender>
+   <sender>CmdClose</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
@@ -914,54 +704,6 @@ Results</string>
     <hint type="destinationlabel">
      <x>1283</x>
      <y>953</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>LstSelectedTeams</sender>
-   <signal>itemChanged(QListWidgetItem*)</signal>
-   <receiver>LayoutResultTables</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1189</x>
-     <y>367</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1310</x>
-     <y>492</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>CmdUndoSelectedTeam</sender>
-   <signal>clicked()</signal>
-   <receiver>LayoutResultTables</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>861</x>
-     <y>164</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1277</x>
-     <y>504</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>CmdTeamSelection</sender>
-   <signal>clicked()</signal>
-   <receiver>LayoutResultTables</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>908</x>
-     <y>110</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1334</x>
-     <y>499</y>
     </hint>
    </hints>
   </connection>

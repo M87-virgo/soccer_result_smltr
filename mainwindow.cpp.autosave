@@ -759,6 +759,7 @@ void MainWindow::CmdAddRandomTeamsClicked()
     {
         sqlCmd.exec("SELECT name_club FROM clubs");
     }
+    
     QStringList partTeams;
     QStringList withoutDuplicates;
     while(sqlCmd.next() )

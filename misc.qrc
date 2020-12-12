@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/miscRsc">
-        <file>misc_icons/mysql.png</file>
         <file>misc_icons/filesave.png</file>
         <file>misc_icons/filesave_128x128.png</file>
         <file>misc_icons/icon_Qt_78x78px.png</file>
@@ -10,10 +9,20 @@
         <file>misc_icons/filesave_128x128_disabled.png</file>
         <file>misc_icons/button_disabled.png</file>
         <file>misc_icons/draw.jpg</file>
-        <file>misc_icons/loose.jpg</file>
         <file>misc_icons/win.jpg</file>
         <file>misc_icons/open_file.png</file>
         <file>misc_icons/saveTxt.png</file>
         <file>misc_icons/appIcon.ico</file>
+        <file>misc_icons/dbIcon.png</file>
+        <file>misc_icons/loss.jpg</file>
+        <file>misc_icons/saveMatchResults.png</file>
+        <file>misc_icons/arrow-back.png</file>
+        <file>misc_icons/arrow-continue.png</file>
+        <file>misc_icons/arrow-back-disabled.png</file>
+        <file>misc_icons/arrow-continue-disabled.png</file>
+        <file>misc_icons/arrow-back-hover.png</file>
+        <file>misc_icons/arrow-continue-hover.png</file>
+        <file>misc_icons/arrow-back-pressed.png</file>
+        <file>misc_icons/arrow-continue-pressed.png</file>
     </qresource>
 </RCC>

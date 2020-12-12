@@ -48,18 +48,3 @@ RC_ICONS = appIcon.ico
 RESOURCES += \
     misc.qrc \
     rsc.qrc
-
-DISTFILES += \
-    misc_icons/World_Map.png \
-    misc_icons/button.png \
-    misc_icons/button_disabled.png \
-    misc_icons/button_pressed.png \
-    misc_icons/draw.jpg \
-    misc_icons/filesave.png \
-    misc_icons/filesave_128x128.png \
-    misc_icons/filesave_128x128_disabled.png \
-    misc_icons/filesave_128x128_pressed.png \
-    misc_icons/icon_Qt_78x78px.png \
-    misc_icons/loose.jpg \
-    misc_icons/mysql.png \
-    misc_icons/win.jpg

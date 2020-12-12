@@ -1,3 +1,9 @@
+/*
+ * Copyright © 2020 beyer341@onlinehome.de
+ *
+ * Read the LICENSE file that comes with this project for license details.
+*/
+
 #ifndef SQLITEDBEDITOR_H
 #define SQLITEDBEDITOR_H
 
@@ -96,12 +102,13 @@ private slots:
     void TblRowClicked(const QModelIndex &index);
     void TblRowDelete();
     void CmdUpdateClicked();
-    void on_EdtSearch_textChanged();
-    void CmdFilterByLeaguesClicked();
+    void EdtSearchTextChanged();
+    void CmbLeaguesFilterCurrentIndexChanged();
     void CmdNoFilterClubsClicked();
-    void CmdFilterContClicked();
-    void CmdFilterSubContClicked();
+    void CmbFilterContCurrentIndexChanged();
+    void CmbFilterSubContCurrentIndexChanged();
     void CmdNoFilterNatClicked();
+    void CmdNoFilterSubContClicked();
     void CmbLeaguesForAllCurrentIndexChanged();
 };
 

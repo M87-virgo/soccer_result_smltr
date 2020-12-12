@@ -1,3 +1,9 @@
+/*
+ * Copyright © 2020 beyer341@onlinehome.de
+ *
+ * Read the LICENSE file that comes with this project for license details.
+*/
+
 #include "mainwindow.h"
 
 #include <QApplication>
