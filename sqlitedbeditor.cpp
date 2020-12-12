@@ -210,7 +210,7 @@ QString SqLiteDBEditor::editStringFromNations(QString singleEditString, QString 
         if(qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 4) ) ) -> text() !=  ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 4) ).toString() )
         {
             nation = ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 1) ).toString();
-            singleEditString = QString("Offense Value from %1: ").arg(nation)
+            singleEditString = QString("Offensive Value from %1: ").arg(nation)
                  + ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 4) ).toString()
                  + " --> "
                  + qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 4) ) ) -> text()
@@ -221,7 +221,7 @@ QString SqLiteDBEditor::editStringFromNations(QString singleEditString, QString 
         if(qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 5) ) ) -> text() !=  ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 5) ).toString() )
         {
             nation = ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 1) ).toString();
-            singleEditString = QString("Defense Value from %1: ").arg(nation)
+            singleEditString = QString("Defensive Value from %1: ").arg(nation)
                  + ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 5) ).toString()
                  + " --> "
                  + qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 5) ) ) -> text()
@@ -264,7 +264,7 @@ void SqLiteDBEditor::tblNationsUpdate()
                 {
                     int off = qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 4) ) ) -> value();
 
-                    sqlCommand.prepare("UPDATE `nationalteams(countries)` SET offense = ? WHERE fifa_code = ? ");
+                    sqlCommand.prepare("UPDATE `nationalteams(countries)` SET offensive = ? WHERE fifa_code = ? ");
                     sqlCommand.addBindValue(off);
                     sqlCommand.addBindValue(ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 0) ).toString() );
                     sqlCommand.exec();
@@ -273,7 +273,7 @@ void SqLiteDBEditor::tblNationsUpdate()
                 {
                     int def = qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 5) ) ) -> value();
 
-                    sqlCommand.prepare("UPDATE `nationalteams(countries)` SET defense = ? WHERE fifa_code = ? ");
+                    sqlCommand.prepare("UPDATE `nationalteams(countries)` SET defensive = ? WHERE fifa_code = ? ");
                     sqlCommand.addBindValue(def);
                     sqlCommand.addBindValue(ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 0) ).toString() );
                     sqlCommand.exec();
@@ -360,7 +360,7 @@ QString SqLiteDBEditor::editStringFromClubs(QString singleEditString, QString cl
         if(qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 2) ) ) -> text() !=  ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 2) ).toString() )
         {
             clubName = qobject_cast<QLineEdit*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 1) ) ) -> text();
-            singleEditString = QString("Offense Value from %1: ").arg(clubName)
+            singleEditString = QString("Offensive Value from %1: ").arg(clubName)
                  + ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 2) ).toString()
                  + " --> "
                  + qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 2) ) ) -> text()
@@ -371,7 +371,7 @@ QString SqLiteDBEditor::editStringFromClubs(QString singleEditString, QString cl
         if(qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 3) ) ) -> text() !=  ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 3) ).toString() )
         {
             clubName = qobject_cast<QLineEdit*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 1) ) ) -> text();
-            singleEditString = QString("Defense Value from %1: ").arg(clubName)
+            singleEditString = QString("Defensive Value from %1: ").arg(clubName)
                  + ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 3) ).toString()
                  + " --> "
                  + qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 3) ) ) -> text()
@@ -434,7 +434,7 @@ void SqLiteDBEditor::tblClubsUpdate()
                 {
                     int off = qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 2) ) ) -> value();
 
-                    sqlCommand.prepare("UPDATE clubs SET offense = ? WHERE idclubs = ? ");
+                    sqlCommand.prepare("UPDATE clubs SET offensive = ? WHERE idclubs = ? ");
                     sqlCommand.addBindValue(off);
                     sqlCommand.addBindValue(ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 0) ).toInt() );
                     sqlCommand.exec();
@@ -443,7 +443,7 @@ void SqLiteDBEditor::tblClubsUpdate()
                 {
                     int def = qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 3) ) ) -> value();
 
-                    sqlCommand.prepare("UPDATE clubs SET defense = ? WHERE idclubs = ? ");
+                    sqlCommand.prepare("UPDATE clubs SET defensive = ? WHERE idclubs = ? ");
                     sqlCommand.addBindValue(def);
                     sqlCommand.addBindValue(ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 0) ).toInt() );
                     sqlCommand.exec();
@@ -651,8 +651,8 @@ void SqLiteDBEditor::TblDataCurrentRowChanged()
     else if(ui -> LstTables -> currentRow() == 2)
     {   
         sqlCmdShowNations = "SELECT `nationalteams(countries)`.fifa_code AS `FIFA CODE`, `nationalteams(countries)`.name_country AS Country, "
-                            "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offense AS Offense, "
-                            "`nationalteams(countries)`.defense AS Defense, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
+                            "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offensive AS Offensive, "
+                            "`nationalteams(countries)`.defensive AS Defensive, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
                             "INNER JOIN subcontinents ON `nationalteams(countries)`.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
                             "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents "
                             "WHERE subcontinents.name_subcontinent = '%1'";
@@ -667,7 +667,7 @@ void SqLiteDBEditor::TblDataCurrentRowChanged()
     }
     else if(ui -> LstTables -> currentRow() == 4)
     {
-        sqlCmdClubTable = "SELECT clubs.idclubs AS ClubId, clubs.name_club AS Club, clubs.offense, clubs.defense, clubs.teamability, "
+        sqlCmdClubTable = "SELECT clubs.idclubs AS ClubId, clubs.name_club AS Club, clubs.offensive, clubs.defensive, clubs.teamability, "
                             "leagues.name_league AS League, `nationalteams(countries)`.name_country AS Country "
                             "FROM clubs INNER JOIN leagues ON clubs.leagues_idleagues = leagues.idleagues INNER JOIN `nationalteams(countries)` ON "
                             "leagues.fifa_code = `nationalteams(countries)`.fifa_code INNER JOIN subcontinents ON leagues.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
@@ -690,7 +690,7 @@ void SqLiteDBEditor::TblDataCurrentRowChanged()
 }
 void SqLiteDBEditor::CmbLeaguesFilterCurrentIndexChanged()
 {
-    sqlCmdClubTable = QString ("SELECT clubs.idclubs AS ClubId, clubs.name_club AS Club, clubs.offense, clubs.defense, clubs.teamability, "
+    sqlCmdClubTable = QString ("SELECT clubs.idclubs AS ClubId, clubs.name_club AS Club, clubs.offensive, clubs.defensive, clubs.teamability, "
                               "leagues.name_league AS League, `nationalteams(countries)`.name_country AS Country "
                               "FROM clubs INNER JOIN leagues ON clubs.leagues_idleagues = leagues.idleagues INNER JOIN `nationalteams(countries)` ON "
                               "leagues.fifa_code = `nationalteams(countries)`.fifa_code INNER JOIN subcontinents ON leagues.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
@@ -702,7 +702,7 @@ void SqLiteDBEditor::CmbLeaguesFilterCurrentIndexChanged()
 }
 void SqLiteDBEditor::CmdNoFilterClubsClicked()
 {
-    sqlCmdClubTable = "SELECT clubs.idclubs AS ClubId, clubs.name_club AS Club, clubs.offense, clubs.defense, clubs.teamability, "
+    sqlCmdClubTable = "SELECT clubs.idclubs AS ClubId, clubs.name_club AS Club, clubs.offensive, clubs.defensive, clubs.teamability, "
                         "leagues.name_league AS League, `nationalteams(countries)`.name_country AS Country "
                         "FROM clubs INNER JOIN leagues ON clubs.leagues_idleagues = leagues.idleagues INNER JOIN `nationalteams(countries)` ON "
                         "leagues.fifa_code = `nationalteams(countries)`.fifa_code INNER JOIN subcontinents ON leagues.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
@@ -715,8 +715,8 @@ void SqLiteDBEditor::CmdNoFilterClubsClicked()
 void SqLiteDBEditor::CmdNoFilterSubContClicked()
 {
     sqlCmdShowNations = QString ("SELECT `nationalteams(countries)`.fifa_code AS `FIFA CODE`, `nationalteams(countries)`.name_country AS Country, "
-                        "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offense AS Offense, "
-                        "`nationalteams(countries)`.defense AS Defense, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
+                        "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offensive AS Offensive, "
+                        "`nationalteams(countries)`.defensive AS Defensive, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
                         "INNER JOIN subcontinents ON `nationalteams(countries)`.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
                         "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents WHERE "
                         "continents.name_continent = '%1'").arg(ui -> CmbContinents -> currentText() );
@@ -1058,8 +1058,8 @@ void SqLiteDBEditor::showNationsTable()
 void SqLiteDBEditor::CmbFilterContCurrentIndexChanged()
 {
     sqlCmdShowNations = QString ("SELECT `nationalteams(countries)`.fifa_code AS `FIFA CODE`, `nationalteams(countries)`.name_country AS Country, "
-                        "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offense AS Offense, "
-                        "`nationalteams(countries)`.defense AS Defense, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
+                        "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offensive AS Offensive, "
+                        "`nationalteams(countries)`.defensive AS Defensive, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
                         "INNER JOIN subcontinents ON `nationalteams(countries)`.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
                         "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents WHERE "
                         "continents.name_continent = '%1'").arg(ui -> CmbContinents -> currentText() );
@@ -1080,8 +1080,8 @@ void SqLiteDBEditor::CmbFilterContCurrentIndexChanged()
 void SqLiteDBEditor::CmbFilterSubContCurrentIndexChanged()
 {
     sqlCmdShowNations = QString ("SELECT `nationalteams(countries)`.fifa_code AS `FIFA CODE`, `nationalteams(countries)`.name_country AS Country, "
-                                 "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offense AS Offense, "
-                                 "`nationalteams(countries)`.defense AS Defense, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
+                                 "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offensive AS Offensive, "
+                                 "`nationalteams(countries)`.defensive AS Defensive, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
                                  "INNER JOIN subcontinents ON `nationalteams(countries)`.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
                                  "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents WHERE "
                                  "subcontinents.name_subcontinent = '%1'").arg(ui -> CmbSubContinents -> currentText() );
@@ -1092,8 +1092,8 @@ void SqLiteDBEditor::CmbFilterSubContCurrentIndexChanged()
 void SqLiteDBEditor::CmdNoFilterNatClicked()
 {
     sqlCmdShowNations = "SELECT `nationalteams(countries)`.fifa_code AS `FIFA CODE`, `nationalteams(countries)`.name_country AS Country, "
-                                "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offense AS Offense, "
-                                "`nationalteams(countries)`.defense AS Defense, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
+                                "subcontinents.name_subcontinent AS Subcontinent, continents.name_continent AS Continent, `nationalteams(countries)`.offensive AS Offensive, "
+                                "`nationalteams(countries)`.defensive AS Defensive, `nationalteams(countries)`.teamability AS TeamAbility FROM `nationalteams(countries)` "
                                 "INNER JOIN subcontinents ON `nationalteams(countries)`.subcontinents_idsubcontinents = subcontinents.idsubcontinents "
                                 "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents ";
     showNationsTable();
@@ -1511,7 +1511,7 @@ void SqLiteDBEditor::CmdSaveClicked()
         {
             for(int i = 0; i < ui -> TblAddNewClubs -> rowCount(); ++i)
             {
-                sqlCommand.prepare("INSERT INTO `clubs` (`name_club`, `offense`, `defense`, `teamability`, "
+                sqlCommand.prepare("INSERT INTO `clubs` (`name_club`, `offensive`, `defensive`, `teamability`, "
                                    "`leagues_idleagues`, `fifa_code`, `subcontinents_idsubcontinents`, `continents_idcontinents`) "
                                    "VALUES (?, ?, ?, ?, (SELECT idleagues FROM leagues WHERE name_league = ? ), "
                                    "(SELECT fifa_code FROM `nationalteams(countries)` WHERE name_country = ? ), "

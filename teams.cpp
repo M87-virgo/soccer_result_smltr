@@ -22,8 +22,8 @@ Teams::Teams(const QString tn, const int &gp, const int &p, const int &gss, cons
     wins = w;
     draws = d;
     loss = l;
-    offense = o;
-    defense = def;
+    offensive = o;
+    defensive = def;
     teamAbility = ta;
     form = f;
 }
@@ -31,8 +31,8 @@ Teams::Teams(const QString tn, const int &gp, const int &p, const int &gss, cons
 void Teams::getTeamNameAndQualityValues(const QString name, const double &off = 0.0, const double &def = 0.0, const double &t = 0.0)
 {
     teamName = name;
-    offense = off;
-    defense = def;
+    offensive = off;
+    defensive = def;
     teamAbility = t;
 }
 QString Teams::returnTeamName()
@@ -345,16 +345,16 @@ void Teams::setFormIcons(const int &a, const int &b, const QPixmap &winImg, cons
     }
 }
 
-double Teams::convertOffenseValue()
+double Teams::convertOffensiveValue()
 {
-    double o = (5.9e-6 * pow(offense, 3) ) - (0.0012156 * pow(offense, 2) ) + (0.1299139 * offense) - 1.6529923;
+    double o = (5.9e-6 * pow(offensive, 3) ) - (0.0012156 * pow(offensive, 2) ) + (0.1299139 * offensive) - 1.6529923;
     return o;
 }
-double Teams::convertDefenseValue()
+double Teams::convertDefensiveValue()
 {
-    double d = 2.8e-8 * pow(defense, 4) - (9.612e-6 * pow(defense, 3) ) + (1.188958e-3 * pow(defense, 2) ) - (7.1786300e-2 * defense) + 2.141225096;
-    //double d = -(3.5e-6 * pow(defense, 3) ) + (5.344e-4 * pow(defense, 2) ) - (0.0350429 * defense) + 1.7941399;
-    //double d = 2.38393 * exp(-0.02503 * defense);
+    double d = 2.8e-8 * pow(defensive, 4) - (9.612e-6 * pow(defensive, 3) ) + (1.188958e-3 * pow(defensive, 2) ) - (7.1786300e-2 * defensive) + 2.141225096;
+    //double d = -(3.5e-6 * pow(defensive, 3) ) + (5.344e-4 * pow(defensive, 2) ) - (0.0350429 * defensive) + 1.7941399;
+    //double d = 2.38393 * exp(-0.02503 * defensive);
     return d;
 }
 double Teams::convertTeamAbilityValue()

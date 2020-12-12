@@ -133,11 +133,11 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
     resultTable.resize(teamNameList.size() );
     if(ui -> CmdClubsMode -> isEnabled() )
     {
-        sqlCommand.prepare("SELECT offense, defense, teamability FROM `nationalteams(countries)` WHERE name_country = ?");
+        sqlCommand.prepare("SELECT offensive, defensive, teamability FROM `nationalteams(countries)` WHERE name_country = ?");
     }
     else
     {
-        sqlCommand.prepare("SELECT offense, defense, teamability FROM clubs WHERE name_club = ?");
+        sqlCommand.prepare("SELECT offensive, defensive, teamability FROM clubs WHERE name_club = ?");
     }
     for(int i = 0; i < teamNameList.size(); ++i)
     {
@@ -223,12 +223,12 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
 
             CmbMatches -> addItem(TblMatchTable -> item(r, 0) -> text() + " vs. " + TblMatchTable -> item(r, 3) -> text() );
 
-            meanHome = (resultTable[matchSchedule.at(i).at(j).first - 1].convertOffenseValue() *
-                    resultTable[matchSchedule.at(i).at(j).second - 1].convertDefenseValue() ) + 0.41;
+            meanHome = (resultTable[matchSchedule.at(i).at(j).first - 1].convertOffensiveValue() *
+                    resultTable[matchSchedule.at(i).at(j).second - 1].convertDefensiveValue() ) + 0.41;
             randomGoalValue = goals(generator, Dstr::param_type{meanHome});       // random goal value home-team
 
-            meanAway = resultTable[matchSchedule.at(i).at(j).second - 1].convertOffenseValue() *
-                    resultTable[matchSchedule.at(i).at(j).first - 1].convertDefenseValue();
+            meanAway = resultTable[matchSchedule.at(i).at(j).second - 1].convertOffensiveValue() *
+                    resultTable[matchSchedule.at(i).at(j).first - 1].convertDefensiveValue();
             randomGoalAwayValue = goals(generator, Dstr::param_type{meanAway});       // random goal value guest-team
 
             effectTeamAbilityHome = taEffect(generator, BerDstr::param_type{resultTable[matchSchedule.at(i).at(j).first - 1].convertTeamAbilityValue()});
@@ -759,6 +759,7 @@ void MainWindow::CmdAddRandomTeamsClicked()
     {
         sqlCmd.exec("SELECT name_club FROM clubs");
     }
+
     QStringList partTeams;
     QStringList withoutDuplicates;
     while(sqlCmd.next() )

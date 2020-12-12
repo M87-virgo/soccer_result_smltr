@@ -28,8 +28,8 @@ class Teams
         int draws = 0;
         int loss = 0;
 
-        double offense = 0.0;
-        double defense = 0.0;
+        double offensive = 0.0;
+        double defensive = 0.0;
         double teamAbility = 0.0;
 
         QIcon form;
@@ -67,8 +67,8 @@ class Teams
         void fillFourthFormIcon(const int&, const int&, const QPixmap&, const QPixmap&, const QPixmap&);
         void fillLastFormIcon(const int&, const int&, const QPixmap&, const QPixmap&, const QPixmap&);
 
-        double convertOffenseValue();
-        double convertDefenseValue();
+        double convertOffensiveValue();
+        double convertDefensiveValue();
         double convertTeamAbilityValue();
 };
 
