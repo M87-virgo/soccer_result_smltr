@@ -44,7 +44,7 @@ But, everyone is welcome to determine his own values. You can edit the values fr
 
 
 
-## A little guide and a small presentation of the functions and possibilities
+## A little guide and a small presentation of the functions and possibilities of this tool
 **Dialog of table and match results**
 <p align="center">
   <img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/example1.png" alt="Example 1" width="738">
