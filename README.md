@@ -6,7 +6,7 @@
 Soccer Result Simulator is supposed to be tool that simulates the results of football matches **by one click**.
 
 ## The results(goals for each team) are generated according to the concept which is explained below
-Firstly,this is not the final concept. The long-term goal is to generate the results with the help of **machine-learning/deep-learning**
+Firstly, this is not the final concept. The long-term goal is to generate the results with the help of **machine-learning/deep-learning**
 based on a concept which is discriped in the book **"Der perfekte Tipp. Statistik des Fußballspiels"(The perfect tip. Statistics of the football match) by Andreas Heuer.**
 
 At the moment, there are three values for each team in the database. Offense, defense and teamability. The values are between 20 and 99.
