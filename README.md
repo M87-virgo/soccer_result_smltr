@@ -9,7 +9,7 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 Firstly,this is not the final concept. The long-term goal is to generate the results with the help of **machine-learning/deep-learning**
 based on a concept which is discriped in the book **"Der perfekte Tipp. Statistik des Fußballspiels"(The perfect tip. Statistics of the football match) by Andreas Heuer.**
 
-At the moment,there are three values for each team. Offense, defense and teamability. The values are between 20 and 99.
+At the moment, there are three values for each team in the database. Offense, defense and teamability. The values are between 20 and 99.
 99 is the best and 20 is the weakest value. The values are not used for calculation. It´s more user friendly. 
 This values will be converted in the so-called mean-value(for example 99 means 4,9...) which is used by the "Poisson-distribution".
 This distribution generates a random number.
