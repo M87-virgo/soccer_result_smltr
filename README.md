@@ -21,7 +21,7 @@ We pass this value to the Poisson-distribution, which generates a random number(
 **Example**  
 Team A value = 1,238 (about one goal is the most probable case)  
 Team B value = 3,017 (about 3 goals is the most probable case)  
-To genarate random numbers means, that a result like 0:2 or 3:2 etc. is possible too.  
+To genarate random numbers means that a result like 0:2 or 3:2 etc. is possible too.  
 
 **The effect of the teamability is as follow:**  
 The teamability value is passed to a Bernoulli-distribution(propability of return 0 or 1) and is interpreted as a   
