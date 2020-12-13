@@ -37,7 +37,7 @@ For clubs I look at the tables from the current season or/and the end table from
 For Nationalteams I look at the World-Ranking table.   
 **A little example for Atalanta Bergamo:**  
 This team came third in season 2019/2020 and scores 98 goals in 38 games. This suggests a strong offensive.  
-So it can be value about 90. Bergamo got 48 goals against. So the defensive is a little weak. Maybe a value about 75 is ok.  
+So it can be a value about 90. Bergamo got 48 goals against. So the defensive is a little weak. Maybe a value about 75 is ok.  
 Bergamo is not a team with very famous players. So you can say the teamability of this team must be high.   
 They surprised with third place in league and the success in the CL. Maybe a value about 90 is good.  
 
