@@ -8,6 +8,7 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 ## The results(goals for each team) are generated according to the concept which is explained below  
 Firstly, this is not the final concept. The long-term goal is to generate the results with the help of **machine-learning/deep-learning**  
 based on a concept which is discriped in the book **"Der perfekte Tipp. Statistik des Fußballspiels"(The perfect tip. Statistics of the football match) by Andreas Heuer.**  
+**I invite everyone to participate in this project. Help with machine-learning is very welcome.**
 
 At the moment, there are three values for each team in the database. Offensive, defensive and teamability. The values are between 20 and 99.  
 99 is the best and 20 is the weakest value. The values are not used for calculation. It´s just more user friendly.  
