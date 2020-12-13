@@ -11,7 +11,7 @@ based on a concept which is discriped in the book **"Der perfekte Tipp. Statisti
 
 At the moment, there are three values for each team in the database. Offensive, defensive and teamability. The values are between 20 and 99.  
 99 is the best and 20 is the weakest value. The values are not used for calculation. It´s more user friendly.  
-This values will be converted in the so-called mean-value(for example 99 means 4,9...) which is used by the "Poisson-distribution".  
+This values will be converted in the so-called mean-value(for example 99 is equivalent to about 4,9...) which is used by the "Poisson-distribution".  
 This distribution generates a random number.  
 
 After conversion we can calculate this values with;  
