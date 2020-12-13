@@ -33,7 +33,7 @@ The higher the value, the higher is the probability of the team to score one goa
 **Next, I will implement how the results of the last 5 Games will influence the current match results.**   
 
 **How do I estimate the values of the teams?**  
-The values are really only rough estimates.  
+The values are really just rough estimates.  
 For clubs I look at the tables from the current season or/and the end table from the last season.   
 For Nationalteams I look at the World-Ranking table.   
 **A little example for Atalanta Bergamo:**  
