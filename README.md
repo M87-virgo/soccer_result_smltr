@@ -26,7 +26,7 @@ Team B value = 3,017 (about 3 goals is the most probable case)
 To genarate random numbers means that a result like 0:2 or 3:2 etc. is possible too.  
 
 **The effect of the teamability is as follow:**  
-The teamability value is passed to a Bernoulli-distribution(propability of return 0 or 1) and is interpreted as a   
+The teamability value is passed to the Bernoulli-distribution(propability of return 0 or 1) and is interpreted as a   
 probability of scoring one goal more and getting one goal less.  
 The higher the value, the higher is the probability of the team to score one goal and getting one goal less.   
 **So you can say the teamability improves both offensive and defensive.**  
