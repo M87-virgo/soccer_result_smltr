@@ -10,8 +10,9 @@ Firstly, this is not the final concept. The long-term goal is to generate the re
 based on a concept which is discriped in the book **"Der perfekte Tipp. Statistik des Fußballspiels"(The perfect tip. Statistics of the football match) by Andreas Heuer.**  
 **I invite everyone to participate in this project. Help with machine-learning is very welcome.**
 
-At the moment, there are three values for each team in the database. Offensive, defensive and teamability. The values are between 20 and 99.  
-99 is the best and 20 is the weakest value. The values are not used for calculation. It´s just more user friendly.  
+At the moment, the play level of each team is modeled by three values in the database: offensive, defensive and teamability. 
+The values are between 20 and 99.  
+99 is the best and 20 is the weakest value. These values are not used for calculation. It´s just more user friendly.  
 These values are converted into the so-called "mean-value"(for example 99 is equivalent to about 4,9...; according to a conversion equation)  
 which is used by the "Poisson-distribution". That´s why it have to be a real-number(single digit comma number).    
 This distribution generates a random number.  
