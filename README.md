@@ -5,11 +5,7 @@
      
 Soccer Result Simulator is supposed to be tool that simulates the results of football matches **by one click**.  
 
-<div align="center">
-     
-**Soccer Result Simulator 1.1.8 has been released. You can download it [here] (https://github.com/M87-virgo/soccer_result_smltr/raw/main/soccer_result_simltr/installer/srsSetup.exe).**
-
-</div>
+**Soccer Result Simulator 1.1.8 has been released. You can download it [here](https://github.com/M87-virgo/soccer_result_smltr/raw/main/soccer_result_simltr/installer                                   /srsSetup.exe).**  
 
 <img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/Soccer%20Result%20Simulator.jpg" alt="Example 1" width="1024">
 
