@@ -5,7 +5,7 @@
      
 <p align="center">
      
-Soccer Result Simulator is supposed to be tool that simulates the results of football matches **by one click**. 
+Soccer Result Simulator is supposed to be tool that simulates the results of football matches **by one click**.
 
 </p>
 
