@@ -3,11 +3,11 @@
 <img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/appIcon.ico" align="center"
      alt="Logo of Soccer Result Simulator" width="128" height="128">
      
-<p align="center">
+<div align="center">
      
-<b>Soccer Result Simulator is supposed to be tool that simulates the results of football matches **by one click**.</b>
+Soccer Result Simulator is supposed to be tool that simulates the results of football matches **by one click**.
 
-</p>
+</div>
 
 <div align="center">
 
