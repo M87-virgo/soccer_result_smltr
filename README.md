@@ -24,7 +24,7 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 
 - [**Motivation**](#motivation)
 - [**Invitation for participation**](#participation)
-- [**Features**](#features)
+- [**Guide and Features**](#features)
 - [**Concept and Technical Background**](#concept)
 - [**Preview**](#preview)
 - [**Contributing**](#contributing)
