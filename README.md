@@ -83,8 +83,6 @@ But, everyone is welcome to determine his own values. You can edit the values fr
 
 ## Contributing
 
-## Features
-
 ## Feedback
 
 ## License
