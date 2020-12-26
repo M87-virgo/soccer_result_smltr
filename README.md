@@ -31,6 +31,12 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 - [**Feedback**](#feedback)
 - [**License**](#license)
 
+## Motivation
+
+## Participation
+
+## Features
+
 ## Concept  
 Firstly, this is not the final concept. The long-term goal is to generate the results with the help of **machine-learning/deep-learning**  
 based on a concept which is discriped in the book **"Der perfekte Tipp. Statistik des Fußballspiels"(The perfect tip. Statistics of the football match) by Andreas Heuer.**  
@@ -73,7 +79,15 @@ They surprised with third place in league and the success in the CL. Maybe a val
 It would go beyond the scope if I discripe it in all details.  
 But, everyone is welcome to determine his own values. You can edit the values from the database using the database-editor of my tool.  
 
+## Preview
 
+## Contributing
+
+## Features
+
+## Feedback
+
+## License
 
 ## A little guide and a small presentation of the functions and possibilities of this tool  
 **Dialog of table and match results**  
