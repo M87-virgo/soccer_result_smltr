@@ -22,8 +22,9 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 
 <img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/Soccer%20Result%20Simulator.jpg" alt="Example 1" width="1024">
 
+- [**Concept**](#concept)
 
-## The results(goals for each team) are generated according to the concept which is explained below  
+## Concept  
 Firstly, this is not the final concept. The long-term goal is to generate the results with the help of **machine-learning/deep-learning**  
 based on a concept which is discriped in the book **"Der perfekte Tipp. Statistik des Fußballspiels"(The perfect tip. Statistics of the football match) by Andreas Heuer.**  
 **I invite everyone to participate in this project. Help with machine-learning is very welcome.**
