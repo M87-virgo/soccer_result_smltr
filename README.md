@@ -36,7 +36,7 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 ## Participation
 
 ## Features
-**A little guide and a small presentation of the functions and possibilities of this tool** 
+**A little guide and a small presentation of the functions and possibilities of this tool**   
 **Dialog of table and match results**
 
 ## Concept  
