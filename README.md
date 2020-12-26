@@ -22,7 +22,14 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 
 <img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/Soccer%20Result%20Simulator.jpg" alt="Example 1" width="1024">
 
-- [**Concept**](#concept)
+- [**Motivation**](#motivation)
+- [**Invitation for participation**](#participation)
+- [**Features**](#features)
+- [**Concept and Technical Background**](#concept)
+- [**Preview**](#preview)
+- [**Contributing**](#contributing)
+- [**Feedback**](#feedback)
+- [**License**](#license)
 
 ## Concept  
 Firstly, this is not the final concept. The long-term goal is to generate the results with the help of **machine-learning/deep-learning**  
