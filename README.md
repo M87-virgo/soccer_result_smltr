@@ -36,6 +36,8 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 ## Participation
 
 ## Features
+**A little guide and a small presentation of the functions and possibilities of this tool** 
+**Dialog of table and match results**
 
 ## Concept  
 Firstly, this is not the final concept. The long-term goal is to generate the results with the help of **machine-learning/deep-learning**  
@@ -85,7 +87,4 @@ But, everyone is welcome to determine his own values. You can edit the values fr
 
 ## Feedback
 
-## License
-
-## A little guide and a small presentation of the functions and possibilities of this tool  
-**Dialog of table and match results**  
+## License  
