@@ -39,7 +39,7 @@ Coming soon...
 
 ## Features
 **A little guide and a small presentation of the functions and possibilities of this tool**   
-**Dialog of table and match results**
+**Dialog of table and match results**  
 More coming soon...
 
 ## Concept  
