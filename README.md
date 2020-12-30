@@ -32,12 +32,15 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 - [**License**](#license)
 
 ## Motivation
+Coming soon...
 
 ## Participation
+Coming soon...
 
 ## Features
 **A little guide and a small presentation of the functions and possibilities of this tool**   
 **Dialog of table and match results**
+More coming soon...
 
 ## Concept  
 Firstly, this is not the final concept. The long-term goal is to generate the results with the help of **machine-learning/deep-learning**  
@@ -82,9 +85,14 @@ It would go beyond the scope if I discripe it in all details.
 But, everyone is welcome to determine his own values. You can edit the values from the database using the database-editor of my tool.  
 
 ## Preview
+Coming soon...
 
 ## Contributing
+Coming soon...
 
 ## Feedback
+beyer341@onlinehome.de
 
 ## License  
+<p>This program uses Qt version 5.12.9.</p>
+<p>Qt is a C++ toolkit for cross-platform application development.</p><p>Qt provides single-source portability across all major desktop operating systems. It is also available for embedded Linux and other embedded and mobile operating systems.</p><p>Qt is available under multiple licensing options designed to accommodate the needs of our various users.</p><p>Qt licensed under our commercial license agreement is appropriate for development of proprietary/commercial software where you do not want to share any source code with third parties or otherwise cannot comply with the terms of GNU (L)GPL.</p><p>Qt licensed under GNU (L)GPL is appropriate for the development of Qt&nbsp;applications provided you can comply with the terms and conditions of the respective licenses.</p><p>Please see <a href="http://qt.io/licensing/">qt.io/licensing</a> for an overview of Qt licensing.</p><p>Copyright (C) 2020 The Qt Company Ltd and other contributors.</p><p>Qt and the Qt logo are trademarks of The Qt Company Ltd.</p><p>Qt is The Qt Company Ltd product developed as an open source project. See <a href="http://qt.io/">qt.io</a> for more information.</p>
