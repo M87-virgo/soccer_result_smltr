@@ -15,7 +15,7 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 
 <div align="center">
 
-**Soccer Result Simulator 1.1.8 has been released.**
+**Soccer Result Simulator 1.2.1 has been released.**
 **You can download it [here](https://github.com/M87-virgo/soccer_result_smltr/raw/main/soccer_result_simltr/installer/srsSetup.exe).**  
      
 </div>
