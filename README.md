@@ -23,6 +23,7 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 <img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/Soccer%20Result%20Simulator.jpg" alt="Example 1" width="1024">
 
 - [**Motivation**](#motivation)
+- [**Getting Started**](#getting-started)
 - [**Invitation for participation**](#participation)
 - [**Guide and Features**](#features)
 - [**Concept and Technical Background**](#concept)
@@ -33,6 +34,12 @@ Soccer Result Simulator is supposed to be tool that simulates the results of foo
 
 ## Motivation
 Coming soon...
+
+## Getting Started
+- [Download](https://github.com/M87-virgo/soccer_result_smltr/raw/main/soccer_result_simltr/installer/srsSetup.exe) the Installer -*exe
+- Install the tool to a directory of your choice
+- Execute soccer_result_simltr.exe to start the programm
+- Read the [guide](#features) to explore what you can do and how you can use the programm
 
 ## Participation
 Coming soon...
