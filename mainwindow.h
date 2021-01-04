@@ -26,10 +26,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void setUpTableDialog();
-
     QVector<Teams> resultTable = {};
     QVector<QVector<Teams> > eachDay = {};
+
+    void setUpTableDialog();
 
     bool checkIfListsAreDifferent(QStringList);
 
@@ -48,6 +48,9 @@ public:
     void writeMatchData(QFile &f, const int &c);
     void readCsvMatchData(QString fileName);
 
+    void showHomeTable();
+    void showAwayTable();
+
 private:
     Ui::MainWindow *ui;
     SqLiteDBEditor *meUi{};
@@ -60,9 +63,11 @@ private:
     QComboBox *CmbMatches = new QComboBox;
     QPushButton *CmdBack = new QPushButton;
     QPushButton *CmdContinue = new QPushButton;
+    QPushButton *CmdCloseDialog = new QPushButton;
+    QPushButton *CmdHomeAwayTotal = new QPushButton;
 
 
-    int numberOfTeams{}, backAndForth = -1, numberOfGamesPerDay{};
+    int numberOfTeams{}, backAndForth = -1, numberOfGamesPerDay{}, homeAwayTotal = 0;
 
     QSqlDatabase db;
 
@@ -88,6 +93,7 @@ private slots:
     void showContinents();
     void showSubContinents();
     void showNatTeams();
+    void LstSelectedTeamsItemChanged();
     void LstContinentsCurrentRowChanged();
     void LstSubContsCurrentRowChanged();
     void CmdAddRandomTeamsClicked();
@@ -101,9 +107,13 @@ private slots:
     //void CmdUndoWholeContClicked();
     void CmdClearAllClicked();
 
+    void CmbMatchesCurrentIndexChanged();
+
     void CmdMatchScheduleClicked();
+    void CmdFirstDayClicked();
     void CmdContinueClicked();
     void CmdBackClicked();
+    void CmdHomeAwayTotalClicked();
 
     void SpbUpdateTableReturnPressed();
 };

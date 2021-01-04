@@ -104,12 +104,12 @@ private slots:
     void CmdUpdateClicked();
     void EdtSearchTextChanged();
     void CmbLeaguesFilterCurrentIndexChanged();
-    void CmdNoFilterClubsClicked();
     void CmbFilterContCurrentIndexChanged();
     void CmbFilterSubContCurrentIndexChanged();
+    void CmbLeaguesForAllCurrentIndexChanged();
+    void CmdNoFilterClubsClicked();
     void CmdNoFilterNatClicked();
     void CmdNoFilterSubContClicked();
-    void CmbLeaguesForAllCurrentIndexChanged();
 };
 
 #endif // SQLITEDBEDITOR_H

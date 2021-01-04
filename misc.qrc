@@ -24,5 +24,9 @@
         <file>misc_icons/arrow-continue-hover.png</file>
         <file>misc_icons/arrow-back-pressed.png</file>
         <file>misc_icons/arrow-continue-pressed.png</file>
+        <file>misc_icons/closeDlg.png</file>
+        <file>misc_icons/closeDlg-disabled.png</file>
+        <file>misc_icons/closeDlg-hover.png</file>
+        <file>misc_icons/closeDlg-pressed.png</file>
     </qresource>
 </RCC>

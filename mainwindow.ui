@@ -28,8 +28,11 @@
     <height>2100</height>
    </size>
   </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
+  </property>
   <property name="windowTitle">
-   <string>Soccer Result Simulater 1.1.5</string>
+   <string>Soccer Result Simulater 1.2.1</string>
   </property>
   <property name="locale">
    <locale language="English" country="Germany"/>
@@ -102,7 +105,7 @@
     <property name="geometry">
      <rect>
       <x>9</x>
-      <y>220</y>
+      <y>410</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -189,7 +192,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>260</y>
+      <y>450</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -242,12 +245,6 @@
      <size>
       <width>250</width>
       <height>170</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>250</width>
-      <height>172</height>
      </size>
     </property>
     <property name="styleSheet">

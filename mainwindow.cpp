@@ -11,10 +11,25 @@
 #include <QtAlgorithms>
 #include <QFileDialog>
 #include <chrono>
-#include <thread>
+#include <random>
 
 #include "teams.cpp"
 
+void MainWindow::CmbMatchesCurrentIndexChanged()
+{
+    for(int i = 0; i < TblMatchTable -> rowCount(); ++i)
+    {
+        if(!TblMatchTable -> cellWidget(i, 0) )
+        { 
+            if(CmbMatches -> currentText() == QString("%1 vs. %2").arg(TblMatchTable -> item(i, 0) -> text() ).arg(TblMatchTable -> item(i, 3) -> text() ) )
+            {
+                TblMatchTable -> setSelectionMode(QAbstractItemView::ContiguousSelection);
+                TblMatchTable -> setSelectionBehavior(QAbstractItemView::SelectRows);
+                TblMatchTable -> selectRow(i);
+            }
+        }
+    }
+}
 
 //match schedule functions
 QVector<QVector<QPair<int, int> > > MainWindow::fillAllMatchDays(const QVector<QPair<int, int> > &numOfGamesPerDay, const int &n)
@@ -141,7 +156,7 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
     }
     for(int i = 0; i < teamNameList.size(); ++i)
     {
-        sqlCommand.addBindValue(ui -> LstSelectedTeams -> item(i) -> text() );
+        sqlCommand.addBindValue(teamNameList.at(i) );
         sqlCommand.exec();
         sqlCommand.next();
         off = sqlCommand.value(0).toDouble();
@@ -150,7 +165,7 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
         resultTable[i].getTeamNameAndQualityValues(teamNameList.at(i), off, def, tabl);
     }
 
-    QString roundFirst = "Matches", roundBack = "Rematches";
+    QString roundFirst = "[Matches", roundBack = "[Rematches";
     QString temp = roundBack;
     int c = 0, r = 0, day = 1;
     int nOfRoundFirst = 1, nOfRoundBack = 0;
@@ -160,7 +175,7 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
 
     TblMatchTable -> setSpan(0, 0, 1, 4);
     TblMatchTable -> setCellWidget(0, 0, new QLabel);
-    qobject_cast<QLabel*> (TblMatchTable -> cellWidget(0, 0) ) -> setText("Matches 1, Day 1");
+    qobject_cast<QLabel*> (TblMatchTable -> cellWidget(0, 0) ) -> setText("[Matches 1, Day 1]");
     qobject_cast<QLabel*> (TblMatchTable -> cellWidget(0, 0) ) -> setStyleSheet("color: black; "
                                                                                    "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #7FFFFF, stop: 0.5 #38FFFF, stop: 0.6 #30DDDD, stop:1 #C2FFFF); "
                                                                                    "font: bold 19px Georgia");
@@ -170,6 +185,7 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine generator (seed);
 
+    CmbMatches -> disconnect();
     CmbMatches -> clear();
 
     for(int i = 0; i < matchSchedule.size(); ++i)
@@ -181,7 +197,7 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
             temp = temp + " " + QVariant(rb).toString();
             TblMatchTable -> setSpan(r, 0, 1 ,4);
             TblMatchTable -> setCellWidget(r, 0, new QLabel);
-            qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setText(temp  + ", Day " + QVariant(day).toString() );
+            qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setText(temp  + ", Day " + QVariant(day).toString() + "]" );
             qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setStyleSheet("color: black; "
                                                                                     "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #7FFFFF, stop: 0.5 #38FFFF, stop: 0.6 #30DDDD, stop:1 #C2FFFF); "
                                                                                     "font: bold 19px Georgia");
@@ -195,7 +211,7 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
             temp = temp + " " + QVariant(rf).toString();
             TblMatchTable -> setSpan(r, 0, 1 ,4);
             TblMatchTable -> setCellWidget(r, 0, new QLabel);
-            qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setText(temp + ", Day " + QVariant(day).toString() );
+            qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setText(temp + ", Day " + QVariant(day).toString() + "]" );
             qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setStyleSheet("color: black; "
                                                                                    "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #7FFFFF, stop: 0.5 #38FFFF, stop: 0.6 #30DDDD, stop:1 #C2FFFF); "
                                                                                    "font: bold 19px Georgia");
@@ -282,12 +298,12 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
             resultTable[matchSchedule.at(i).at(j).first - 1].calculateGoals(randomGoalValue, randomGoalAwayValue);
             resultTable[matchSchedule.at(i).at(j).second - 1].calculateGoals(randomGoalAwayValue, randomGoalValue);
 
-            if(TblMatchTable -> item(r, 1) -> text().toInt() > TblMatchTable -> item(r, 2) -> text().toInt() )
+            if(randomGoalValue > randomGoalAwayValue)
             {
                 resultTable[matchSchedule.at(i).at(j).first - 1].increasePointsOnWinCase();
                 resultTable[matchSchedule.at(i).at(j).second - 1].increaseLoss();
             }
-            else if(TblMatchTable -> item(r, 1) -> text().toInt() < TblMatchTable -> item(r, 2) -> text().toInt() )
+            else if(randomGoalValue < randomGoalAwayValue)
             {
                 resultTable[matchSchedule.at(i).at(j).first - 1].increaseLoss();
                 resultTable[matchSchedule.at(i).at(j).second - 1].increasePointsOnWinCase();
@@ -422,6 +438,197 @@ void MainWindow::SpbUpdateTableReturnPressed()
         ++counter;
     }
 }
+void MainWindow::showHomeTable()
+{
+    if(TblMatchTable -> currentColumn() == 1)
+    {
+        TblMatchTable -> setCurrentCell(TblMatchTable -> currentRow(), TblMatchTable -> currentColumn() + 1);
+    }
+    else if(TblMatchTable -> currentColumn() == 2)
+    {
+        TblMatchTable -> setCurrentCell(TblMatchTable -> currentRow(), TblMatchTable -> currentColumn() - 1);
+    }
+
+    TblTable -> clear();
+    setHeaderForTable();
+
+    QVector<Teams> updatedResultTable;
+    updatedResultTable.resize(teamNameList.size() );
+    for(int i = 0; i < teamNameList.size(); ++i)
+    {
+        updatedResultTable[i].getTeamNameAndQualityValues(teamNameList.at(i) );
+    }
+    int goalHome = 0, goalAway = 0, r = 0, gamesPerDay = 0;
+    if(teamNameList.size() % 2 != 0)
+    {
+        gamesPerDay = (teamNameList.size() - 1) / 2;
+    }
+    else
+    {
+        gamesPerDay = teamNameList.size() / 2;
+    }
+    for(int i = 0; i < backAndForth + 1; ++i)
+    {
+        for(int j = 0; j < gamesPerDay; ++j)
+        {
+            ++r;
+            goalHome = TblMatchTable -> item(r, 1) -> text().toInt();
+            goalAway = TblMatchTable -> item(r, 2) -> text().toInt();
+            if(goalHome > goalAway)
+            {
+                TblMatchTable -> item(r, 0) -> setBackgroundColor(QColor(170, 255, 0, 255) );
+                TblMatchTable -> item(r, 3) -> setBackgroundColor(QColor(255, 90, 0, 255) );
+            }
+            else if(goalHome < goalAway)
+            {
+                TblMatchTable -> item(r, 0) -> setBackgroundColor(QColor(255, 90, 0, 255) );
+                TblMatchTable -> item(r, 3) -> setBackgroundColor(QColor(170, 255, 0, 255) );
+            }
+            else
+            {
+                TblMatchTable -> item(r, 0) -> setBackgroundColor(Qt::gray);
+                TblMatchTable -> item(r, 3) -> setBackgroundColor(Qt::gray);
+            }
+            updatedResultTable[matchSchedule.at(i).at(j).first - 1].increasesNumberOfGames();
+
+            updatedResultTable[matchSchedule.at(i).at(j).first - 1].calculateGoals(goalHome, goalAway);
+
+            if(TblMatchTable -> item(r, 1) -> text().toInt() > TblMatchTable -> item(r, 2) -> text().toInt() )
+            {
+                updatedResultTable[matchSchedule.at(i).at(j).first - 1].increasePointsOnWinCase();
+            }
+            else if(TblMatchTable -> item(r, 1) -> text().toInt() < TblMatchTable -> item(r, 2) -> text().toInt() )
+            {
+                updatedResultTable[matchSchedule.at(i).at(j).first - 1].increaseLoss();
+            }
+            else
+            {
+                updatedResultTable[matchSchedule.at(i).at(j).first - 1].increasePointsOnDrawCase();
+            }
+
+            updatedResultTable[matchSchedule.at(i).at(j).first - 1].setFormIcons(goalHome, goalAway, winImg, lossImg, drawImg);
+        }
+
+        if(i < backAndForth)
+        {
+            ++r;
+        }
+    }
+
+    updatedResultTable = prepareDirectMatchComparsion(updatedResultTable, gamesPerDay);
+    int counter = 0;
+    std::sort(updatedResultTable.begin(), updatedResultTable.end(), Teams::compare);
+    for(Teams &t:updatedResultTable)
+    {
+        t.output(*TblTable, counter);
+        ++counter;
+    }
+}
+void MainWindow::showAwayTable()
+{
+    if(TblMatchTable -> currentColumn() == 1)
+    {
+        TblMatchTable -> setCurrentCell(TblMatchTable -> currentRow(), TblMatchTable -> currentColumn() + 1);
+    }
+    else if(TblMatchTable -> currentColumn() == 2)
+    {
+        TblMatchTable -> setCurrentCell(TblMatchTable -> currentRow(), TblMatchTable -> currentColumn() - 1);
+    }
+
+    TblTable -> clear();
+    setHeaderForTable();
+
+    QVector<Teams> updatedResultTable;
+    updatedResultTable.resize(teamNameList.size() );
+    for(int i = 0; i < teamNameList.size(); ++i)
+    {
+        updatedResultTable[i].getTeamNameAndQualityValues(teamNameList.at(i) );
+    }
+    int goalHome = 0, goalAway = 0, r = 0, gamesPerDay = 0;
+    if(teamNameList.size() % 2 != 0)
+    {
+        gamesPerDay = (teamNameList.size() - 1) / 2;
+    }
+    else
+    {
+        gamesPerDay = teamNameList.size() / 2;
+    }
+    for(int i = 0; i < backAndForth + 1; ++i)
+    {
+        for(int j = 0; j < gamesPerDay; ++j)
+        {
+            ++r;
+            goalHome = TblMatchTable -> item(r, 1) -> text().toInt();
+            goalAway = TblMatchTable -> item(r, 2) -> text().toInt();
+            if(goalHome > goalAway)
+            {
+                TblMatchTable -> item(r, 0) -> setBackgroundColor(QColor(170, 255, 0, 255) );
+                TblMatchTable -> item(r, 3) -> setBackgroundColor(QColor(255, 90, 0, 255) );
+            }
+            else if(goalHome < goalAway)
+            {
+                TblMatchTable -> item(r, 0) -> setBackgroundColor(QColor(255, 90, 0, 255) );
+                TblMatchTable -> item(r, 3) -> setBackgroundColor(QColor(170, 255, 0, 255) );
+            }
+            else
+            {
+                TblMatchTable -> item(r, 0) -> setBackgroundColor(Qt::gray);
+                TblMatchTable -> item(r, 3) -> setBackgroundColor(Qt::gray);
+            }
+            updatedResultTable[matchSchedule.at(i).at(j).second - 1].increasesNumberOfGames();
+
+            updatedResultTable[matchSchedule.at(i).at(j).second - 1].calculateGoals(goalAway, goalHome);
+
+            if(TblMatchTable -> item(r, 1) -> text().toInt() > TblMatchTable -> item(r, 2) -> text().toInt() )
+            {
+                updatedResultTable[matchSchedule.at(i).at(j).second - 1].increaseLoss();
+            }
+            else if(TblMatchTable -> item(r, 1) -> text().toInt() < TblMatchTable -> item(r, 2) -> text().toInt() )
+            {
+                updatedResultTable[matchSchedule.at(i).at(j).second - 1].increasePointsOnWinCase();
+            }
+            else
+            {
+                updatedResultTable[matchSchedule.at(i).at(j).second - 1].increasePointsOnDrawCase();
+            }
+
+            updatedResultTable[matchSchedule.at(i).at(j).second - 1].setFormIcons(goalAway, goalHome, winImg, lossImg, drawImg);
+        }
+
+        if(i < backAndForth)
+        {
+            ++r;
+        }
+    }
+
+    updatedResultTable = prepareDirectMatchComparsion(updatedResultTable, gamesPerDay);
+    int counter = 0;
+    std::sort(updatedResultTable.begin(), updatedResultTable.end(), Teams::compare);
+    for(Teams &t:updatedResultTable)
+    {
+        t.output(*TblTable, counter);
+        ++counter;
+    }
+}
+void MainWindow::CmdHomeAwayTotalClicked()
+{
+    if(homeAwayTotal == 0)
+    {
+        showHomeTable();
+        ++homeAwayTotal;
+    }
+    else if(homeAwayTotal == 1)
+    {
+        showAwayTable();
+        ++homeAwayTotal;
+    }
+    else
+    {
+        SpbUpdateTableReturnPressed();
+        homeAwayTotal = 0;
+    }
+}
+
 QVector<Teams> MainWindow::prepareDirectMatchComparsion(QVector<Teams> &resultTable, const int &gamesPerDay)
 {
     QString homeTeamName, guestName;
@@ -499,6 +706,9 @@ void MainWindow::CmdUndoSelectedTeamClicked()
 {
     if(ui -> LstSelectedTeams -> count() != 0)
     {
+        TblTable -> clear();
+        TblMatchTable -> clear();
+        TblMatchTable -> setRowCount(0);
         while(!ui -> LstSelectedTeams -> selectedItems().isEmpty() )
         {
             for(int i = 0; i < ui -> LstSelectedTeams -> selectedItems().size(); ++i)
@@ -507,14 +717,16 @@ void MainWindow::CmdUndoSelectedTeamClicked()
             }
         }
         LstSubContsCurrentRowChanged();
-        if(ui -> LstSelectedTeams -> count() == 0)
+        if(ui -> LstSelectedTeams -> count() < 2)
         {
             ui -> actionSaveTeamList -> setDisabled(true);
+            ui -> actionSaveMatchResults -> setDisabled(true);
+            ui -> CmdFirstDay -> setDisabled(true);
         }
     }
     else
     {
-        QMessageBox::information(this, "Empty list", "List is emtpy. No team will be moved.");
+        QMessageBox::information(this, "Empty list", "List is emtpy. No team can be selected to remove from the list.");
     }
 }
 void MainWindow::CmdClearAllClicked()
@@ -543,14 +755,18 @@ void MainWindow::CmdTeamSelectionClicked()
     {
         TblTable -> clear();
         TblMatchTable -> clear();
-        ui -> CmdFirstDay -> setEnabled(true);
+        TblMatchTable -> setRowCount(0);
         for(int i = 0; i < ui -> LstNatTeams -> selectedItems().size(); ++i)
         {
             ui -> LstSelectedTeams -> addItem(ui -> LstNatTeams -> selectedItems().at(i) -> text() );
         }
         LstSubContsCurrentRowChanged();
-        ui -> actionSaveTeamList -> setEnabled(true);
-        ui -> CmdClearAll -> setEnabled(true);
+        if(ui -> LstSelectedTeams -> count() > 1)
+        {
+            ui -> actionSaveTeamList -> setEnabled(true);
+            ui -> CmdClearAll -> setEnabled(true);
+            ui -> CmdFirstDay -> setEnabled(true);
+        }
     }
     else
     {
@@ -563,6 +779,7 @@ void MainWindow::CmdSelectWholeSubCoClicked()
     {
         TblTable -> clear();
         TblMatchTable -> clear();
+        TblMatchTable -> setRowCount(0);
         ui -> CmdFirstDay -> setEnabled(true);
         backAndForth = 0;
 
@@ -585,6 +802,7 @@ void MainWindow::CmdSelectWholeContClicked()
     {
         TblTable -> clear();
         TblMatchTable -> clear();
+        TblMatchTable -> setRowCount(0);
         ui -> CmdFirstDay -> setEnabled(true);
         backAndForth = 0;
 
@@ -712,16 +930,20 @@ void MainWindow::setUpTableDialog()
 {
     DlgTableDialog -> setWindowTitle("Match-Schedule with results and Table");
     TblTable -> setFixedWidth(1118);
-    TblTable -> setMaximumHeight(700);
+    TblTable -> setMaximumHeight(775);
     TblTable -> setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
     TblTable -> adjustSize();
+    TblTable -> setSortingEnabled(true);
     TblMatchTable -> setFixedWidth(705);
     TblMatchTable -> setMaximumHeight(1000);
     TblMatchTable -> setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
     TblMatchTable -> adjustSize();
 
-    CmdBack -> setGeometry(1700, 900, 64, 64);
-    CmdContinue -> setGeometry(1750, 900, 64, 64);
+    CmdBack -> setGeometry(1600, 900, 64, 64);
+    CmdContinue -> setGeometry(1655, 900, 64, 64);
+    CmdCloseDialog -> setGeometry(1750, 900, 64, 64);
+    CmdHomeAwayTotal -> setGeometry(1628, 820, 64, 64);
+    CmdHomeAwayTotal -> setText("HAT");
 
     LblLegend -> setParent(DlgTableDialog);
     TblMatchTable -> setParent(DlgTableDialog);
@@ -729,12 +951,12 @@ void MainWindow::setUpTableDialog()
     CmbMatches -> setParent(DlgTableDialog);
     CmdBack -> setParent(DlgTableDialog);
     CmdContinue -> setParent(DlgTableDialog);
+    CmdCloseDialog -> setParent(DlgTableDialog);
+    CmdHomeAwayTotal -> setParent(DlgTableDialog);
 
     CmbMatches -> setFixedHeight(35);
     LblLegend -> setFixedWidth(TblTable -> width() );
 
-    //CmdBack -> move(1700, 900);
-    //CmdContinue -> move(1750, 900);
     TblMatchTable -> move(0, 0);
     TblTable -> move(1825 - TblTable -> width(), LblLegend -> height() );
     LblLegend -> move(1825 - TblTable -> width(), 0);
@@ -745,6 +967,7 @@ void MainWindow::setUpTableDialog()
     DlgTableDialog -> setWindowFlags(Qt::Window);
     ui -> actionSaveMatchResults -> setEnabled(true);
     DlgTableDialog -> show();
+    connect(CmbMatches, SIGNAL(currentIndexChanged(int) ), SLOT(CmbMatchesCurrentIndexChanged() ) );
 }
 
 void MainWindow::CmdAddRandomTeamsClicked()
@@ -872,7 +1095,7 @@ void MainWindow::CmdNatTeamsModeClicked()
 }
 void MainWindow::CmdClubsModeClicked()
 {
-    ui -> LstContinents -> resize(300, 280);
+    ui -> LstContinents -> resize(300, 350);
 
     ui -> LblContinents -> setText("Leagues");
     ui -> LblNatTeams -> setText("Clubs");
@@ -931,7 +1154,7 @@ void MainWindow::readCsvMatchData(QString fileName)
                 teamNameList.push_back(item.at(0) );
                 teamNameList.push_back(item.at(3) );
             }
-            if(item.size() == 1 && (item.at(0).at(0) == "R" || item.at(0).at(0) == "M") )
+            if(item.size() == 1 && item.at(0).at(0) == "[")
             {
                 ++roundCounter;
             }
@@ -973,7 +1196,7 @@ void MainWindow::readCsvMatchData(QString fileName)
                 TblMatchTable -> setSpan(row, 0, 1, 4);
                 TblMatchTable -> setCellWidget(row, 0, new QLabel);
                 qobject_cast<QLabel*> (TblMatchTable -> cellWidget(row, 0) ) -> setText(item.at(0) );
-                if(item.at(0).at(0) == "R" || item.at(0).at(0) == "M")
+                if(item.at(0).at(0) == "[")
                 {
                     qobject_cast<QLabel*> (TblMatchTable -> cellWidget(row, 0) ) -> setStyleSheet("color: black; "
                                                                                                    "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #7FFFFF, stop: 0.5 #38FFFF, stop: 0.6 #30DDDD, stop:1 #C2FFFF); "
@@ -1166,7 +1389,8 @@ void MainWindow::actSaveMatchResultsTriggered()
                                 tr("Comma-separated values File (*.csv)"),
                                 &selectedFilter,
                                 options);
-    if(!fileName.isEmpty() )
+
+    if(!fileName.isEmpty() && TblMatchTable -> rowCount() != 0)
     {
         QFile csvFile(fileName);
         if(csvFile.open(QIODevice::WriteOnly | QFile::Text) )
@@ -1177,6 +1401,10 @@ void MainWindow::actSaveMatchResultsTriggered()
             }
         }
         csvFile.close();
+    }
+    else
+    {
+        QMessageBox::warning(this, "Empty or Modification", "Either the Match-Table is empty or you\nmodified the Participants-List");
     }
 }
 void MainWindow::actDBEditorTriggered()
@@ -1190,6 +1418,17 @@ void MainWindow::actAboutTriggered()
     QMessageBox::aboutQt(this, "About");
 }
 
+void MainWindow::LstSelectedTeamsItemChanged()
+{
+    TblTable -> clear();
+    TblMatchTable -> clear();
+    TblMatchTable -> setRowCount(0);
+    if(ui -> LstSelectedTeams -> count() > 1)
+    {
+        ui -> actionSaveTeamList -> setEnabled(true);
+        ui -> CmdFirstDay -> setEnabled(true);
+    }
+}
 //current row changed signal
 void MainWindow::LstContinentsCurrentRowChanged()
 {
@@ -1321,8 +1560,7 @@ bool MainWindow::checkIfListsAreDifferent(QStringList list)
 void MainWindow::CmdContinueClicked()
 {
     if(ui -> LstSelectedTeams -> count() > 1)
-    {
-        DlgTableDialog -> close();
+    {  
         ui -> CmdFirstDay -> setDisabled(true);
         QStringList newList;
         for(int i = 0; i < ui -> LstSelectedTeams -> count(); ++i)
@@ -1365,11 +1603,9 @@ void MainWindow::CmdContinueClicked()
         {
             TblMatchTable -> hideRow(i);
         }
-        DlgTableDialog -> show();
     }
     else if(teamNameList.size() > 1)
     {
-        DlgTableDialog -> close();
         ++backAndForth;
         SpbUpdateTableReturnPressed();
         if(backAndForth == eachDay.size() - 1)
@@ -1398,7 +1634,6 @@ void MainWindow::CmdContinueClicked()
         {
             TblMatchTable -> hideRow(i);
         }
-        DlgTableDialog -> show();
     }
     else
     {
@@ -1407,7 +1642,6 @@ void MainWindow::CmdContinueClicked()
 }
 void MainWindow::CmdBackClicked()
 {
-    DlgTableDialog -> close();
     QStringList newList;
     for(int i = 0; i < ui -> LstSelectedTeams -> count(); ++i)
     {
@@ -1441,15 +1675,20 @@ void MainWindow::CmdBackClicked()
         {
             TblMatchTable -> hideRow(i);
         }
-        DlgTableDialog -> show();
     }
     else if(listsAreDifferent)
     {
         CmdMatchScheduleClicked();
         backAndForth = 1;
-        DlgTableDialog -> show();
     }
 }
+void MainWindow::CmdFirstDayClicked()
+{
+    backAndForth = -1;
+    CmdContinueClicked();
+    DlgTableDialog -> show();
+}
+
 //constructor
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -1507,6 +1746,26 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
                                            "background: dimgrey }");
     ui -> CmdSelectWholeCont -> setStyleSheet(" :disabled { color: grey; "
                                               "background: dimgrey }");
+    CmdCloseDialog -> setStyleSheet("QPushButton:disabled { border-image: url(:/miscRsc/misc_icons/closeDlg-disabled) 3 10 3 10; "
+                                    "border-top: 3px transparent; "
+                                    "border-bottom: 3px transparent; "
+                                    "border-right: 10px transparent; "
+                                    "border-left: 10px transparent } "
+                                    "QPushButton:enabled { border-image: url(:/miscRsc/misc_icons/closeDlg) 3 10 3 10; "
+                                    "border-top: 3px transparent; "
+                                    "border-bottom: 3px transparent; "
+                                    "border-right: 10px transparent; "
+                                    "border-left: 10px transparent } "
+                                    "QPushButton:hover { border-image: url(:/miscRsc/misc_icons/closeDlg-hover) 4 11 4 11; "
+                                    "border-top: 4px transparent; "
+                                    "border-bottom: 4px transparent; "
+                                    "border-right: 11px transparent; "
+                                    "border-left: 11px transparent }"
+                                    "QPushButton:pressed { border-image: url(:/miscRsc/misc_icons/closeDlg-pressed) 2 9 2 9; "
+                                    "border-top: 2px transparent; "
+                                    "border-bottom: 2px transparent; "
+                                    "border-right: 9px transparent; "
+                                    "border-left: 9px transparent }");
     CmdContinue -> setStyleSheet("QPushButton:disabled { border-image: url(:/miscRsc/misc_icons/arrow-continue-disabled) 3 10 3 10; "
                                        "border-top: 3px transparent; "
                                        "border-bottom: 3px transparent; "
@@ -1595,6 +1854,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui -> actionSaveTeamList, SIGNAL(triggered() ), SLOT(actSaveListTriggered() ) );
     connect(ui -> actionSaveMatchResults, SIGNAL(triggered() ), SLOT(actSaveMatchResultsTriggered() ) );
 
+    connect(ui -> LstSelectedTeams, SIGNAL(itemChanged(QListWidgetItem*) ), SLOT(LstSelectedTeamsItemChanged() ) );
     connect(ui -> LstContinents, SIGNAL(itemSelectionChanged() ), SLOT(LstContinentsCurrentRowChanged() ) );
     connect(ui -> LstSubCont, SIGNAL(itemSelectionChanged() ), SLOT(LstSubContsCurrentRowChanged() ) );
 
@@ -1611,9 +1871,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     QShortcut* ret = new QShortcut(Qt::Key_Return, TblMatchTable);
     connect(ret, SIGNAL(activated() ), SLOT(SpbUpdateTableReturnPressed() ) );
+    connect(CmdHomeAwayTotal, SIGNAL(clicked() ), SLOT(CmdHomeAwayTotalClicked() ) );
 
     connect(CmdContinue, SIGNAL(clicked() ), SLOT(CmdContinueClicked() ) );
-    connect(ui -> CmdFirstDay, SIGNAL(clicked() ), SLOT(CmdContinueClicked() ) );
+    connect(ui -> CmdFirstDay, SIGNAL(clicked() ), SLOT(CmdFirstDayClicked() ) );
     connect(CmdBack, SIGNAL(clicked() ), SLOT(CmdBackClicked() ) );
 }
 
@@ -1622,4 +1883,3 @@ MainWindow::~MainWindow()
     db.close();
     delete ui;
 }
-

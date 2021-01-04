@@ -345,14 +345,22 @@ void Teams::setFormIcons(const int &a, const int &b, const QPixmap &winImg, cons
     }
 }
 
+double Teams::retOffensive()
+{
+    return offensive;
+}
+double Teams::retDefensive()
+{
+    return defensive;
+}
 double Teams::convertOffensiveValue()
 {
-    double o = (5.9e-6 * pow(offensive, 3) ) - (0.0012156 * pow(offensive, 2) ) + (0.1299139 * offensive) - 1.6529923;
+    double o = (0.0000059 * pow(offensive, 3) ) - (0.0012156 * pow(offensive, 2) ) + (0.1299139 * offensive) - 1.6529923;
     return o;
 }
 double Teams::convertDefensiveValue()
 {
-    double d = 2.8e-8 * pow(defensive, 4) - (9.612e-6 * pow(defensive, 3) ) + (1.188958e-3 * pow(defensive, 2) ) - (7.1786300e-2 * defensive) + 2.141225096;
+    double d = 0.000000028 * pow(defensive, 4) - (0.000009612 * pow(defensive, 3) ) + (0.001188958 * pow(defensive, 2) ) - (0.0717863 * defensive) + 2.141225096;
     //double d = -(3.5e-6 * pow(defensive, 3) ) + (5.344e-4 * pow(defensive, 2) ) - (0.0350429 * defensive) + 1.7941399;
     //double d = 2.38393 * exp(-0.02503 * defensive);
     return d;
