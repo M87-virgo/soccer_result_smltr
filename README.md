@@ -45,11 +45,9 @@ Coming soon...
 Coming soon...
 
 ## Features
-**A little guide and a small presentation of the functions and possibilities of this tool**   
-**Dialog of table and match results**  
-More coming soon...
+**Here is little a guide and a small presentation of the functions and possibilities of this tool**   
   
-  **Feature-List resp. step-by-step Guide**
+  **Feature-List resp. step-by-step Guide:**
 - Choose between Nationalteams-Mode and Clubs-Mode
 - Nationalteams are structured in Continents -> Sub-Continents.
 - Choose single teams, All teams from a Sub-Continent or from a whole Continent
