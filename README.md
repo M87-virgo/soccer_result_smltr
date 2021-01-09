@@ -48,6 +48,24 @@ Coming soon...
 **A little guide and a small presentation of the functions and possibilities of this tool**   
 **Dialog of table and match results**  
 More coming soon...
+  
+  **Feature-List resp. step-by-step Guide**
+- Choose between Nationalteams-Mode and Clubs-Mode
+- Nationalteams are structured in Continents -> Sub-Continents.
+- Choose single teams, All teams from a Sub-Continent or from a whole Continent
+- Clubs are just structured in leagues, so you can choose single clubs or all clubs from a league
+- Set the round number(max. 8). It means rounds of matches and re-matches. For example if you choose 3, you got matches 1; re-matches 1; matches 2. Max is 8. So, 4 rounds of matches and 4 rounds of re-matches, alternately
+- Optional you can add teams randomly
+- The play level values are shown below the Participants-List by selecting a team <img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/play_level_example.jpg" alt="playlevel" width="260" align="left">
+- Simulate all the results and show the end-table or simulate only the first Match-Day by one click
+- With the arrow-buttons you can navigate forward and back through the match days and the associated table
+- Display the home table and away table
+- Select single matches
+- Edit the results. By pressing the enter-key the table will be updated
+- Save and Load Team-Lists
+- Save and Load Results and associated Tables
+- Load other Databases
+- Edit the Database with the help of the Database-Editor <img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/DB_Editor.jpg" alt="database_editor" width="460" align="left">
 
 ## Concept  
 Firstly, this is not the final concept. The long-term goal is to generate the results with the help of **machine-learning/deep-learning**  
