@@ -58,7 +58,7 @@ More coming soon...
 - Optional you can add teams randomly
 - The play level values are shown below the Participants-List by selecting a team 
 
-<img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/play_level_example.jpg" alt="playlevel" width="260" align="left">  
+<img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/play_level_example.jpg" alt="playlevel" width="260" align="center">  
 
 
 - Simulate all the results and show the end-table or simulate only the first Match-Day by one click
@@ -71,7 +71,7 @@ More coming soon...
 - Load other Databases
 - Edit the Database with the help of the Database-Editor 
 
-<img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/DB_Editor.jpg" alt="database_editor" width="460" align="left">  
+<img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/DB_Editor.jpg" alt="database_editor" width="460" align="center">  
 
 
 ## Concept  
