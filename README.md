@@ -48,6 +48,7 @@ Coming soon...
 **Here is little a guide and a small presentation of the functions and possibilities of this tool**   
   
   **Feature-List resp. step-by-step Guide:**
+- There are all Nationalteams(225) and currently 214 Clubs in 29 Leagues
 - Choose between Nationalteams-Mode and Clubs-Mode
 - Nationalteams are structured in Continents -> Sub-Continents.
 - Choose single teams, All teams from a Sub-Continent or from a whole Continent
