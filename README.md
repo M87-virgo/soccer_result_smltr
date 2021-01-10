@@ -72,7 +72,7 @@ Coming soon...
 
 <img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/DB_Editor.jpg" alt="database_editor" width="460" align="center">  
 
-- You can add, edit and delete clubs(no Nationalteams) or entire leagues
+- You can add, edit and delete(select a row and press the delete-key on your keyboard) clubs(no Nationalteams) or entire leagues
 
 
 ## Concept  
