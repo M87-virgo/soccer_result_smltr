@@ -49,7 +49,7 @@ Details coming soon...
 - Same for obtain special data automatically from web-sites
 
 ## Features
-**Here is little a guide and a small presentation of the functions and possibilities of this tool**   
+**Here is a little guide and a small presentation of the functions and possibilities of this tool**   
   
   **Feature-List resp. step-by-step Guide:**
 - There are all Nationalteams(225) and currently 214 Clubs in 29 Leagues
