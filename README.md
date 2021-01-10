@@ -45,6 +45,8 @@ Coming soon...
 ## Participation
 Coming soon...
 **I invite everyone to participate in this project.**
+- Help for machine-learning implementions are very welcome
+- Same for obtain special data automatically from web-sites
 
 ## Features
 **Here is little a guide and a small presentation of the functions and possibilities of this tool**   
@@ -102,8 +104,7 @@ The teamability value is passed to the Bernoulli-distribution(propability of ret
 probability of scoring one goal more and getting one goal less.  
 The higher the value, the higher is the probability of the team to score one goal and getting one goal less.   
 **So you can say the teamability improves both offensive and defensive.**  
-
-**Next, I will implement how the results of the last 5 Games will influence the current match results.**   
+  
 
 **How do I estimate the values of the teams?**  
 The values are really just rough estimates.  
@@ -124,8 +125,8 @@ But, everyone is welcome to determine his own values. You can edit the values fr
 - The results of the last 5 Games will influence the current match results
 
 **Long-term goals:**
-- Obtain soccer-statistics automatically from the internet
-- Determine values for the play level parameters from a team with the help of machine-learning
+- Obtain soccer-statistics automatically from web-sites
+- Determine values for the play level parameters from a team with the help of **machine-learning**
 
 ## Contributing
 Coming soon...
