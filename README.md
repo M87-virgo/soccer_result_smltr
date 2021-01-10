@@ -9,8 +9,8 @@
 
 <div align="center">
      
-Soccer Result Simulator is supposed to be tool that simulates the results of football matches **by one click**.  
-**It is explicitly not designed for predictive and there are no plans to realise this!**
+Soccer Result Simulator is supposed to be tool that **simulates** the results of football matches **by one click**.  
+It is explicitly **not designed and developed for predictions** and there are no plans to realise this!
 
 </div>
 
