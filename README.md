@@ -9,7 +9,8 @@
 
 <div align="center">
      
-Soccer Result Simulator is supposed to be tool that simulates the results of football matches **by one click**.
+Soccer Result Simulator is supposed to be tool that simulates the results of football matches **by one click**.  
+**It is explicitly not designed for predictive and there are no plans to realise this!**
 
 </div>
 
@@ -43,6 +44,7 @@ Coming soon...
 
 ## Participation
 Coming soon...
+**I invite everyone to participate in this project.**
 
 ## Features
 **Here is little a guide and a small presentation of the functions and possibilities of this tool**   
@@ -76,9 +78,8 @@ Coming soon...
  select a row and press the delete-key on your keyboard
 
 ## Concept  
-Firstly, this is not the final concept. The long-term goal is to generate the results with the help of **machine-learning/deep-learning**  
+Firstly, this is not the final concept. The long-term goal is to generate the results with the help of Parameters  
 based on a concept which is discriped in the book **"Der perfekte Tipp. Statistik des Fußballspiels"(The perfect tip. Statistics of the football match) by Andreas Heuer.**  
-**I invite everyone to participate in this project. Help with machine-learning is very welcome.**
 
 At the moment, the play level of each team is modeled by three values in the database: offensive, defensive and teamability. 
 The values are between 20 and 99.  
@@ -118,7 +119,13 @@ It would go beyond the scope if I discripe it in all details.
 But, everyone is welcome to determine his own values. You can edit the values from the database using the database-editor of my tool.  
 
 ## Preview
-Coming soon...
+- Multilanguage support
+- Tournament simulation like World-Cup or Champions League plus possibility to create and simulate own tournaments
+- The results of the last 5 Games will influence the current match results
+
+**Long-term goals:**
+- Obtain soccer-statistics automatically from the internet
+- Determine values for the play level parameters from a team with the help of machine-learning
 
 ## Contributing
 Coming soon...
