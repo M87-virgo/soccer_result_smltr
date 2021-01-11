@@ -123,6 +123,8 @@ But, everyone is welcome to determine his own values. You can edit the values fr
 - Multilanguage support
 - Tournament simulation like World-Cup or Champions League plus possibility to create and simulate own tournaments
 - The results of the last 5 Games will influence the current match results
+- GUI-Optimisation on different resolutions
+- Different GUI-Skins
 
 **Long-term goals:**
 - Obtain soccer-statistics automatically from web-sites
