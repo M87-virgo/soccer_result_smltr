@@ -76,7 +76,7 @@ Details coming soon...
 
 <img src="https://github.com/M87-virgo/soccer_result_smltr/blob/main/misc_icons/Neuer%20Ordner/DB_Editor.jpg" alt="database_editor" width="460" align="center">  
 
-- You can add, edit and delete clubs(no Nationalteams) or entire leagues. To delete an entry  
+- You can add, edit and delete clubs(no Nationalteams) or entire leagues. To delete an entry,  
  select a row and press the delete-key on your keyboard
 
 ## Concept  
@@ -123,7 +123,7 @@ But, everyone is welcome to determine his own values. You can edit the values fr
 - Multilanguage support
 - Linux and Mac OS support
 - Tournament simulation like World-Cup or Champions League plus possibility to create and simulate own tournaments
-- The results of the last 5 Games will influence the current match results
+- The results of the last 5 games will influence the current match results
 - GUI-Optimisation on different resolutions
 - Different GUI-Skins
 
