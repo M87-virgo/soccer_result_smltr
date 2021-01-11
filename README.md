@@ -120,6 +120,7 @@ It would go beyond the scope if I discripe it in all details.
 But, everyone is welcome to determine his own values. You can edit the values from the database using the database-editor of my tool.  
 
 ## Preview
+**In Progress**
 - Multilanguage support
 - Linux and Mac OS support
 - Tournament simulation like World-Cup or Champions League plus possibility to create and simulate own tournaments
@@ -127,7 +128,7 @@ But, everyone is welcome to determine his own values. You can edit the values fr
 - GUI-Optimisation on different resolutions
 - Different GUI-Skins
 
-**Long-term goals:**
+**Long-term Goals:**
 - Obtain soccer-statistics automatically from web-sites
 - Determine values for the play level parameters from a team with the help of **machine-learning**
 
