@@ -16,7 +16,7 @@ It is explicitly **not designed and developed for predictions** and there are no
 
 <div align="center">
 
-**Soccer Result Simulator 1.2.1 has been released.**
+**Soccer Result Simulator 1.2.1 (64bit support) has been released. For Windows 7, 8 and 10**
 **You can download it [here](https://github.com/M87-virgo/soccer_result_smltr/raw/main/soccer_result_simltr/installer/srsSetup.exe).**  
      
 </div>
@@ -121,6 +121,7 @@ But, everyone is welcome to determine his own values. You can edit the values fr
 
 ## Preview
 - Multilanguage support
+- Linux and Mac OS support
 - Tournament simulation like World-Cup or Champions League plus possibility to create and simulate own tournaments
 - The results of the last 5 Games will influence the current match results
 - GUI-Optimisation on different resolutions
