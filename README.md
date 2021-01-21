@@ -17,7 +17,7 @@ It is explicitly **not designed and developed for predictions** and there are no
 <div align="center">
 
 **Soccer Result Simulator 1.4.0 (64bit support) has been released. For Windows 7, 8 and 10**  
-**You can download it [here](https://github.com/M87-virgo/soccer_result_smltr/raw/main/soccer_result_simltr/installer/srsSetup.exe).**  
+**You can download it [here](https://github.com/M87-virgo/soccer_result_smltr/releases/tag/v1.4.0).**  
      
 </div>
 
