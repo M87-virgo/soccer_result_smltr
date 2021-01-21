@@ -7,6 +7,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QTranslator>
+
 #include <QMainWindow>
 #include <QtSql/QtSql>
 #include <QtWidgets>
@@ -25,6 +27,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    QTranslator translator;
 
     QVector<Teams> resultTable = {};
     QVector<QVector<Teams> > eachDay = {};
@@ -90,6 +94,10 @@ private slots:
     void actOpenFileTriggered();
     void actSaveListTriggered();
     void actSaveMatchResultsTriggered();
+    void actGermanTriggered();
+    void actSpanishTriggered();
+    void actEnglishTriggered();
+    void LstSelectedTeamsItemSelectionChanged();
     void showContinents();
     void showSubContinents();
     void showNatTeams();

@@ -28,5 +28,9 @@
         <file>misc_icons/closeDlg-disabled.png</file>
         <file>misc_icons/closeDlg-hover.png</file>
         <file>misc_icons/closeDlg-pressed.png</file>
+        <file>misc_icons/upd.png</file>
+        <file>misc_icons/upd-disabled.png</file>
+        <file>misc_icons/upd-hover.png</file>
+        <file>misc_icons/upd-pressed.png</file>
     </qresource>
 </RCC>

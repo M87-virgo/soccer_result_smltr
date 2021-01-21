@@ -35,8 +35,8 @@ FORMS += \
     sqlitedbeditor.ui
 
 
-TRANSLATIONS += \
-    soccer_result_simltr_en_DE.ts
+TRANSLATIONS += soccer_result_simltr_en_DE.ts \
+                soccer_result_simltr_en_ESP.ts \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -48,3 +48,6 @@ RC_ICONS = appIcon.ico
 RESOURCES += \
     misc.qrc \
     rsc.qrc
+
+DISTFILES += \
+    soccer_result_simltr_en_ESP.ts

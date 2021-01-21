@@ -12,7 +12,7 @@
         <location filename="mainwindow.ui" line="244"/>
         <location filename="mainwindow.cpp" line="1109"/>
         <source>Continents</source>
-        <translation>Kontinente</translation>
+        <translation>Continentes</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="107"/>

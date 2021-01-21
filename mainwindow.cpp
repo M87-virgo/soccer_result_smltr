@@ -108,7 +108,7 @@ void MainWindow::setUpTable(const int &rows)
     TblMatchTable -> setColumnCount(4);
     TblMatchTable -> verticalHeader() -> hide();
 
-    QStringList headers = { "Home-Team", "Res", "ult", "Guest" };
+    QStringList headers = { tr("Home-Team"), tr("Res"), tr("ult"), tr("Guest") };
     TblMatchTable -> setHorizontalHeaderLabels(headers);
     TblMatchTable -> horizontalHeaderItem(1) -> setTextAlignment(Qt::AlignRight);
     TblMatchTable -> horizontalHeaderItem(2) -> setTextAlignment(Qt::AlignLeft);
@@ -130,10 +130,37 @@ void MainWindow::setUpLblLegend()
                             "background-color: black; "
                             "font: bold 17px Georgia");
 
-    LblLegend -> setText("Pts = Points; GF = Goals for; GA = Goals against; GD = Goal difference; MP = Match played; "
-                         "W = Win; L = Loss; D = Draw");
+    LblLegend -> setText(tr("Pts = Points; GF = Goals for; GA = Goals against; GD = Goal difference; MP = Match played; "
+                         "W = Win; L = Loss; D = Draw") );
     LblLegend -> setFixedHeight(35);
 }
+void MainWindow::LstSelectedTeamsItemSelectionChanged()
+{
+    if(ui -> LstSelectedTeams -> count() != 0)
+    {
+        if(ui -> CmdClubsMode -> isEnabled() )
+        {
+            sqlCommand.prepare("SELECT offensive, defensive, teamability FROM `nationalteams(countries)` WHERE name_country = ?");
+        }
+        else
+        {
+            sqlCommand.prepare("SELECT offensive, defensive, teamability FROM clubs WHERE name_club = ?");
+        }
+        sqlCommand.addBindValue(ui -> LstSelectedTeams -> currentItem() -> text() );
+        sqlCommand.exec();
+        while(sqlCommand.next() )
+        {
+            ui -> PrgrssBarOffensive -> setValue(sqlCommand.value(0).toInt() );
+            ui -> PrgrssBarDefensive -> setValue(sqlCommand.value(1).toInt() );
+            ui -> PrgrssBarTeamAbility -> setValue(sqlCommand.value(2).toInt() );
+        }
+        ui -> LblCurrentTeam -> setText(ui -> LstSelectedTeams -> currentItem() -> text() );
+        ui -> PrgrssBarOffensive -> setFixedWidth(ui -> PrgrssBarOffensive -> value() * 3.2828);
+        ui -> PrgrssBarDefensive -> setFixedWidth(ui -> PrgrssBarDefensive -> value() * 3.2828);
+        ui -> PrgrssBarTeamAbility -> setFixedWidth(ui -> PrgrssBarTeamAbility -> value() * 3.2828);
+    }
+}
+
 void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, const QVector<QPair<int, int> > &numOfGamesPerDay)
 {
     backAndForth = matchSchedule.size() - 1;
@@ -165,7 +192,7 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
         resultTable[i].getTeamNameAndQualityValues(teamNameList.at(i), off, def, tabl);
     }
 
-    QString roundFirst = "[Matches", roundBack = "[Rematches";
+    QString roundFirst = tr("[Matches"), roundBack = tr("[Rematches");
     QString temp = roundBack;
     int c = 0, r = 0, day = 1;
     int nOfRoundFirst = 1, nOfRoundBack = 0;
@@ -175,7 +202,7 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
 
     TblMatchTable -> setSpan(0, 0, 1, 4);
     TblMatchTable -> setCellWidget(0, 0, new QLabel);
-    qobject_cast<QLabel*> (TblMatchTable -> cellWidget(0, 0) ) -> setText("[Matches 1, Day 1]");
+    qobject_cast<QLabel*> (TblMatchTable -> cellWidget(0, 0) ) -> setText(tr("[Matches 1, Day 1]") );
     qobject_cast<QLabel*> (TblMatchTable -> cellWidget(0, 0) ) -> setStyleSheet("color: black; "
                                                                                    "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #7FFFFF, stop: 0.5 #38FFFF, stop: 0.6 #30DDDD, stop:1 #C2FFFF); "
                                                                                    "font: bold 19px Georgia");
@@ -197,7 +224,7 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
             temp = temp + " " + QVariant(rb).toString();
             TblMatchTable -> setSpan(r, 0, 1 ,4);
             TblMatchTable -> setCellWidget(r, 0, new QLabel);
-            qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setText(temp  + ", Day " + QVariant(day).toString() + "]" );
+            qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setText(temp  + tr(", Day ") + QVariant(day).toString() + "]" );
             qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setStyleSheet("color: black; "
                                                                                     "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #7FFFFF, stop: 0.5 #38FFFF, stop: 0.6 #30DDDD, stop:1 #C2FFFF); "
                                                                                     "font: bold 19px Georgia");
@@ -211,7 +238,7 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
             temp = temp + " " + QVariant(rf).toString();
             TblMatchTable -> setSpan(r, 0, 1 ,4);
             TblMatchTable -> setCellWidget(r, 0, new QLabel);
-            qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setText(temp + ", Day " + QVariant(day).toString() + "]" );
+            qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setText(temp + tr(", Day ") + QVariant(day).toString() + "]" );
             qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setStyleSheet("color: black; "
                                                                                    "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #7FFFFF, stop: 0.5 #38FFFF, stop: 0.6 #30DDDD, stop:1 #C2FFFF); "
                                                                                    "font: bold 19px Georgia");
@@ -324,7 +351,7 @@ void MainWindow::fillTable(const QVector<QVector<QPair<int, int> > > &roundFst, 
             ++day;
             TblMatchTable -> setSpan(r, 0, 1, 4);
             TblMatchTable -> setCellWidget(r, 0, new QLabel);
-            qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setText("Day " + QVariant(day).toString() );
+            qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setText(tr("Day ") + QVariant(day).toString() );
             qobject_cast<QLabel*> (TblMatchTable -> cellWidget(r, 0) ) -> setStyleSheet("color: white; "
                                                                                            "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #00A6FF, stop: 0.5 #0098FF, stop: 0.6 #008AFF, stop:1 #00B7FF); "
                                                                                            "font: bold 19px Georgia");
@@ -680,7 +707,7 @@ void MainWindow::connectDatabase(QString databaseName)
 
     if(db.open() )
     {
-        QMessageBox::information(this, "Connection", "Database connected successfully!");
+        QMessageBox::information(this, tr("Connection"), tr("Database connected successfully!") );
 
         ui -> actionDB_Editor -> setEnabled(true);
         ui -> CmdClubsMode -> setEnabled(true);
@@ -688,7 +715,7 @@ void MainWindow::connectDatabase(QString databaseName)
     else
     {
         QSqlError error = db.lastError();
-        QMessageBox::information(this, "Connection", error.text() );
+        QMessageBox::information(this, tr("Connection"), error.text() );
     }
 
     sqlCommand = QSqlQuery(db);
@@ -726,7 +753,7 @@ void MainWindow::CmdUndoSelectedTeamClicked()
     }
     else
     {
-        QMessageBox::information(this, "Empty list", "List is emtpy. No team can be selected to remove from the list.");
+        QMessageBox::information(this, tr("Empty list"), tr("List is emtpy. No team can be selected to remove from the list.") );
     }
 }
 void MainWindow::CmdClearAllClicked()
@@ -770,7 +797,7 @@ void MainWindow::CmdTeamSelectionClicked()
     }
     else
     {
-        QMessageBox::information(this, "No Selection", "Currently no Team is selected!");
+        QMessageBox::information(this, tr("No Selection"), tr("Currently no Team is selected!") );
     }
 }
 void MainWindow::CmdSelectWholeSubCoClicked()
@@ -793,7 +820,7 @@ void MainWindow::CmdSelectWholeSubCoClicked()
     }
     else
     {
-        QMessageBox::information(this, "Empty list", "Left list is emtpy. No team will be add.");
+        QMessageBox::information(this, tr("Empty list"), tr("Left list is emtpy. No team will be add.") );
     }
 }
 void MainWindow::CmdSelectWholeContClicked()
@@ -836,7 +863,7 @@ void MainWindow::CmdSelectWholeContClicked()
     }
     else if(ui -> LstContinents -> count() == 0 || ui -> LstContinents -> selectedItems().isEmpty() || !ui -> LstContinents -> hasFocus() )
     {
-        QMessageBox::information(this, "Empty list or no selection", "Continent-List is emtpy or no continent is selected. No team will be add.");
+        QMessageBox::information(this, tr("Empty list or no selection"), tr("Continent-List is emtpy or no continent is selected. No team will be add.") );
     }
 }
 
@@ -923,17 +950,16 @@ void MainWindow::CmdMatchScheduleClicked()
     }
     else
     {
-        QMessageBox::warning(this, "Too few teams", "Too few teams in list! You have to choose at least two teams.");
+        QMessageBox::warning(this, tr("Too few teams"), tr("Too few teams in list! You have to choose at least two teams.") );
     }
 }
 void MainWindow::setUpTableDialog()
 {
-    DlgTableDialog -> setWindowTitle("Match-Schedule with results and Table");
+    DlgTableDialog -> setWindowTitle(tr("Match-Schedule with results and Table") );
     TblTable -> setFixedWidth(1118);
     TblTable -> setMaximumHeight(775);
     TblTable -> setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
     TblTable -> adjustSize();
-    TblTable -> setSortingEnabled(true);
     TblMatchTable -> setFixedWidth(705);
     TblMatchTable -> setMaximumHeight(1000);
     TblMatchTable -> setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
@@ -966,8 +992,9 @@ void MainWindow::setUpTableDialog()
     DlgTableDialog -> setFixedHeight(1000);
     DlgTableDialog -> setWindowFlags(Qt::Window);
     ui -> actionSaveMatchResults -> setEnabled(true);
-    DlgTableDialog -> show();
+    DlgTableDialog -> open();
     connect(CmbMatches, SIGNAL(currentIndexChanged(int) ), SLOT(CmbMatchesCurrentIndexChanged() ) );
+    connect(CmdCloseDialog, SIGNAL(clicked() ), DlgTableDialog, SLOT(close() ) );
 }
 
 void MainWindow::CmdAddRandomTeamsClicked()
@@ -1023,7 +1050,7 @@ void MainWindow::CmdAddRandomTeamsClicked()
     }
     else
     {
-        QMessageBox::warning(this, "Decrease value", "The number of teams in the database\nis less than the number you have specified");
+        QMessageBox::warning(this, tr("Decrease value"), tr("The number of teams in the database\nis less than the number you have specified") );
     }
 }
 
@@ -1076,11 +1103,11 @@ void MainWindow::showNatTeams()
 }
 
 void MainWindow::CmdNatTeamsModeClicked()
-{
+{   
     ui -> LstContinents -> resize(241, 171);
 
-    ui -> LblContinents -> setText("Continents");
-    ui -> LblNatTeams -> setText("Nationalteams");
+    ui -> LblContinents -> setText(tr("Continents") );
+    ui -> LblNatTeams -> setText(tr("Nationalteams") );
     ui -> CmdClearAll -> setDisabled(true);
     ui -> CmdNatTeamsMode -> setDisabled(true);
     ui -> CmdClubsMode -> setEnabled(true);
@@ -1097,8 +1124,8 @@ void MainWindow::CmdClubsModeClicked()
 {
     ui -> LstContinents -> resize(300, 350);
 
-    ui -> LblContinents -> setText("Leagues");
-    ui -> LblNatTeams -> setText("Clubs");
+    ui -> LblContinents -> setText(tr("Leagues") );
+    ui -> LblNatTeams -> setText(tr("Clubs") );
     ui -> CmdClearAll -> setDisabled(true);
     ui -> CmdNatTeamsMode -> setEnabled(true);
     ui -> CmdClubsMode -> setDisabled(true);
@@ -1404,18 +1431,35 @@ void MainWindow::actSaveMatchResultsTriggered()
     }
     else
     {
-        QMessageBox::warning(this, "Empty or Modification", "Either the Match-Table is empty or you\nmodified the Participants-List");
+        QMessageBox::warning(this, tr("Empty or Modification"), tr("Either the Match-Table is empty or you\nmodified the Participants-List") );
     }
 }
 void MainWindow::actDBEditorTriggered()
 {
     meUi = new SqLiteDBEditor();
     meUi -> setAttribute(Qt::WA_DeleteOnClose);
-    meUi -> show();
+    meUi -> open();
 }
 void MainWindow::actAboutTriggered()
 {
     QMessageBox::aboutQt(this, "About");
+}
+void MainWindow::actGermanTriggered()
+{
+    translator.load("soccer_result_simltr_en_DE");
+    qApp -> installTranslator(&translator);
+    ui -> retranslateUi(this);
+}
+void MainWindow::actSpanishTriggered()
+{
+    translator.load("soccer_result_simltr_en_ESP");
+    qApp -> installTranslator(&translator);
+    ui -> retranslateUi(this);
+}
+void MainWindow::actEnglishTriggered()
+{
+    qApp -> removeTranslator(&translator);
+    ui -> retranslateUi(this);
 }
 
 void MainWindow::LstSelectedTeamsItemChanged()
@@ -1501,7 +1545,7 @@ void MainWindow::setHeaderForTable()
     }
     TblTable -> setShowGrid(false);
     TblTable -> verticalHeader() -> hide();
-    QStringList headers = { "Pos", "Team", "Pts", "GF", "GA", "GD", "MP", "W", "D", "L", "Last 5" };
+    QStringList headers = { tr("Pos"), tr("Team"), tr("Pts"), tr("GF"), tr("GA"), tr("GD"), tr("MP"), tr("W"), tr("D"), tr("L"), tr("Last 5") };
     TblTable -> setHorizontalHeaderLabels(headers);
     TblTable -> horizontalHeader() -> setStyleSheet("QHeaderView::section { height: 30px; "
                                                           "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2BE2FF, stop: 0.5 #1ECEFF, stop: 0.6 #2BBBFF, stop:1 #1CECFF); "
@@ -1637,7 +1681,7 @@ void MainWindow::CmdContinueClicked()
     }
     else
     {
-        QMessageBox::warning(this, "Too few teams", "Too few teams in list! You have to choose at least two teams.");
+        QMessageBox::warning(this, tr("Too few teams"), tr("Too few teams in list! You have to choose at least two teams.") );
     }
 }
 void MainWindow::CmdBackClicked()
@@ -1686,7 +1730,7 @@ void MainWindow::CmdFirstDayClicked()
 {
     backAndForth = -1;
     CmdContinueClicked();
-    DlgTableDialog -> show();
+    DlgTableDialog -> open();
 }
 
 //constructor
@@ -1820,6 +1864,25 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
                              "selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 blue, stop: 1 lightblue); "
                              "font: 18px Georgia");
 
+    ui -> PrgrssBarOffensive -> setFixedWidth(164);
+    ui -> PrgrssBarDefensive -> setFixedWidth(164);
+    ui -> PrgrssBarTeamAbility -> setFixedWidth(164);
+    ui -> PrgrssBarOffensive -> setStyleSheet("QProgressBar { color: black; "
+                                              "text-align: center } "
+                                              "QProgressBar::chunk { background-color: "
+                                              "qlineargradient(x1: 0, x2: 1, stop: 0.25 indianred, stop: 0.8 limegreen, stop: 1 dodgerblue);"
+                                              "width: 325px }");
+    ui -> PrgrssBarDefensive -> setStyleSheet("QProgressBar { color: black; "
+                                              "text-align: center } "
+                                              "QProgressBar::chunk { background-color: "
+                                              "qlineargradient(x1: 0, x2: 1, stop: 0.25 indianred, stop: 0.8 limegreen, stop: 1 dodgerblue);"
+                                              "width: 325px }");
+    ui -> PrgrssBarTeamAbility -> setStyleSheet("QProgressBar { color: black; "
+                                              "text-align: center } "
+                                              "QProgressBar::chunk { background-color: "
+                                              "qlineargradient(x1: 0, x2: 1, stop: 0.25 indianred, stop: 0.8 limegreen, stop: 1 dodgerblue);"
+                                              "width: 325px }");
+
     /*ui -> CmdDBCon -> setStyleSheet(" :enabled { color: white; "
                                     "border-Image: url(:/miscRsc/misc_icons/button.png) 3 10 3 10; "
                                     "border-top: 3px transparent; "
@@ -1853,8 +1916,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui -> actionOpenFile, SIGNAL(triggered() ), SLOT(actOpenFileTriggered() ) );
     connect(ui -> actionSaveTeamList, SIGNAL(triggered() ), SLOT(actSaveListTriggered() ) );
     connect(ui -> actionSaveMatchResults, SIGNAL(triggered() ), SLOT(actSaveMatchResultsTriggered() ) );
+    connect(ui -> actionGerman, SIGNAL(triggered() ), SLOT(actGermanTriggered() ) );
+    connect(ui -> actionEnglish, SIGNAL(triggered() ), SLOT(actEnglishTriggered() ) );
+    connect(ui -> actionSpanish, SIGNAL(triggered() ), SLOT(actSpanishTriggered() ) );
 
     connect(ui -> LstSelectedTeams, SIGNAL(itemChanged(QListWidgetItem*) ), SLOT(LstSelectedTeamsItemChanged() ) );
+    connect(ui -> LstSelectedTeams, SIGNAL(itemSelectionChanged() ),SLOT(LstSelectedTeamsItemSelectionChanged() ) );
     connect(ui -> LstContinents, SIGNAL(itemSelectionChanged() ), SLOT(LstContinentsCurrentRowChanged() ) );
     connect(ui -> LstSubCont, SIGNAL(itemSelectionChanged() ), SLOT(LstSubContsCurrentRowChanged() ) );
 

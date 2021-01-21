@@ -43,7 +43,7 @@ void SqLiteDBEditor::tblLeaguesRowDelete()
             ind.push_back(ui -> TblDataLeagues -> model() -> data(selMdl -> selectedIndexes().at(i) ).toInt() );
         }
 
-        QMessageBox::StandardButton reply = QMessageBox::question(this, "Delete?", "Do you want to delete this record?",
+        QMessageBox::StandardButton reply = QMessageBox::question(this, tr("Delete?"), tr("Do you want to delete this record?"),
                                             QMessageBox::Yes | QMessageBox::No);
         if(reply == QMessageBox::Yes)
         {
@@ -57,12 +57,12 @@ void SqLiteDBEditor::tblLeaguesRowDelete()
         }
         else
         {
-            QMessageBox::information(this, "Not Deleted", "No data was deleted.");
+            QMessageBox::information(this, tr("Not Deleted"), tr("No data was deleted.") );
         }
     }
     else
     {
-        QMessageBox::warning(this, "No selection", "No rows selected!");
+        QMessageBox::warning(this, tr("No selection"), tr("No rows selected!") );
     }
 }
 void SqLiteDBEditor::tblClubsRowDelete()
@@ -75,7 +75,7 @@ void SqLiteDBEditor::tblClubsRowDelete()
             ind.push_back(ui -> TblDataClubs -> model() -> data(selMdl -> selectedIndexes().at(i) ).toInt() );
         }
 
-        QMessageBox::StandardButton reply = QMessageBox::question(this, "Delete?", "Do you want to delete this record?",
+        QMessageBox::StandardButton reply = QMessageBox::question(this, tr("Delete?"), tr("Do you want to delete this record?"),
                                             QMessageBox::Yes | QMessageBox::No);
         if(reply == QMessageBox::Yes)
         {
@@ -89,12 +89,12 @@ void SqLiteDBEditor::tblClubsRowDelete()
         }
         else
         {
-            QMessageBox::information(this, "Not Deleted", "No data was deleted.");
+            QMessageBox::information(this, tr("Not Deleted"), tr("No data was deleted.") );
         }
     }
     else
     {
-        QMessageBox::warning(this, "No selection", "No rows selected!");
+        QMessageBox::warning(this, tr("No selection"), tr("No rows selected!") );
     }
 }
 void SqLiteDBEditor::tblNationRivalsRowDelete()
@@ -107,7 +107,7 @@ void SqLiteDBEditor::tblNationRivalsRowDelete()
             ind.push_back(ui -> TblDataNatRiv -> model() -> data(selMdl -> selectedIndexes().at(i) ).toInt() );
         }
 
-        QMessageBox::StandardButton reply = QMessageBox::question(this, "Delete?", "Do you want to delete this record?",
+        QMessageBox::StandardButton reply = QMessageBox::question(this, tr("Delete?"), tr("Do you want to delete this record?"),
                                             QMessageBox::Yes | QMessageBox::No);
         if(reply == QMessageBox::Yes)
         {
@@ -121,12 +121,12 @@ void SqLiteDBEditor::tblNationRivalsRowDelete()
         }
         else
         {
-            QMessageBox::information(this, "Not Deleted", "No data was deleted.");
+            QMessageBox::information(this, tr("Not Deleted"), tr("No data was deleted.") );
         }
     }
     else
     {
-        QMessageBox::warning(this, "No selection", "No rows selected!");
+        QMessageBox::warning(this, tr("No selection"), tr("No rows selected!") );
     }
 }
 void SqLiteDBEditor::tblClubRivalsRowDelete()
@@ -139,7 +139,7 @@ void SqLiteDBEditor::tblClubRivalsRowDelete()
             ind.push_back(ui -> TblDataRivClub -> model() -> data(selMdl -> selectedIndexes().at(i) ).toInt() );
         }
 
-        QMessageBox::StandardButton reply = QMessageBox::question(this, "Delete?", "Do you want to delete this record?",
+        QMessageBox::StandardButton reply = QMessageBox::question(this, tr("Delete?"), tr("Do you want to delete this record?"),
                                             QMessageBox::Yes | QMessageBox::No);
         if(reply == QMessageBox::Yes)
         {
@@ -153,12 +153,12 @@ void SqLiteDBEditor::tblClubRivalsRowDelete()
         }
         else
         {
-            QMessageBox::information(this, "Not Deleted", "No data was deleted.");
+            QMessageBox::information(this, tr("Not Deleted"), tr("No data was deleted.") );
         }
     }
     else
     {
-        QMessageBox::warning(this, "No selection", "No rows selected!");
+        QMessageBox::warning(this, tr("No selection"), tr("No rows selected!") );
     }
 }
 
@@ -174,7 +174,6 @@ void SqLiteDBEditor::CmdUpdateClicked()
     else if(ui -> LstTables -> currentRow() == 3)
     {
         tblLeaguesUpdate();
-        fillFilterComboBoxes();
 
         dbTblinfo.setFile("mydb.db");
         ui -> LblLastUpdate -> setText(dbTblinfo.lastModified().toString() );
@@ -210,7 +209,7 @@ QString SqLiteDBEditor::editStringFromNations(QString singleEditString, QString 
         if(qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 4) ) ) -> text() !=  ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 4) ).toString() )
         {
             nation = ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 1) ).toString();
-            singleEditString = QString("Offensive Value from %1: ").arg(nation)
+            singleEditString = QString(tr("Offensive Value from %1: ") ).arg(nation)
                  + ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 4) ).toString()
                  + " --> "
                  + qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 4) ) ) -> text()
@@ -221,7 +220,7 @@ QString SqLiteDBEditor::editStringFromNations(QString singleEditString, QString 
         if(qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 5) ) ) -> text() !=  ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 5) ).toString() )
         {
             nation = ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 1) ).toString();
-            singleEditString = QString("Defensive Value from %1: ").arg(nation)
+            singleEditString = QString(tr("Defensive Value from %1: ") ).arg(nation)
                  + ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 5) ).toString()
                  + " --> "
                  + qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 5) ) ) -> text()
@@ -232,7 +231,7 @@ QString SqLiteDBEditor::editStringFromNations(QString singleEditString, QString 
         if(qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 6) ) ) -> text() !=  ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 6) ).toString() )
         {
             nation = ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 1) ).toString();
-            singleEditString = QString("Team Ability Value from %1: ").arg(nation)
+            singleEditString = QString(tr("Team Ability Value from %1: ") ).arg(nation)
                  + ui -> TblDataNations -> model() -> data(cntryMdl -> index(i, 6) ).toString()
                  + " --> "
                  + qobject_cast<QSpinBox*> (ui -> TblDataNations -> indexWidget(cntryMdl -> index(i, 6) ) ) -> text()
@@ -250,11 +249,11 @@ void SqLiteDBEditor::tblNationsUpdate()
     QString totEdt = editStringFromNations(snglEdt, nation);
     if(totEdt.isEmpty() )
     {
-        QMessageBox::information(this, "No edits", "No edits found.");
+        QMessageBox::information(this, tr("No edits"), tr("No edits found.") );
     }
     else
     {
-        QMessageBox::StandardButton rply = QMessageBox::question(this, "Update?", QString("Do you want to save the following edit? :\n\n%1").arg(totEdt),
+        QMessageBox::StandardButton rply = QMessageBox::question(this, "Update?", QString(tr("Do you want to save the following edit? :\n\n%1") ).arg(totEdt),
                                             QMessageBox::Yes | QMessageBox::No);
         if(rply == QMessageBox::Yes)
         {
@@ -292,7 +291,7 @@ void SqLiteDBEditor::tblNationsUpdate()
         }
         else
         {
-            QMessageBox::information(this, "No Update", "No edit was saved.");
+            QMessageBox::information(this, tr("No Update"), tr("No edit was saved.") );
         }
     }
 }
@@ -314,11 +313,11 @@ void SqLiteDBEditor::tblLeaguesUpdate()
     }
     if(totalEdit.isEmpty() )
     {
-        QMessageBox::information(this, "No edits", "No edits found.");
+        QMessageBox::information(this, tr("No edits"), tr("No edits found.") );
     }
     else
     {
-        QMessageBox::StandardButton reply = QMessageBox::question(this, "Update?", QString("Do you want to save the following edit? :\n\n%1").arg(totalEdit),
+        QMessageBox::StandardButton reply = QMessageBox::question(this, "Update?", QString(tr("Do you want to save the following edit? :\n\n%1") ).arg(totalEdit),
                                             QMessageBox::Yes | QMessageBox::No);
         if(reply == QMessageBox::Yes)
         {
@@ -334,11 +333,24 @@ void SqLiteDBEditor::tblLeaguesUpdate()
                     sqlCommand.exec();
                 }
             }
+            ui -> CmbLeaguesFilter -> disconnect();
+            QString disp;
+            QSqlQuery sqlCmdUpdateLeagueComboBox;
+            sqlCmdUpdateLeagueComboBox.exec("SELECT name_league FROM leagues ORDER BY name_league ASC");
+            ui -> CmbLeaguesFilter -> clear();
+            ui -> CmbLeaguesForAll -> clear();
+            while(sqlCmdUpdateLeagueComboBox.next() )
+            {
+                disp = sqlCmdUpdateLeagueComboBox.value(0).toString();
+                ui -> CmbLeaguesFilter -> addItem(disp);
+                ui -> CmbLeaguesForAll -> addItem(disp);
+            }
+            connect(ui -> CmbLeaguesFilter, SIGNAL(currentIndexChanged(int) ), SLOT(CmbLeaguesFilterCurrentIndexChanged() ) );
             totalEdit.clear();
         }
         else
         {
-            QMessageBox::information(this, "No Update", "No edit was saved.");
+            QMessageBox::information(this, tr("No Update"), tr("No edit was saved.") );
         }
     }
 }
@@ -360,7 +372,7 @@ QString SqLiteDBEditor::editStringFromClubs(QString singleEditString, QString cl
         if(qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 2) ) ) -> text() !=  ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 2) ).toString() )
         {
             clubName = qobject_cast<QLineEdit*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 1) ) ) -> text();
-            singleEditString = QString("Offensive Value from %1: ").arg(clubName)
+            singleEditString = QString(tr("Offensive Value from %1: ") ).arg(clubName)
                  + ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 2) ).toString()
                  + " --> "
                  + qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 2) ) ) -> text()
@@ -371,7 +383,7 @@ QString SqLiteDBEditor::editStringFromClubs(QString singleEditString, QString cl
         if(qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 3) ) ) -> text() !=  ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 3) ).toString() )
         {
             clubName = qobject_cast<QLineEdit*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 1) ) ) -> text();
-            singleEditString = QString("Defensive Value from %1: ").arg(clubName)
+            singleEditString = QString(tr("Defensive Value from %1: ") ).arg(clubName)
                  + ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 3) ).toString()
                  + " --> "
                  + qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 3) ) ) -> text()
@@ -382,7 +394,7 @@ QString SqLiteDBEditor::editStringFromClubs(QString singleEditString, QString cl
         if(qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 4) ) ) -> text() !=  ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 4) ).toString() )
         {
             clubName = qobject_cast<QLineEdit*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 1) ) ) -> text();
-            singleEditString = QString("Team Ability Value from %1: ").arg(clubName)
+            singleEditString = QString(tr("Team Ability Value from %1: ") ).arg(clubName)
                  + ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 4) ).toString()
                  + " --> "
                  + qobject_cast<QSpinBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 4) ) ) -> text()
@@ -393,9 +405,9 @@ QString SqLiteDBEditor::editStringFromClubs(QString singleEditString, QString cl
         if(qobject_cast<QComboBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 5) ) ) -> currentText() !=  ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 5) ).toString() )
         {
             clubName = qobject_cast<QLineEdit*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 1) ) ) -> text();
-            singleEditString = QString("%1 change League from: ").arg(clubName)
+            singleEditString = QString(tr("%1 change League from: ") ).arg(clubName)
                  + ui -> TblDataClubs -> model() -> data(cMdl -> index(i, 5) ).toString()
-                 + " to "
+                 + tr(" to ")
                  + qobject_cast<QComboBox*> (ui -> TblDataClubs -> indexWidget(cMdl -> index(i, 5) ) ) -> currentText()
                  + "\n";
 
@@ -411,11 +423,11 @@ void SqLiteDBEditor::tblClubsUpdate()
     QString totalEdt = editStringFromClubs(singleEdt, club);
     if(totalEdt.isEmpty() )
     {
-        QMessageBox::information(this, "No edits", "No edits found.");
+        QMessageBox::information(this, tr("No edits"), tr("No edits found.") );
     }
     else
     {
-        QMessageBox::StandardButton rply = QMessageBox::question(this, "Update?", QString("Do you want to save the following edit? :\n\n%1").arg(totalEdt),
+        QMessageBox::StandardButton rply = QMessageBox::question(this, "Update?", QString(tr("Do you want to save the following edit? :\n\n%1") ).arg(totalEdt),
                                             QMessageBox::Yes | QMessageBox::No);
         if(rply == QMessageBox::Yes)
         {
@@ -471,7 +483,7 @@ void SqLiteDBEditor::tblClubsUpdate()
         }
         else
         {
-            QMessageBox::information(this, "No Update", "No edit was saved.");
+            QMessageBox::information(this, tr("No Update"), tr("No edit was saved.") );
         }
     }
 }
@@ -502,11 +514,11 @@ void SqLiteDBEditor::tblNationRivalsUpdate()
     }
     if(allEdt.isEmpty() )
     {
-        QMessageBox::information(this, "No edits", "No edits found.");
+        QMessageBox::information(this, tr("No edits"), tr("No edits found.") );
     }
     else
     {
-        QMessageBox::StandardButton reply = QMessageBox::question(this, "Update?", QString("Do you want to save the following edit? :\n\n%1").arg(allEdt),
+        QMessageBox::StandardButton reply = QMessageBox::question(this, "Update?", QString(tr("Do you want to save the following edit? :\n\n%1") ).arg(allEdt),
                                             QMessageBox::Yes | QMessageBox::No);
         if(reply == QMessageBox::Yes)
         {
@@ -535,7 +547,7 @@ void SqLiteDBEditor::tblNationRivalsUpdate()
         }
         else
         {
-            QMessageBox::information(this, "No Update", "No edit was saved.");
+            QMessageBox::information(this, tr("No Update"), tr("No edit was saved.") );
         }
     }
 }
@@ -566,11 +578,11 @@ void SqLiteDBEditor::tblClubRivalsUpdate()
     }
     if(totalMod.isEmpty() )
     {
-        QMessageBox::information(this, "No edits", "No edits found.");
+        QMessageBox::information(this, tr("No edits"), tr("No edits found.") );
     }
     else
     {
-        QMessageBox::StandardButton reply = QMessageBox::question(this, "Update?", QString("Do you want to save the following edit? :\n\n%1").arg(totalMod),
+        QMessageBox::StandardButton reply = QMessageBox::question(this, "Update?", QString(tr("Do you want to save the following edit? :\n\n%1") ).arg(totalMod),
                                             QMessageBox::Yes | QMessageBox::No);
         if(reply == QMessageBox::Yes)
         {
@@ -599,7 +611,7 @@ void SqLiteDBEditor::tblClubRivalsUpdate()
         }
         else
         {
-            QMessageBox::information(this, "No Update", "No edit was saved.");
+            QMessageBox::information(this, tr("No Update"), tr("No edit was saved.") );
         }
     }
 }
@@ -657,7 +669,7 @@ void SqLiteDBEditor::TblDataCurrentRowChanged()
                             "INNER JOIN continents ON `nationalteams(countries)`.continents_idcontinents = continents.idcontinents "
                             "WHERE subcontinents.name_subcontinent = '%1'";
         sqlCmdShowNations = sqlCmdShowNations.arg(ui -> CmbSubContinents -> currentText() );
-        ui -> CmdNoFilterSubCont -> setText(QString("show all nations\nfrom\n%1").arg(ui -> CmbContinents -> currentText() ) );
+        ui -> CmdNoFilterSubCont -> setText(QString(tr("show all nations\nfrom\n%1") ).arg(ui -> CmbContinents -> currentText() ) );
         showNationsTable();
     }
     else if(ui -> LstTables -> currentRow() == 3)
@@ -1084,7 +1096,7 @@ void SqLiteDBEditor::CmbFilterContCurrentIndexChanged()
     }
     ui -> CmdNoFilterNat -> setEnabled(true);
     ui -> CmdNoFilterSubCont -> setEnabled(true);
-    ui -> CmdNoFilterSubCont -> setText(QString("show all nations\nfrom\n%1").arg(ui -> CmbContinents -> currentText() ) );
+    ui -> CmdNoFilterSubCont -> setText(QString(tr("show all nations\nfrom\n%1") ).arg(ui -> CmbContinents -> currentText() ) );
     ui -> LblNumberOfRows -> setText(QString("%1 Teams").arg(ui -> TblDataNations -> model() -> rowCount() ) );
 }
 void SqLiteDBEditor::CmbFilterSubContCurrentIndexChanged()
@@ -1491,7 +1503,7 @@ void SqLiteDBEditor::CmdSaveClicked()
 {
     if(ui -> LstTables -> currentRow() == 3)
     {
-        QMessageBox::StandardButton reply = QMessageBox::question(this, "Save?", "Do you want to save your data?",
+        QMessageBox::StandardButton reply = QMessageBox::question(this, tr("Save?"), tr("Do you want to save your data?"),
                                             QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
         if(reply == QMessageBox::Save)
         {
@@ -1510,16 +1522,16 @@ void SqLiteDBEditor::CmdSaveClicked()
         }
         else if(reply == QMessageBox::Discard)
         {
-            QMessageBox::information(this, "Not accomplished", "Operation was not accomplished");
+            QMessageBox::information(this, tr("Not accomplished"), tr("Operation was not accomplished") );
         }
         else
         {
-            QMessageBox::information(this, "Canceled", "Procedure was canceled");
+            QMessageBox::information(this, tr("Canceled"), tr("Procedure was canceled") );
         }
     }
     else if(ui -> LstTables -> currentRow() == 4)
     {
-        QMessageBox::StandardButton reply = QMessageBox::question(this, "Save?", "Do you want to save your data?",
+        QMessageBox::StandardButton reply = QMessageBox::question(this, tr("Save?"), tr("Do you want to save your data?"),
                                             QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
         if(reply == QMessageBox::Save)
         {
@@ -1556,17 +1568,17 @@ void SqLiteDBEditor::CmdSaveClicked()
         }
         else if(reply == QMessageBox::Discard)
         {
-            QMessageBox::information(this, "Not accomplished", "Operation was not accomplished");
+            QMessageBox::information(this, tr("Not accomplished"), tr("Operation was not accomplished") );
         }
         else
         {
-            QMessageBox::information(this, "Canceled", "Procedure was canceled");
+            QMessageBox::information(this, tr("Canceled"), tr("Procedure was canceled") );
         }
     }
     else
     {
-        QMessageBox::information(this, "Select the right Table", "If you want to save your new LEAGUE, select the League Table. "
-                                                                 "For new Club, select the Club Table.");
+        QMessageBox::information(this, tr("Select the right Table"), tr("If you want to save your new LEAGUE, select the League Table. "
+                                                                 "For new Club, select the Club Table.") );
     }
 }
 void SqLiteDBEditor::CmdSaveRivalsClicked()
@@ -1575,11 +1587,11 @@ void SqLiteDBEditor::CmdSaveRivalsClicked()
     {
         if(ui -> CmbNatTeam -> currentIndex() == ui -> CmbNatRival -> currentIndex() )
         {
-            QMessageBox::warning(this, "Same Teams", "You cannot add two identic rivals!");
+            QMessageBox::warning(this, tr("Same Teams"), tr("You cannot add two identic rivals!") );
         }
         else
         {
-            QMessageBox::StandardButton reply = QMessageBox::question(this, "Save?", "Do you want to save your data?",
+            QMessageBox::StandardButton reply = QMessageBox::question(this, tr("Save?"), tr("Do you want to save your data?"),
                                                                       QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
             if(reply == QMessageBox::Save)
             {
@@ -1593,11 +1605,11 @@ void SqLiteDBEditor::CmdSaveRivalsClicked()
             }
             else if(reply == QMessageBox::Discard)
             {
-                QMessageBox::information(this, "Not accomplished", "Operation was not accomplished");
+                QMessageBox::information(this, tr("Not accomplished"), tr("Operation was not accomplished") );
             }
             else
             {
-                QMessageBox::information(this, "Canceled", "Procedure was canceled");
+                QMessageBox::information(this, tr("Canceled"), tr("Procedure was canceled") );
             }
         }
     }
@@ -1605,11 +1617,11 @@ void SqLiteDBEditor::CmdSaveRivalsClicked()
     {
         if(ui -> CmbClub -> currentIndex() == ui -> CmbClubRival -> currentIndex() )
         {
-            QMessageBox::warning(this, "Same Teams", "You cannot add two identic rivals!");
+            QMessageBox::warning(this, tr("Same Teams"), tr("You cannot add two identic rivals!") );
         }
         else
         {
-            QMessageBox::StandardButton reply = QMessageBox::question(this, "Save?", "Do you want to save your data?",
+            QMessageBox::StandardButton reply = QMessageBox::question(this, tr("Save?"), tr("Do you want to save your data?"),
                                                                       QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 
             if(reply == QMessageBox::Save)
@@ -1623,18 +1635,18 @@ void SqLiteDBEditor::CmdSaveRivalsClicked()
             }
             else if(reply == QMessageBox::Discard)
             {
-                QMessageBox::information(this, "Not accomplished", "Operation was not accomplished");
+                QMessageBox::information(this, tr("Not accomplished"), tr("Operation was not accomplished") );
             }
             else
             {
-                QMessageBox::information(this, "Canceled", "Procedure was canceled");
+                QMessageBox::information(this, tr("Canceled"), tr("Procedure was canceled") );
             }
         }
     }
     else
     {
-        QMessageBox::information(this, "Select the right Table", "If you want to save your new LEAGUE, select the League Table. "
-                                                                 "For new Club, select the Club Table.");
+        QMessageBox::information(this, tr("Select the right Table"), tr("If you want to save your new LEAGUE, select the League Table. "
+                                                                 "For new Club, select the Club Table.") );
     }
 }
 
@@ -1708,7 +1720,7 @@ void SqLiteDBEditor::TblAddNewClubInsertRow()
         qobject_cast<QComboBox*> (ui -> TblAddNewClubs -> cellWidget(row, 4) ) -> setStyleSheet(widgetStyle);
         qobject_cast<QLabel*> (ui -> TblAddNewClubs -> cellWidget(row, 5) ) -> setStyleSheet(widgetStyle);
     }
-    qobject_cast<QLineEdit*> (ui -> TblAddNewClubs -> cellWidget(row, 0) ) -> setText("\"Enter the club-name here\"");
+    qobject_cast<QLineEdit*> (ui -> TblAddNewClubs -> cellWidget(row, 0) ) -> setText(tr("\"Enter the club-name here\"") );
     qobject_cast<QLineEdit*> (ui -> TblAddNewClubs -> cellWidget(row, 0) ) -> setFocus();
     qobject_cast<QSpinBox*> (ui -> TblAddNewClubs -> cellWidget(row, 1) ) -> setMinimum(20);
     qobject_cast<QSpinBox*> (ui -> TblAddNewClubs -> cellWidget(row, 1) ) -> setMaximum(99);
@@ -1759,7 +1771,7 @@ void SqLiteDBEditor::setUpCellWidgets()
     ui -> TblAddNewClubs -> setCellWidget(0, 4, new QComboBox);
     ui -> TblAddNewClubs -> setCellWidget(0, 5, new QLabel);
 
-    qobject_cast<QLineEdit*> (ui -> TblAddNewClubs -> cellWidget(0, 0) ) -> setText("\"Enter the club-name here\"");
+    qobject_cast<QLineEdit*> (ui -> TblAddNewClubs -> cellWidget(0, 0) ) -> setText(tr("\"Enter the club-name here\"") );
     qobject_cast<QLineEdit*> (ui -> TblAddNewClubs -> cellWidget(0, 0) ) -> setSelection(0, 0);
     qobject_cast<QSpinBox*> (ui -> TblAddNewClubs -> cellWidget(0, 1) ) -> setMinimum(20);
     qobject_cast<QSpinBox*> (ui -> TblAddNewClubs -> cellWidget(0, 1) ) -> setMaximum(99);
@@ -1792,7 +1804,7 @@ void SqLiteDBEditor::setUpNewClubsTblWidget()
     ui -> TblAddNewClubs -> setColumnCount(6);
     ui -> TblAddNewClubs -> verticalHeader() -> hide();
 
-    QStringList headers = { "Clubname", "Off", "Def", "Team\nability", "Leaguename", "Country" };
+    QStringList headers = { tr("Clubname"), "Off", "Def", tr("Team\nability"), tr("Leaguename"), tr("Country") };
     ui -> TblAddNewClubs -> setHorizontalHeaderLabels(headers);
     ui -> TblAddNewClubs -> horizontalHeader() -> setStyleSheet("QHeaderView::section { height: 40px; "
                                                                 "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FF7972, stop: 0.5 #FF4F4C, stop: 0.6 #FF282C, stop: 1 #f08080); "
@@ -1883,13 +1895,13 @@ SqLiteDBEditor::SqLiteDBEditor() : QDialog(), ui(new Ui::SqLiteDBEditor)
     showContinentTable();
 
     ui -> LstTables -> clear();
-    ui -> LstTables -> addItem("Continents");
-    ui -> LstTables -> addItem("Subcontinents");
-    ui -> LstTables -> addItem("Countries");
-    ui -> LstTables -> addItem("Leagues");
-    ui -> LstTables -> addItem("Clubs");
-    ui -> LstTables -> addItem("Nationalteam-Rivals");
-    ui -> LstTables -> addItem("Club-Rivals");
+    ui -> LstTables -> addItem(tr("Continents") );
+    ui -> LstTables -> addItem(tr("Subcontinents") );
+    ui -> LstTables -> addItem(tr("Countries") );
+    ui -> LstTables -> addItem(tr("Leagues") );
+    ui -> LstTables -> addItem(tr("Clubs") );
+    ui -> LstTables -> addItem(tr("Nationalteam-Rivals") );
+    ui -> LstTables -> addItem(tr("Club-Rivals") );
 
     ui -> LstTables -> setCurrentRow(0);
     ui -> LstTables -> setFocus();
@@ -2023,6 +2035,27 @@ SqLiteDBEditor::SqLiteDBEditor() : QDialog(), ui(new Ui::SqLiteDBEditor)
                                          "border-bottom: 2px transparent; "
                                          "border-right: 9px transparent; "
                                          "border-left: 9px transparent }");
+
+    ui -> CmdUpdate -> setStyleSheet("QPushButton:disabled { border-image: url(:/miscRsc/misc_icons/upd-disabled) 3 10 3 10; "
+                                     "border-top: 3px transparent; "
+                                     "border-bottom: 3px transparent; "
+                                     "border-right: 10px transparent; "
+                                     "border-left: 10px transparent } "
+                                     "QPushButton:enabled { border-image: url(:/miscRsc/misc_icons/upd) 3 10 3 10; "
+                                     "border-top: 3px transparent; "
+                                     "border-bottom: 3px transparent; "
+                                     "border-right: 10px transparent; "
+                                     "border-left: 10px transparent } "
+                                     "QPushButton:hover { border-image: url(:/miscRsc/misc_icons/upd-hover) 4 11 4 11; "
+                                     "border-top: 4px transparent; "
+                                     "border-bottom: 4px transparent; "
+                                     "border-right: 11px transparent; "
+                                     "border-left: 11px transparent } "
+                                     "QPushButton:pressed { border-image: url(:/miscRsc/misc_icons/upd-pressed) 2 9 2 9; "
+                                     "border-top: 2px transparent; "
+                                     "border-bottom: 2px transparent; "
+                                     "border-right: 9px transparent; "
+                                     "border-left: 9px transparent; }");
 
     ui -> CmdNoFilterClubs -> setStyleSheet(" :disabled { color: grey; "
                                             "background: dimgrey }");

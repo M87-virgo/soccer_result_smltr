@@ -11,6 +11,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    //a.removeTranslator(&translator);
 
     MainWindow w;
     w.setStyleSheet("QToolTip { background-color: lightgrey; "

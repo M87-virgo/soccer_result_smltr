@@ -32,10 +32,16 @@
    <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
-   <string>Soccer Result Simulater 1.2.1</string>
+   <string>Soccer Result Simulater 1.4.0 by André Beyer alias M87-virgo(github)</string>
   </property>
   <property name="locale">
    <locale language="English" country="Germany"/>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>24</width>
+    <height>24</height>
+   </size>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="LblNatTeams">
@@ -43,7 +49,7 @@
      <rect>
       <x>480</x>
       <y>10</y>
-      <width>251</width>
+      <width>271</width>
       <height>22</height>
      </rect>
     </property>
@@ -57,9 +63,9 @@
    <widget class="QPushButton" name="CmdClose">
     <property name="geometry">
      <rect>
-      <x>1750</x>
+      <x>1740</x>
       <y>20</y>
-      <width>111</width>
+      <width>131</width>
       <height>51</height>
      </rect>
     </property>
@@ -150,8 +156,14 @@
       <height>35</height>
      </size>
     </property>
+    <property name="toolTip">
+     <string/>
+    </property>
+    <property name="statusTip">
+     <string/>
+    </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QListWidget" name="LstNatTeams">
@@ -492,7 +504,7 @@ from right list</string>
         <number>1</number>
        </property>
        <property name="maximum">
-        <number>16</number>
+        <number>8</number>
        </property>
       </widget>
      </item>
@@ -553,7 +565,7 @@ Results</string>
         </size>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click continue to show the results and table from the next matchday&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click here to show the results and table from the first matchday&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Simulate first
@@ -580,15 +592,202 @@ Match-Day</string>
         </size>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click here to simulate the results of the participating teams. The closing table will be shown&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click here to add randomly selected teams&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Add
 random teams</string>
        </property>
+       <property name="autoRepeatDelay">
+        <number>300</number>
+       </property>
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QProgressBar" name="PrgrssBarOffensive">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>470</y>
+      <width>325</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="minimum">
+     <number>20</number>
+    </property>
+    <property name="maximum">
+     <number>99</number>
+    </property>
+    <property name="value">
+     <number>50</number>
+    </property>
+    <property name="invertedAppearance">
+     <bool>false</bool>
+    </property>
+    <property name="textDirection">
+     <enum>QProgressBar::TopToBottom</enum>
+    </property>
+    <property name="format">
+     <string>%v</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="PrgrssBarDefensive">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>520</y>
+      <width>325</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="minimum">
+     <number>20</number>
+    </property>
+    <property name="maximum">
+     <number>99</number>
+    </property>
+    <property name="value">
+     <number>50</number>
+    </property>
+    <property name="format">
+     <string>%v</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="PrgrssBarTeamAbility">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>570</y>
+      <width>325</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="minimum">
+     <number>20</number>
+    </property>
+    <property name="maximum">
+     <number>99</number>
+    </property>
+    <property name="value">
+     <number>50</number>
+    </property>
+    <property name="format">
+     <string>%v</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LblDef">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>510</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Noto Sans</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 10pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Defensive</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LblTeamAbility">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>560</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Noto Sans</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 10pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Team-Ability</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LblOff">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>460</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Noto Sans</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 10pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Offensive</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LblCurrentTeam">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>610</y>
+      <width>521</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Current Team</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -602,7 +801,7 @@ random teams</string>
    </property>
    <widget class="QMenu" name="menuMen">
     <property name="title">
-     <string>Menü</string>
+     <string>Menu</string>
     </property>
     <addaction name="actionOpenFile"/>
     <addaction name="actionSaveTeamList"/>
@@ -611,7 +810,17 @@ random teams</string>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuLanguages">
+    <property name="title">
+     <string>Languages</string>
+    </property>
+    <addaction name="actionGerman"/>
+    <addaction name="actionSpanish"/>
+    <addaction name="actionFrench"/>
+    <addaction name="actionEnglish"/>
+   </widget>
    <addaction name="menuMen"/>
+   <addaction name="menuLanguages"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -683,9 +892,46 @@ random teams</string>
     <string>Save Match Results</string>
    </property>
   </action>
+  <action name="actionGerman">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/rsc/icon_flags/Germany.png</normaloff>:/rsc/icon_flags/Germany.png</iconset>
+   </property>
+   <property name="text">
+    <string>German</string>
+   </property>
+  </action>
+  <action name="actionSpanish">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/rsc/icon_flags/Spain.png</normaloff>:/rsc/icon_flags/Spain.png</iconset>
+   </property>
+   <property name="text">
+    <string>Spanish</string>
+   </property>
+  </action>
+  <action name="actionFrench">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/rsc/icon_flags/France.png</normaloff>:/rsc/icon_flags/France.png</iconset>
+   </property>
+   <property name="text">
+    <string>French</string>
+   </property>
+  </action>
+  <action name="actionEnglish">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/rsc/icon_flags/England.png</normaloff>:/rsc/icon_flags/England.png</iconset>
+   </property>
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="misc.qrc"/>
+  <include location="rsc.qrc"/>
  </resources>
  <connections>
   <connection>
