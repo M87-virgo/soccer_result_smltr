@@ -37,7 +37,7 @@ It is explicitly **not designed and developed for predictions** and there are no
 Coming soon...
 
 ## Getting Started
-- [Download](https://github.com/M87-virgo/soccer_result_smltr/raw/main/soccer_result_simltr/installer/srsSetup.exe) the Installer-File named srsSetup.exe
+- [Download](https://github.com/M87-virgo/soccer_result_smltr/raw/main/soccer_result_simltr/installer/srsSetup.exe) the Installer-File named setup.exe
 - Install the tool to a directory of your choice
 - Execute soccer_result_simltr.exe to start the programm
 - Read the [guide](#features) to explore what you can do and how you can use the programm
